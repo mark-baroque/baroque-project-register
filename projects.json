@@ -14,7 +14,7 @@
     "blocker": "Not All Documented is Implemented",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Most of the bugs are fixed and all bugs documentation are already sent to Mr.Sahle on Slack ",
     "flagged": false
   },
@@ -33,7 +33,7 @@
     "blocker": "AI Still not Implement",
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=114-1186&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Design is Sent On Slack Still not yet implemented",
     "flagged": false
   },
@@ -52,7 +52,7 @@
     "blocker": "AI Still not Implement",
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=315-80&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "All sent to Mr. Sahle",
     "flagged": false
   },
@@ -71,7 +71,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/mFaZU2n9y8ncueIO4zD5IW/Social-Media-Research--Copy-?node-id=109-1854",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -90,7 +90,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=1-3767&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Design is Sent On Slack Still not yet implemented",
     "flagged": false
   },
@@ -109,7 +109,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=67-77&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -128,7 +128,7 @@
     "blocker": "",
     "link": "https://app.netlify.com/projects/baroque-access-invitation/",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": false
   },
@@ -147,7 +147,7 @@
     "blocker": "As per Hamza he's doing priority on salesforce",
     "link": "https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=753-79357&t=U3sg7cKqHn8sanbk-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "In test email phase",
     "flagged": false
   },
@@ -166,7 +166,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=73-5210",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -185,7 +185,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -204,7 +204,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -223,7 +223,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": false
   },
@@ -242,7 +242,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -261,7 +261,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -280,7 +280,7 @@
     "blocker": "As per Hamza he's doing priority on salesforce",
     "link": "https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=6-5&t=U3sg7cKqHn8sanbk-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "In test email phase",
     "flagged": false
   },
@@ -299,7 +299,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -318,7 +318,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=103-2",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "All 7 verticals complete",
     "flagged": false
   },
@@ -337,7 +337,7 @@
     "blocker": "Henry Gave Minor Adjustment Jul 27 ",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Delivered to Sohail",
     "flagged": false
   },
@@ -356,7 +356,7 @@
     "blocker": "Waiting for Henry Review",
     "link": "https://baroqueyacht-moonrise.netlify.app/",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": false
   },
@@ -375,7 +375,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -394,7 +394,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -413,7 +413,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -432,7 +432,7 @@
     "blocker": "As per Hamza he's doing priority on salesforce",
     "link": "https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=749-34395",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Aqib In test email phase",
     "flagged": false
   },
@@ -451,7 +451,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Delivered to Andy Zelman",
     "flagged": false
   },
@@ -470,7 +470,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=58-2161&t=cg5zzHeef1JsGEhz-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "All 7 verticals complete",
     "flagged": false
   },
@@ -489,7 +489,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Design Is Done , Now on Test",
     "flagged": false
   },
@@ -508,7 +508,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=58-2161&t=cg5zzHeef1JsGEhz-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -527,8 +527,8 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
-    "notes": "Angular site live ÃÂ¢ÃÂÃÂ design at 0%, needs design pass",
+    "ai": "Yes",
+    "notes": "Angular site live \u00c3\u0083\u00c2\u00a2\u00c3\u0082\u00c2\u0080\u00c3\u0082\u00c2\u0094 design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -546,7 +546,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -565,7 +565,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -584,7 +584,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -603,7 +603,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=749-34395",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -622,7 +622,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -641,7 +641,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -660,7 +660,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -679,7 +679,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -698,7 +698,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -717,7 +717,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -736,7 +736,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "All 7 verticals complete",
     "flagged": false
   },
@@ -755,7 +755,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -774,7 +774,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -793,7 +793,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": true
   },
@@ -812,7 +812,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/uFwh7a0vO15kZdoKf8xylo/Preference-2026?node-id=177-8936&t=pQ6AXxbcbuTByN86-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Approved & pushed",
     "flagged": false
   },
@@ -831,7 +831,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -850,7 +850,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -869,7 +869,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/D1PZsGsChq4k6yCXaH25Ln/Dining-2026?node-id=21-10776&t=Vv8RoC1ewM1Tjoce-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Approved by Mr. Sahle",
     "flagged": false
   },
@@ -888,7 +888,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=7-2&t=cg5zzHeef1JsGEhz-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Approved sent to Marketing Team",
     "flagged": false
   },
@@ -907,7 +907,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/YpshBhjy6muVUg4Ag5d0ma/App-Store-Design?node-id=0-1&t=HFAQYdy7ejE8z3eV-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Done",
     "flagged": false
   },
@@ -926,7 +926,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/cnIxaT93VCrNQIw031HHin/LUJO-NEW-VERSION-PROPOSAL?node-id=17071-20050&t=gOouqxEEgdWKqUMt-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "No action needed unless flagged",
     "flagged": false
   },
@@ -945,7 +945,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Epic X Bridges V2, Black Steel Orange",
     "flagged": false
   },
@@ -964,7 +964,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": false
   },
@@ -983,7 +983,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "",
     "flagged": false
   },
@@ -1002,7 +1002,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Canva link on file",
     "flagged": false
   },
@@ -1022,7 +1022,7 @@
     "blocker": "",
     "link": "",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": ""
   },
   {
@@ -1041,7 +1041,7 @@
     "blocker": "",
     "link": "https://drive.google.com/drive/folders/14tcZxcwpIP4d_kkjq2YrVQlfukyRuLaz?usp=drive_link",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": ""
   },
   {
@@ -1060,7 +1060,7 @@
     "blocker": "",
     "link": "https://drive.google.com/drive/folders/13gK_m_a_gHKQeJj8jZoYRq_dfYLsqWnL?usp=drive_link",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": ""
   },
   {
@@ -1079,7 +1079,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Design Is Updated But not Implemented"
   },
   {
@@ -1098,7 +1098,7 @@
     "blocker": "",
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
-    "ai": "",
+    "ai": "Yes",
     "notes": "Design Is Updated But not Implemented"
   },
   {
