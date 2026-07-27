@@ -131,7 +131,11 @@ body {
 .st.delivered .st-n { color: #7de8a8; }
 .st.progress  .st-n { color: #7dc8f4; }
 .st.blocked   .st-n { color: #f49388; }
-.st.overdue   .st-n { color: #f49388; }
+.st.overdue     .st-n { color: #f49388; }
+.st.approaching .st-n { color: #ffb347; }
+.st-click { cursor: pointer; border-radius: 6px; padding: 2px 4px; margin: -2px -4px; transition: background 0.15s; }
+.st-click:hover { background: rgba(255,255,255,0.12); }
+.st-click.active { background: rgba(255,255,255,0.18); }
 .st.missing   .st-n { color: #ffd97d; }
 
 /* ══ TOOLBAR ══════════════════════════════════════════════════════════════ */
@@ -153,6 +157,7 @@ select:focus { outline: none; border-color: var(--navy-lt); }
 .chip:hover { border-color: var(--navy-lt); color: var(--navy); }
 .chip.on { background: var(--navy); color: #fff; border-color: var(--navy); }
 .chip.on.c-flag { background: var(--red); border-color: var(--red); }
+.chip.on.c-appr { background: #e07b00; border-color: #e07b00; }
 .chip.on.c-miss { background: var(--amber); border-color: var(--amber); }
 .tb-right { margin-left: auto; display: flex; gap: 7px; align-items: center; }
 .cnt { font-size: 11px; color: var(--muted); white-space: nowrap; }
@@ -208,6 +213,9 @@ tr.dr.flagged td { background: #e8f4ff; }
 tr.dr.flagged:hover td { background: #d4ebff; }
 tr.dr.overdue td { background: #fde8e6; }
 tr.dr.overdue:hover td { background: #fbd0cc; }
+tr.dr.approaching td { background: #fff4e6; }
+tr.dr.approaching:hover td { background: #ffe8cc; }
+tr.dr.approaching td.miss { background: #ffd9a8 !important; }
 td.cid  { color: var(--muted); font-family: 'Courier New', monospace; font-size: 10.5px; white-space: nowrap; }
 td.ctit { font-size: 12.5px; font-weight: 500; max-width: 215px; }
 td.cver { white-space: nowrap; font-size: 12px; }
@@ -234,6 +242,7 @@ td input.ci, td select.cs { width: 100%; border: none; background: transparent; 
 .tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 3px; margin-right: 4px; white-space: nowrap; vertical-align: middle; }
 .t-flag { background: #4a9edd; color: #fff; }
 .t-over { background: #c0392b; color: #fff; }
+.t-appr { background: #e07b00; color: #fff; }
 .pb { display: flex; align-items: center; gap: 8px; }
 .pbar { flex: 1; height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; min-width: 40px; }
 .pfill { height: 100%; border-radius: 3px; }
@@ -379,9 +388,10 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
     <div class="st"><span class="st-n" id="sTotal">0</span><div class="st-l">Total Items</div></div>
     <div class="st delivered"><span class="st-n" id="sDel">0</span><div class="st-l">Delivered</div></div>
     <div class="st progress"><span class="st-n" id="sProg">0</span><div class="st-l">In Progress</div></div>
-    <div class="st blocked"><span class="st-n" id="sBlk">0</span><div class="st-l">Blocked</div></div>
-    <div class="st overdue"><span class="st-n" id="sOvr">0</span><div class="st-l">Overdue</div></div>
-    <div class="st missing"><span class="st-n" id="sMis">0</span><div class="st-l">No Target Date</div></div>
+    <div class="st blocked st-click" onclick="statFilter('fs','Blocked')" title="Click to filter Blocked"><span class="st-n" id="sBlk">0</span><div class="st-l">Blocked ↓</div></div>
+    <div class="st overdue st-click" onclick="statFilter('cOver')" title="Click to filter Overdue"><span class="st-n" id="sOvr">0</span><div class="st-l">Overdue ↓</div></div>
+    <div class="st approaching st-click" onclick="statFilter('cAppr')" title="Click to filter Due Soon"><span class="st-n" id="sAppr">0</span><div class="st-l">Due Soon ↓</div></div>
+    <div class="st missing st-click" onclick="statFilter('cMiss')" title="Click to filter No Date"><span class="st-n" id="sMis">0</span><div class="st-l">No Date ↓</div></div>
   </div>
 </header>
 
@@ -394,6 +404,7 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
   <div class="tb-sep"></div>
   <div class="chip c-flag" id="cFlag">Flagged</div>
   <div class="chip"        id="cOver">Overdue</div>
+  <div class="chip c-appr" id="cAppr">Due Soon</div>
   <div class="chip c-miss" id="cMiss">No Date</div>
   <div class="tb-right">
     <span class="cnt" id="cnt"></span>
@@ -831,8 +842,9 @@ function refreshSaved() {
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
-function isOverdue(r) { if(!r.due)return false; return (r.stage!=="Delivered"&&r.stage!=="Signed Off")&&r.due<TODAY; }
-function noDate(r)    { return (r.stage!=="Delivered"&&r.stage!=="Signed Off")&&!r.due; }
+function isOverdue(r)     { if(!r.due)return false; return (r.stage!=="Delivered"&&r.stage!=="Signed Off")&&r.due<TODAY; }
+function isApproaching(r) { if(!r.due)return false; if(isOverdue(r))return false; if(r.stage==="Delivered"||r.stage==="Signed Off")return false; const diff=(new Date(r.due)-new Date(TODAY))/(1000*60*60*24); return diff>=0&&diff<=7; }
+function noDate(r)        { return (r.stage!=="Delivered"&&r.stage!=="Signed Off")&&!r.due; }
 function sk(s)        { return s?(s.replace(/[^A-Za-z]/g,"")):"empty"; }
 function dateFmt(d) {
   if(!d)return "";
@@ -849,7 +861,7 @@ function linkH(href) { if(!href)return '<span class="dash">—</span>'; return '
 function dash(v)     { return v||'<span class="dash">—</span>'; }
 
 // ── SORT / FILTER ─────────────────────────────────────────────────────────────
-let SK="",SD=1,fFlag=false,fOver=false,fMiss=false;
+let SK="",SD=1,fFlag=false,fOver=false,fMiss=false,fAppr=false;
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function render() {
@@ -859,9 +871,10 @@ function render() {
   const af=document.getElementById("fa").value;
   const all=getMerged();
   let rows=all.filter(r=>{
-    if(fFlag&&!r.flagged)    return false;
-    if(fOver&&!isOverdue(r)) return false;
-    if(fMiss&&!noDate(r))    return false;
+    if(fFlag&&!r.flagged)        return false;
+    if(fOver&&!isOverdue(r))     return false;
+    if(fAppr&&!isApproaching(r)) return false;
+    if(fMiss&&!noDate(r))        return false;
     if(vf&&r.vertical!==vf)  return false;
     if(sf&&r.stage!==sf)     return false;
     if(af){if(af==="(blank)"&&r.approval)return false;if(af!=="(blank)"&&r.approval!==af)return false;}
@@ -895,12 +908,12 @@ function ec(field, extra) {
 }
 
 function buildRow(r,odd) {
-  const overdue=isOverdue(r);
-  const cls=["dr",odd?"odd":"",r.flagged?"flagged":"",overdue?"overdue":""].filter(Boolean).join(" ");
+  const overdue=isOverdue(r); const approaching=!overdue&&isApproaching(r);
+  const cls=["dr",odd?"odd":"",r.flagged?"flagged":"",overdue?"overdue":"",approaching?"approaching":""].filter(Boolean).join(" ");
   const stk=sk(r.stage),apk=sk(r.approval);
   const needDue=noDate(r);
   const overSty=overdue?' style="color:#c0392b;font-weight:600"':"";
-  const tags=[r.flagged?'<span class="tag t-flag">Flagged</span>':"",overdue?'<span class="tag t-over">Overdue</span>':""].join("");
+  const tags=[r.flagged?'<span class="tag t-flag">Flagged</span>':"",overdue?'<span class="tag t-over">Overdue</span>':"",approaching?'<span class="tag t-appr">Due Soon</span>':""].join("");
   return '<tr class="'+cls+'" data-id="'+r.id+'">'
     +'<td class="cid">'+r.id+'</td>'
     +'<td'+ec("title"," ctit")+'>'+tags+r.title+'</td>'
@@ -928,6 +941,7 @@ function updateStats(data) {
   document.getElementById("sProg").textContent =data.filter(r=>r.stage==="In Progress"||r.stage==="In Review").length;
   document.getElementById("sBlk").textContent  =data.filter(r=>r.stage==="Blocked").length;
   document.getElementById("sOvr").textContent  =data.filter(isOverdue).length;
+  document.getElementById("sAppr").textContent =data.filter(isApproaching).length;
   document.getElementById("sMis").textContent  =data.filter(r=>noDate(r)&&r.stage!=="Requested").length;
 }
 
@@ -983,7 +997,26 @@ document.querySelectorAll("thead th[data-k]").forEach(th=>{
 function chip(id,getter,setter){document.getElementById(id).addEventListener("click",function(){setter(!getter());this.classList.toggle("on");render();});}
 chip("cFlag",()=>fFlag,v=>fFlag=v);
 chip("cOver",()=>fOver,v=>fOver=v);
+chip("cAppr",()=>fAppr,v=>fAppr=v);
 chip("cMiss",()=>fMiss,v=>fMiss=v);
+
+function statFilter(id, stageVal) {
+  if (stageVal) {
+    // For Blocked — set the stage dropdown filter
+    const sel = document.getElementById(id);
+    sel.value = sel.value === stageVal ? "" : stageVal;
+    document.querySelectorAll(".st-click").forEach(el => el.classList.remove("active"));
+    if (sel.value === stageVal) document.querySelector('[onclick*="fs"]')?.classList.add("active");
+  } else {
+    // For chip-based filters — toggle the chip
+    document.getElementById(id).click();
+    document.querySelectorAll(".st-click").forEach(el => el.classList.remove("active"));
+    if (document.getElementById(id).classList.contains("on")) {
+      document.querySelector(`[onclick*="${id}"]`)?.classList.add("active");
+    }
+  }
+  render();
+}
 ["srch","fv","fs","fa"].forEach(id=>document.getElementById(id).addEventListener(id==="srch"?"input":"change",render));
 
 // ── FILTERS ───────────────────────────────────────────────────────────────────
