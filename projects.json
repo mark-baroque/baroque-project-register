@@ -528,7 +528,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Angular site live â design at 0%, needs design pass",
+    "notes": "Angular site live Ã¢ÂÂ design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -1066,7 +1066,7 @@
   {
     "id": "NEWMS3MXWBR",
     "flagged": false,
-    "title": "Baroque Access Confirmation  Email ",
+    "title": "Bell Icon UI",
     "vertical": "Baroque Access",
     "requestedBy": "Mr. Sahle",
     "dateRequested": "2026-06-26",
@@ -1081,30 +1081,11 @@
     "finalLink": "",
     "ai": "",
     "notes": "Design Is Updated But not Implemented"
-  },
-  {
-    "id": "NEWMS3N8VG0",
-    "flagged": false,
-    "title": "Bell Icon UI Design ",
-    "vertical": "Baroque Access",
-    "requestedBy": "Mr. Sahle",
-    "dateRequested": "2026-07-01",
-    "approval": "Approved",
-    "stage": "In Review",
-    "started": "2026-07-02",
-    "due": "2026-07-03",
-    "completed": "2026-07-03",
-    "pct": 90,
-    "blocker": "",
-    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=113-834&t=jwPOrdH0TreB1RPy-1",
-    "finalLink": "",
-    "ai": "",
-    "notes": "Design is done But in the production "
   },
   {
     "id": "NEWMS3MXWBR",
     "flagged": false,
-    "title": "Baroque Access Confirmation  Email ",
+    "title": "Bell Icon UI",
     "vertical": "Baroque Access",
     "requestedBy": "Mr. Sahle",
     "dateRequested": "2026-06-26",
@@ -1121,22 +1102,22 @@
     "notes": "Design Is Updated But not Implemented"
   },
   {
-    "id": "NEWMS3N8VG0",
+    "id": "NEWMS3O4KWQ",
     "flagged": false,
-    "title": "Bell Icon UI Design ",
+    "title": "Baroque Confirmation email ",
     "vertical": "Baroque Access",
     "requestedBy": "Mr. Sahle",
-    "dateRequested": "2026-07-01",
+    "dateRequested": "2026-06-30",
     "approval": "Approved",
-    "stage": "In Review",
-    "started": "2026-07-02",
-    "due": "2026-07-03",
-    "completed": "2026-07-03",
+    "stage": "Requested",
+    "started": "2026-06-25",
+    "due": "2026-06-26",
+    "completed": "2026-06-26",
     "pct": 90,
     "blocker": "",
-    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=113-834&t=jwPOrdH0TreB1RPy-1",
+    "link": "",
     "finalLink": "",
-    "ai": "",
-    "notes": "Design is done But in the production "
+    "ai": "Yes",
+    "notes": ""
   }
 ]
