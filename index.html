@@ -531,6 +531,19 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
   </div>
 </div>
 
+<!-- TOKEN PROMPT (first-time setup) -->
+<div id="tokenOverlay" style="display:none;position:fixed;inset:0;z-index:9990;background:rgba(18,40,90,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,0.3);">
+    <div style="font-family:Georgia,serif;font-size:17px;color:#1a3a6b;margin-bottom:6px;">One-time GitHub Setup</div>
+    <p style="font-size:12px;color:#6b7a99;margin-bottom:20px;line-height:1.6;">To sync data across browsers, paste your GitHub Personal Access Token below. It will be saved locally — you only need to do this once per browser.<br><br>Generate at: <strong>github.com → Settings → Developer settings → Tokens (classic) → repo scope</strong></p>
+    <input type="password" id="tokenInput" placeholder="ghp_..." autocomplete="off" style="width:100%;padding:10px 12px;border:1px solid #d4dcea;border-radius:6px;font-size:13px;font-family:Arial,sans-serif;margin-bottom:16px;box-sizing:border-box;">
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button onclick="skipToken()" style="padding:8px 16px;border-radius:4px;border:1px solid #d4dcea;background:#fff;color:#6b7a99;font-size:12px;cursor:pointer;">Skip for now</button>
+      <button onclick="saveToken()" style="padding:8px 18px;border-radius:4px;border:none;background:#1a3a6b;color:#fff;font-size:12px;font-weight:600;cursor:pointer;">Save & Connect</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div id="toast"></div>
 
@@ -640,7 +653,11 @@ function lsEnter() {
     setTimeout(() => {
       document.getElementById("lockScreen").classList.add("hidden");
       applyRoleUI();
-      loadGitHubData();
+      if (!localStorage.getItem("gh_token")) {
+        showTokenPrompt();
+      } else {
+        loadGitHubData();
+      }
     }, 400);
   } else {
     const dots = document.getElementById("lsDots");
@@ -656,6 +673,24 @@ function applyRoleUI() {
     document.querySelectorAll(".btn-cfg").forEach(b => b.style.display = "none");
     document.querySelectorAll(".btn-add").forEach(b => b.style.display = "none");
   }
+}
+function showTokenPrompt() {
+  const el = document.getElementById("tokenOverlay");
+  el.style.display = "flex";
+  document.getElementById("tokenInput").focus();
+}
+function saveToken() {
+  const t = document.getElementById("tokenInput").value.trim();
+  if (!t) { showToast("Please paste your token first","err"); return; }
+  localStorage.setItem("gh_token", t);
+  document.getElementById("tokenOverlay").style.display = "none";
+  showToast("Token saved — connecting to GitHub…","ok");
+  loadGitHubData();
+}
+function skipToken() {
+  document.getElementById("tokenOverlay").style.display = "none";
+  showToast("Skipped — using built-in data. Click ⚙ Settings to connect later.","");
+  render();
 }
 function updateDots() {
   for (let i=0;i<4;i++) document.getElementById("d"+i).classList.toggle("filled", i<lsPin.length);
@@ -673,7 +708,7 @@ document.addEventListener("keydown", function(e) {
 });
 
 // ── GITHUB CONFIG ─────────────────────────────────────────────────────────────
-const GH_DEFAULTS = { owner:"mark-baroque", repo:"baroque-project-register", branch:"main", path:"projects.json", token:"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" };
+const GH_DEFAULTS = { owner:"mark-baroque", repo:"baroque-project-register", branch:"main", path:"projects.json", token:"" };
 function getGHConfig() {
   return {
     owner:  localStorage.getItem("gh_owner")  || GH_DEFAULTS.owner,
