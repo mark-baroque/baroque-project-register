@@ -1,56 +1,56 @@
 [
   {
     "id": "2cy6fwpw",
-    "title": "Baroque Access Site — Bugs, Fixes, Suggestions, Image Check",
+    "title": "Baroque Access Site Bugs, Fixes, Suggestions, Image Check",
     "vertical": "Baroque Access",
-    "requestedBy": "",
+    "requestedBy": "Mr. Sahle",
     "dateRequested": "",
-    "approval": "",
+    "approval": "Pending",
     "stage": "In Progress",
-    "started": "",
+    "started": "2026-06-29",
     "due": "",
-    "completed": "",
-    "pct": null,
+    "completed": "2026-07-14",
+    "pct": 80,
     "blocker": "",
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "",
+    "notes": "Most of the bugs are fixed and all bugs documentation are already sent to Mr.Sahle on Slack ",
     "flagged": false
   },
   {
     "id": "riu0j7f5",
-    "title": "Plan My Trip Quotation",
+    "title": "Baroque Access Email (On Boarding, Partner, Guest, Quotation, Request)",
     "vertical": "Baroque Access",
-    "requestedBy": "",
+    "requestedBy": "Mr. Sahle ",
     "dateRequested": "",
-    "approval": "",
-    "stage": "Requested",
+    "approval": "Pending",
+    "stage": "In Review",
     "started": "",
     "due": "",
     "completed": "",
-    "pct": null,
-    "blocker": "",
+    "pct": 100,
+    "blocker": "AI Still not Implement",
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "No action needed unless flagged",
+    "notes": "Design is Sent On Slack Still not yet implemented",
     "flagged": false
   },
   {
     "id": "ai69yo37",
-    "title": "Baroque Access Emails (Confirmation, Preference, Survey, Vendor Form)",
+    "title": "Baroque Access Emails (Survey,)",
     "vertical": "Baroque Access",
     "requestedBy": "Mr. Sahle",
     "dateRequested": "",
     "approval": "Approved",
-    "stage": "Delivered",
+    "stage": "In Review",
     "started": "",
     "due": "",
     "completed": "2026-06-12",
     "pct": 100,
-    "blocker": "",
-    "link": "https://www.figma.com/design/mFaZU2n9y8ncueIO4zD5IW/Social-Media-Research--Copy-?node-id=109-1854",
+    "blocker": "AI Still not Implement",
+    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=315-80&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "",
     "notes": "All sent to Mr. Sahle",
@@ -58,11 +58,11 @@
   },
   {
     "id": "utzmes45",
-    "title": "Socmed Moodboards · Access, Aviation, Travel",
+    "title": "Socmed Moodboards Â· Access, Aviation, Travel",
     "vertical": "Baroque Access",
-    "requestedBy": "",
+    "requestedBy": "Myself",
     "dateRequested": "",
-    "approval": "",
+    "approval": "Approved",
     "stage": "Delivered",
     "started": "",
     "due": "",
@@ -79,35 +79,35 @@
     "id": "fv0c6rii",
     "title": "Baroque Access Newsletter (preference-based)",
     "vertical": "Baroque Access",
-    "requestedBy": "",
+    "requestedBy": "Mr. Sahle",
     "dateRequested": "",
-    "approval": "",
-    "stage": "Delivered",
+    "approval": "Approved",
+    "stage": "In Review",
     "started": "",
     "due": "",
     "completed": "2026-07-06",
     "pct": 100,
     "blocker": "",
-    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=1-3767",
+    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=1-3767&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "",
-    "notes": "Design done — preference UI follow-up pending",
+    "notes": "Design is Sent On Slack Still not yet implemented",
     "flagged": false
   },
   {
     "id": "1519ka9s",
-    "title": "Email Notification, Confirmation Email, WhatsApp Notification Suite",
+    "title": "Baroque Access WhatsApp Notification Suite",
     "vertical": "Baroque Access",
     "requestedBy": "",
     "dateRequested": "",
-    "approval": "",
+    "approval": "Approved",
     "stage": "Delivered",
     "started": "",
     "due": "",
     "completed": "2026-07-14",
     "pct": 100,
     "blocker": "",
-    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472",
+    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=67-77&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "",
     "notes": "Done",
@@ -153,7 +153,7 @@
   },
   {
     "id": "nqrjgpti",
-    "title": "Socmed Moodboards · Access, Aviation, Travel",
+    "title": "Socmed Moodboards Â· Access, Aviation, Travel",
     "vertical": "Baroque Aviation",
     "requestedBy": "",
     "dateRequested": "",
@@ -186,7 +186,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Angular site live — design at 0%, needs design pass",
+    "notes": "Angular site live â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -205,7 +205,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -224,7 +224,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Not started — design and dev both at 0%",
+    "notes": "Not started â design and dev both at 0%",
     "flagged": false
   },
   {
@@ -243,7 +243,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -262,7 +262,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -286,7 +286,7 @@
   },
   {
     "id": "1iup5pwm",
-    "title": "Yacht Option for Sohail — minor revisions for Henry",
+    "title": "Yacht Option for Sohail â minor revisions for Henry",
     "vertical": "Baroque Yachts",
     "requestedBy": "Sohail",
     "dateRequested": "",
@@ -343,7 +343,7 @@
   },
   {
     "id": "4vgrla78",
-    "title": "Socmed Moodboards · Yachts, Properties, Lifestyle, LUJO",
+    "title": "Socmed Moodboards Â· Yachts, Properties, Lifestyle, LUJO",
     "vertical": "Baroque Yachts",
     "requestedBy": "",
     "dateRequested": "",
@@ -414,7 +414,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Vue.js site live — design at 0%, needs design pass",
+    "notes": "Vue.js site live â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -433,7 +433,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -452,7 +452,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -471,7 +471,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -533,7 +533,7 @@
   },
   {
     "id": "zi1tdg7h",
-    "title": "Socmed Moodboards · Yachts, Properties, Lifestyle, LUJO",
+    "title": "Socmed Moodboards Â· Yachts, Properties, Lifestyle, LUJO",
     "vertical": "Baroque Properties",
     "requestedBy": "",
     "dateRequested": "",
@@ -623,7 +623,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Angular site live — design at 0%, needs design pass",
+    "notes": "Angular site live â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -642,7 +642,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Not started — design and dev both at 0%",
+    "notes": "Not started â design and dev both at 0%",
     "flagged": false
   },
   {
@@ -661,7 +661,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -680,7 +680,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -699,7 +699,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -718,7 +718,7 @@
     "link": "https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=749-34395",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -737,7 +737,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -756,12 +756,12 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
     "id": "4gg9x62l",
-    "title": "Socmed Moodboards · Access, Aviation, Travel",
+    "title": "Socmed Moodboards Â· Access, Aviation, Travel",
     "vertical": "Baroque Travel",
     "requestedBy": "",
     "dateRequested": "",
@@ -794,7 +794,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -813,7 +813,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Not started — design and dev both at 0%",
+    "notes": "Not started â design and dev both at 0%",
     "flagged": false
   },
   {
@@ -832,7 +832,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -851,7 +851,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -889,7 +889,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "HTML site live — design at 0%, needs design pass",
+    "notes": "HTML site live â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -908,7 +908,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -927,12 +927,12 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
     "id": "s9fe9vbo",
-    "title": "Socmed Moodboards · Yachts, Properties, Lifestyle, LUJO",
+    "title": "Socmed Moodboards Â· Yachts, Properties, Lifestyle, LUJO",
     "vertical": "Baroque Lifestyle",
     "requestedBy": "",
     "dateRequested": "",
@@ -965,7 +965,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "WordPress site live — design at 0%, needs design pass",
+    "notes": "WordPress site live â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -984,7 +984,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -1003,7 +1003,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -1022,7 +1022,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -1041,7 +1041,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Live in dev — design at 0%, needs design pass",
+    "notes": "Live in dev â design at 0%, needs design pass",
     "flagged": true
   },
   {
@@ -1065,7 +1065,7 @@
   },
   {
     "id": "badk6h4w",
-    "title": "Skeleton Approved — Pushed to Devs",
+    "title": "Skeleton Approved â Pushed to Devs",
     "vertical": "LUJO",
     "requestedBy": "",
     "dateRequested": "",
@@ -1103,7 +1103,7 @@
   },
   {
     "id": "ewxikgd8",
-    "title": "Dining LUJO Flow — Polish & Prototype",
+    "title": "Dining LUJO Flow â Polish & Prototype",
     "vertical": "LUJO",
     "requestedBy": "Mr. Sahle",
     "dateRequested": "",
@@ -1136,7 +1136,7 @@
     "link": "",
     "finalLink": "",
     "ai": "",
-    "notes": "Approved — sent to Marketing Team",
+    "notes": "Approved â sent to Marketing Team",
     "flagged": false
   },
   {
@@ -1255,7 +1255,7 @@
   },
   {
     "id": "l1ejt5as",
-    "title": "Destination Itineraries Experience — Morocco",
+    "title": "Destination Itineraries Experience â Morocco",
     "vertical": "LUJO",
     "requestedBy": "",
     "dateRequested": "",
@@ -1293,7 +1293,7 @@
   },
   {
     "id": "60d5jrxr",
-    "title": "Preference Pop-up — All Verticals",
+    "title": "Preference Pop-up â All Verticals",
     "vertical": "Multi-vertical",
     "requestedBy": "",
     "dateRequested": "",
@@ -1347,5 +1347,24 @@
     "ai": "",
     "notes": "Done",
     "flagged": false
+  },
+  {
+    "id": "NEWMS3CB2IO",
+    "flagged": false,
+    "title": "Baroque Access Emails (Confirmation)",
+    "vertical": "Baroque Access",
+    "requestedBy": "Mr. Sahle",
+    "dateRequested": "",
+    "approval": "",
+    "stage": "Delivered",
+    "started": "",
+    "due": "2026-07-11",
+    "completed": "2026-07-11",
+    "pct": 100,
+    "blocker": "",
+    "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472&t=jwPOrdH0TreB1RPy-1",
+    "finalLink": "",
+    "ai": "",
+    "notes": ""
   }
 ]
