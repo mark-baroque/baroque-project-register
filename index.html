@@ -823,10 +823,14 @@ async function saveToGitHub() {
     const json = await res.json();
     LIVE_SHA  = json.content.sha;
     LIVE_DATA = data;
+    localStorage.removeItem("bq_new");
+    localStorage.removeItem("bq_ov");
+    localStorage.removeItem("bq_del");
     hideLoader();
     showToast("Saved to GitHub successfully","ok");
     localStorage.setItem("bq_ts",new Date().toISOString());
     refreshSaved();
+    render();
   } catch(err) {
     hideLoader();
     showToast("Save failed: "+err.message,"err");
