@@ -242,6 +242,10 @@ td input.ci, td select.cs { width: 100%; border: none; background: transparent; 
 a.fl { color: var(--navy-md); text-decoration: none; font-size: 11.5px; font-weight: 500; }
 a.fl:hover { text-decoration: underline; }
 .dash { color: #bbb; }
+.del-btn { opacity: 0; background: none; border: none; color: #c0392b; font-size: 15px; cursor: pointer; padding: 2px 6px; border-radius: 4px; line-height: 1; transition: all 0.1s; }
+.del-btn:hover { background: #fde8e6; }
+tr.dr:hover .del-btn { opacity: 1; }
+.td-del { width: 36px; text-align: center; }
 
 /* ══ STAGE TOOLTIP ═══════════════════════════════════════════════════════ */
 .badge[data-tip] { position: relative; cursor: default; }
@@ -423,6 +427,7 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
         <th data-k="finalLink"    style="width:88px">Final Asset</th>
         <th data-k="ai"           style="width:96px">AI-Assisted <span class="si">&#8597;</span></th>
         <th data-k="notes"        style="width:180px">Notes</th>
+        <th id="thDel"            style="width:36px"></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -694,6 +699,7 @@ function lsEnter() {
 function applyRoleUI() {
   if (CURRENT_ROLE === "manager") {
     document.getElementById("btnSave").style.display = "none";
+    document.getElementById("thDel").style.display = "none";
     document.querySelectorAll(".btn-cfg").forEach(b => b.style.display = "none");
     document.querySelectorAll(".btn-add").forEach(b => b.style.display = "none");
   }
@@ -841,11 +847,26 @@ function showToast(msg,type) {
 // ── LOCAL STORAGE ─────────────────────────────────────────────────────────────
 function getOv()  { try{return JSON.parse(localStorage.getItem("bq_ov")||"{}");}catch(e){return {};} }
 function getNew() { try{return JSON.parse(localStorage.getItem("bq_new")||"[]");}catch(e){return [];} }
+function getDel() { try{return JSON.parse(localStorage.getItem("bq_del")||"[]");}catch(e){return [];} }
+function deleteRow(id) {
+  if (!confirm("Delete this row? This cannot be undone.")) return;
+  const newItems = getNew();
+  const isNew = newItems.some(r=>r.id===id);
+  if (isNew) {
+    localStorage.setItem("bq_new", JSON.stringify(newItems.filter(r=>r.id!==id)));
+  } else {
+    const del = getDel(); if(!del.includes(id)) del.push(id);
+    localStorage.setItem("bq_del", JSON.stringify(del));
+  }
+  localStorage.setItem("bq_ts", new Date().toISOString());
+  refreshSaved(); render();
+  showToast("Row deleted — click Save to GitHub to persist","ok");
+}
 function saveOv(obj) { localStorage.setItem("bq_ov",JSON.stringify(obj)); localStorage.setItem("bq_ts",new Date().toISOString()); refreshSaved(); }
 function getMerged() {
   const source = LIVE_DATA || BASE;
-  const ov=getOv();
-  const base=source.map(r=>({...r,...(ov[r.id]||{})}));
+  const ov=getOv(); const del=getDel();
+  const base=source.map(r=>({...r,...(ov[r.id]||{})})).filter(r=>!del.includes(r.id));
   const newItems=getNew().map(r=>({...r,...(ov[r.id]||{})}));
   return [...base,...newItems];
 }
@@ -907,7 +928,7 @@ function render() {
   let html=""; let ri=0;
   verts.forEach(vert=>{
     const gr=groups.get(vert);
-    html+='<tr class="sep"><td colspan="16">'+vert+'<span class="sc">'+gr.length+' item'+(gr.length!==1?"s":"")+'</span></td></tr>';
+    html+='<tr class="sep"><td colspan="17">'+vert+'<span class="sc">'+gr.length+' item'+(gr.length!==1?"s":"")+'</span></td></tr>';
     gr.forEach(r=>{html+=buildRow(r,ri%2===1);ri++;});
   });
   document.getElementById("tbody").innerHTML=html;
@@ -949,6 +970,7 @@ function buildRow(r,odd) {
     +'<td'+ec("finalLink")+'>'+linkH(r.finalLink)+'</td>'
     +'<td'+ec("ai", (r.ai?"":" miss"))+'>'+(r.ai?'<span class="badge b'+r.ai+'">'+r.ai+'</span>':'<span class="dash">—</span>')+'</td>'
     +'<td'+ec("notes"," cnot")+'>'+dash(r.notes)+'</td>'
+    +(CURRENT_ROLE==="designer"?'<td class="td-del"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')" title="Delete row">&times;</button></td>':'<td></td>')
     +'</tr>';
 }
 
