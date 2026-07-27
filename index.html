@@ -910,8 +910,8 @@ function buildRow(r,odd) {
   const tags=[r.flagged?'<span class="tag t-flag">Flagged</span>':"",overdue?'<span class="tag t-over">Overdue</span>':""].join("");
   return '<tr class="'+cls+'" data-id="'+r.id+'">'
     +'<td class="cid">'+r.id+'</td>'
-    +'<td class="ctit">'+tags+r.title+'</td>'
-    +'<td class="cver">'+r.vertical+'</td>'
+    +'<td'+ec("title"," ctit")+'>'+tags+r.title+'</td>'
+    +'<td'+ec("vertical"," cver")+'>'+r.vertical+'</td>'
     +'<td'+ec("requestedBy", (r.requestedBy?"":" miss"))+'>'+dash(r.requestedBy)+'</td>'
     +'<td'+ec("dateRequested", (r.dateRequested?"":" miss"))+'>'+(r.dateRequested?dateFmt(r.dateRequested):'<span class="dash">—</span>')+'</td>'
     +'<td'+ec("approval", (r.approval?"":" miss"))+'><span class="badge b'+(apk||"empty")+'">'+(r.approval||"Not set")+'</span></td>'
