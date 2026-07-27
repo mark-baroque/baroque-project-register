@@ -350,6 +350,8 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
       <div class="ls-dot" id="d1"></div>
       <div class="ls-dot" id="d2"></div>
       <div class="ls-dot" id="d3"></div>
+      <div class="ls-dot" id="d4"></div>
+      <div class="ls-dot" id="d5"></div>
     </div>
     <div class="ls-msg" id="lsMsg">Enter your PIN to continue</div>
     <div class="ls-pad">
@@ -608,7 +610,7 @@ const SEL_FIELDS    = {stage:STAGE_OPTS,approval:APPROVAL_OPTS,ai:AI_OPTS};
 const DATE_F        = new Set(["dateRequested","started","due","completed"]);
 const NUM_F         = new Set(["pct"]);
 const TODAY         = new Date().toISOString().slice(0,10);
-const PINS = { "2026": "designer", "2027": "manager" };
+const PINS = { "110826": "designer", "2027": "manager" };
 
 let LIVE_DATA    = null;
 let LIVE_SHA     = null;
@@ -617,9 +619,9 @@ let CURRENT_ROLE = null;
 // ── LOCK SCREEN ───────────────────────────────────────────────────────────────
 let lsPin = "";
 function lsKey(k) {
-  if (lsPin.length >= 4) return;
+  if (lsPin.length >= 6) return;
   lsPin += k; updateDots();
-  if (lsPin.length === 4) setTimeout(lsEnter, 180);
+  if (lsPin.length === 6) setTimeout(lsEnter, 180);
 }
 function lsBack() { lsPin = lsPin.slice(0,-1); updateDots(); setLsMsg("",""); }
 function lsEnter() {
@@ -674,7 +676,7 @@ function skipToken() {
   render();
 }
 function updateDots() {
-  for (let i=0;i<4;i++) document.getElementById("d"+i).classList.toggle("filled", i<lsPin.length);
+  for (let i=0;i<6;i++) document.getElementById("d"+i).classList.toggle("filled", i<lsPin.length);
 }
 function setLsMsg(text, cls) {
   const el = document.getElementById("lsMsg");
