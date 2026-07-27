@@ -204,8 +204,8 @@ tr.dr td:last-child { border-right: none; }
 tr.dr:hover td { background: var(--navy-xpale); }
 tr.dr.odd td { background: var(--off); }
 tr.dr.odd:hover td { background: var(--navy-xpale); }
-tr.dr.flagged td { background: #fffbe6; }
-tr.dr.flagged:hover td { background: #fff3c4; }
+tr.dr.flagged td { background: #e8f4ff; }
+tr.dr.flagged:hover td { background: #d4ebff; }
 tr.dr.overdue td { background: #fde8e6; }
 tr.dr.overdue:hover td { background: #fbd0cc; }
 td.cid  { color: var(--muted); font-family: 'Courier New', monospace; font-size: 10.5px; white-space: nowrap; }
@@ -216,7 +216,7 @@ td.edit { cursor: pointer; }
 td.edit:hover { outline: 2px solid var(--navy-pale); outline-offset: -2px; }
 td.editing { outline: 2px solid var(--navy-lt) !important; background: #eef4ff !important; }
 td.miss { background: var(--amber-bg) !important; }
-tr.dr.flagged td.miss { background: #ffe98a !important; }
+tr.dr.flagged td.miss { background: #b8d8f8 !important; }
 tr.dr.overdue td.miss { background: #f9b8b4 !important; }
 td input.ci, td select.cs { width: 100%; border: none; background: transparent; font-size: 12px; font-family: Arial, sans-serif; padding: 0; color: var(--ink); outline: none; }
 .badge { display: inline-block; padding: 3px 9px; border-radius: 3px; font-size: 11px; font-weight: 500; white-space: nowrap; }
@@ -232,7 +232,7 @@ td input.ci, td select.cs { width: 100%; border: none; background: transparent; 
 .bYes        { background: #ddeeff; color: #1a4a8a; }
 .bNo         { background: #f0f0ee; color: #888; }
 .tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 3px; margin-right: 4px; white-space: nowrap; vertical-align: middle; }
-.t-flag { background: #f5c800; color: #5a4000; }
+.t-flag { background: #4a9edd; color: #fff; }
 .t-over { background: #c0392b; color: #fff; }
 .pb { display: flex; align-items: center; gap: 8px; }
 .pbar { flex: 1; height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; min-width: 40px; }
@@ -245,8 +245,8 @@ a.fl:hover { text-decoration: underline; }
 .del-btn  { opacity: 0; background: none; border: none; color: #c0392b; font-size: 15px; cursor: pointer; padding: 2px 5px; border-radius: 4px; line-height: 1; transition: all 0.1s; }
 .del-btn:hover  { background: #fde8e6; }
 .flag-btn { opacity: 0; background: none; border: none; font-size: 13px; cursor: pointer; padding: 2px 5px; border-radius: 4px; line-height: 1; transition: all 0.1s; color: #bbb; }
-.flag-btn:hover { background: #fffbe6; color: #b89000; }
-.flag-btn.on    { opacity: 1 !important; color: #c9a800; }
+.flag-btn:hover { background: #e8f4ff; color: #2a7abf; }
+.flag-btn.on    { opacity: 1 !important; color: #4a9edd; }
 tr.dr:hover .del-btn, tr.dr:hover .flag-btn { opacity: 1; }
 .td-del { width: 60px; text-align: center; white-space: nowrap; }
 
