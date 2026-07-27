@@ -243,6 +243,21 @@ a.fl { color: var(--navy-md); text-decoration: none; font-size: 11.5px; font-wei
 a.fl:hover { text-decoration: underline; }
 .dash { color: #bbb; }
 
+/* ══ STAGE TOOLTIP ═══════════════════════════════════════════════════════ */
+.badge[data-tip] { position: relative; cursor: default; }
+.badge[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%);
+  background: #1c2440; color: #fff; font-size: 11px; font-weight: 400;
+  white-space: nowrap; padding: 5px 10px; border-radius: 5px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.22); z-index: 200; pointer-events: none;
+  font-style: normal; letter-spacing: 0; text-transform: none;
+}
+.badge[data-tip]:hover::before {
+  content: ""; position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: #1c2440; z-index: 200; pointer-events: none;
+}
+
 /* ══ FOOTER ══════════════════════════════════════════════════════════════ */
 footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); padding: 8px 28px; font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
 
@@ -624,6 +639,15 @@ const BASE = [
 
 const VERT_ORDER    = ["Baroque Access","Baroque Aviation","Baroque Yachts","Baroque Properties","Baroque Travel","Baroque Ground","Baroque Lifestyle","Baroque Group","LUJO","Multi-vertical"];
 const STAGE_OPTS    = ["Requested","Approved","In Progress","In Review","Signed Off","Delivered","Blocked"];
+const STAGE_TIPS    = {
+  "Requested":   "Just asked for — not yet started",
+  "Approved":    "Approved by stakeholder — not yet started",
+  "In Progress": "Actively being worked on by design",
+  "In Review":   "Design done — waiting on dev / implementation",
+  "Signed Off":  "Approved by stakeholder — ready to close",
+  "Delivered":   "Fully done and implemented",
+  "Blocked":     "Stuck — cannot proceed without resolution"
+};
 const APPROVAL_OPTS = ["Approved","Pending","Not approved"];
 const AI_OPTS       = ["Yes","No"];
 const SEL_FIELDS    = {stage:STAGE_OPTS,approval:APPROVAL_OPTS,ai:AI_OPTS};
@@ -915,7 +939,7 @@ function buildRow(r,odd) {
     +'<td'+ec("requestedBy", (r.requestedBy?"":" miss"))+'>'+dash(r.requestedBy)+'</td>'
     +'<td'+ec("dateRequested", (r.dateRequested?"":" miss"))+'>'+(r.dateRequested?dateFmt(r.dateRequested):'<span class="dash">—</span>')+'</td>'
     +'<td'+ec("approval", (r.approval?"":" miss"))+'><span class="badge b'+(apk||"empty")+'">'+(r.approval||"Not set")+'</span></td>'
-    +'<td'+ec("stage")+'><span class="badge b'+(stk||"empty")+'">'+(r.stage||"—")+'</span></td>'
+    +'<td'+ec("stage")+'><span class="badge b'+(stk||"empty")+'"'+(r.stage&&STAGE_TIPS[r.stage]?' data-tip="'+STAGE_TIPS[r.stage]+'"':'')+'>'+( r.stage||"—")+'</span></td>'
     +'<td'+ec("started", (r.started?"":" miss"))+'>'+(r.started?dateFmt(r.started):'<span class="dash">—</span>')+'</td>'
     +'<td'+ec("due", (needDue?" miss":""))+overSty+'>'+(r.due?dateFmt(r.due):'<span class="dash">—</span>')+'</td>'
     +'<td'+ec("completed")+'>'+(r.completed?dateFmt(r.completed):'<span class="dash">—</span>')+'</td>'
