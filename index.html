@@ -1075,7 +1075,7 @@ function overlayClick(e){ if(e.target===document.getElementById("overlay"))close
 function submitTask(e){
   e.preventDefault();
   const fd=new FormData(e.target);
-  const id="NEW"+Date.now().toString(36).toUpperCase();
+  const id="NEW"+Date.now().toString(36).toUpperCase()+Math.random().toString(36).slice(2,6).toUpperCase();
   const item={
     id,flagged:false,
     title:fd.get("title")||"",vertical:fd.get("vertical")||"",requestedBy:fd.get("requestedBy")||"",
