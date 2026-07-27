@@ -624,7 +624,9 @@ function lsEnter() {
     setTimeout(() => {
       document.getElementById("lockScreen").classList.add("hidden");
       applyRoleUI();
-      if (!localStorage.getItem("gh_token")) {
+      // Load always works without token (public repo raw URL)
+      // Only prompt for token if designer and no token saved yet (needed for saving)
+      if (CURRENT_ROLE === "designer" && !localStorage.getItem("gh_token")) {
         showTokenPrompt();
       } else {
         loadGitHubData();
@@ -713,23 +715,18 @@ function saveCfg() {
 // ── GITHUB LOAD ───────────────────────────────────────────────────────────────
 async function loadGitHubData() {
   const c = getGHConfig();
-  if (!c.owner || !c.repo || !c.token) {
-    showToast("GitHub not configured — using built-in data. Click ⚙ Settings to connect.","");
-    render(); return;
-  }
   showLoader("Loading from GitHub…");
   try {
-    const url = "https://api.github.com/repos/"+c.owner+"/"+c.repo+"/contents/"+c.path+"?ref="+c.branch;
-    const res = await fetch(url, { headers: { Authorization: "token "+c.token, Accept: "application/vnd.github.v3+json" } });
+    // Public raw URL — no token needed for reading
+    const rawUrl = "https://raw.githubusercontent.com/"+c.owner+"/"+c.repo+"/"+c.branch+"/"+c.path+"?t="+Date.now();
+    const res = await fetch(rawUrl);
     if (res.status === 404) {
       hideLoader();
-      showToast("projects.json not found in repo — using built-in data.","");
+      showToast("projects.json not found — using built-in data.","");
       render(); return;
     }
     if (!res.ok) throw new Error("HTTP "+res.status);
-    const json = await res.json();
-    LIVE_SHA  = json.sha;
-    LIVE_DATA = JSON.parse(atob(json.content.replace(/\n/g,"")));
+    LIVE_DATA = await res.json();
     localStorage.removeItem("bq_del");
     localStorage.removeItem("bq_ov");
     localStorage.removeItem("bq_new");
