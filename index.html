@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baroque Group — Project Register</title>
+<style>
+:root {
+  --navy:       #1a3a6b;
+  --navy-dk:    #122858;
+  --navy-md:    #2c5098;
+  --navy-lt:    #4a72b8;
+  --navy-pale:  #e8edf7;
+  --navy-xpale: #f4f7fc;
+  --white:      #ffffff;
+  --off:        #f8fafc;
+  --ink:        #1c2440;
+  --muted:      #6b7a99;
+  --line:       #d4dcea;
+  --ok:         #1e6b3a;
+  --ok-bg:      #e6f4eb;
+  --amber:      #b87d10;
+  --amber-bg:   #fef7e8;
+  --red:        #c0392b;
+  --red-bg:     #fde8e6;
+  --sep-bg:     #d6e4f5;
+  --sep-text:   #12285a;
+  --sep-border: #a8c4e8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--off);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ══ LOCK SCREEN ══════════════════════════════════════════════════════════ */
+#lockScreen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--navy-dk);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+#lockScreen.hidden { display: none; }
+.ls-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
+.ls-logo {
+  width: 48px; height: 48px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: #fff;
+}
+.ls-title { font-family: Georgia, serif; font-size: 20px; font-weight: 400; color: #fff; line-height: 1.2; }
+.ls-sub { font-size: 10px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 3px; }
+.ls-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 32px 36px 28px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 24px;
+  min-width: 300px;
+}
+.ls-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); }
+.ls-dots { display: flex; gap: 16px; }
+.ls-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: transparent; transition: all 0.15s;
+}
+.ls-dot.filled { background: #fff; border-color: #fff; }
+.ls-msg { font-size: 12px; color: rgba(255,255,255,0.38); height: 16px; transition: color 0.2s; }
+.ls-msg.error   { color: #f49388; }
+.ls-msg.success { color: #7de8a8; }
+.ls-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  grid-template-rows: repeat(4, 56px);
+  gap: 10px;
+}
+.ls-key {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px; color: #fff;
+  font-size: 18px; font-weight: 500; font-family: Georgia, serif;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.1s; user-select: none;
+}
+.ls-key:hover  { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.25); }
+.ls-key:active { background: rgba(255,255,255,0.25); transform: scale(0.95); }
+.ls-key.k-back  { font-size: 13px; color: rgba(255,255,255,0.5); }
+.ls-key.k-enter {
+  background: var(--navy-md); border-color: var(--navy-lt);
+  font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; font-family: Arial, sans-serif;
+}
+.ls-key.k-enter:hover { background: var(--navy-lt); }
+@keyframes shake {
+  0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)}
+}
+.ls-dots.shake { animation: shake 0.4s ease; }
+
+/* ══ PAGE HEADER ══════════════════════════════════════════════════════════ */
+.ph { background: var(--navy); color: #fff; padding: 14px 28px 12px; flex-shrink: 0; }
+.ph-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; margin-bottom: 12px; }
+.ph-brand { display: flex; align-items: center; gap: 12px; }
+.ph-logo {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.05em; color: #fff; flex-shrink: 0;
+}
+.ph-title { font-family: Georgia, serif; font-size: 17px; font-weight: 400; color: #fff; line-height: 1.2; }
+.ph-sub   { font-size: 10px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+.ph-meta  { text-align: right; }
+.ph-date  { font-size: 12px; font-weight: 600; color: #fff; }
+.ph-saved { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+.ph-saved.changed { color: #ffd97d; }
+.ph-stats { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; flex-wrap: wrap; }
+.st { flex: 1; min-width: 80px; padding-right: 18px; margin-right: 18px; border-right: 1px solid rgba(255,255,255,0.12); }
+.st:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+.st-n { font-family: Georgia, serif; font-size: 22px; color: #fff; line-height: 1; }
+.st-l { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.5); margin-top: 1px; white-space: nowrap; }
+.st.delivered .st-n { color: #7de8a8; }
+.st.progress  .st-n { color: #7dc8f4; }
+.st.blocked   .st-n { color: #f49388; }
+.st.overdue   .st-n { color: #f49388; }
+.st.missing   .st-n { color: #ffd97d; }
+
+/* ══ TOOLBAR ══════════════════════════════════════════════════════════════ */
+.tb {
+  flex-shrink: 0; background: #fff;
+  border-bottom: 2px solid var(--navy);
+  padding: 9px 28px;
+  display: flex; gap: 7px; flex-wrap: wrap; align-items: center;
+}
+.tb input[type=text] {
+  padding: 6px 11px; border: 1px solid var(--line); border-radius: 4px;
+  font-size: 12px; min-width: 190px; font-family: Arial, sans-serif; color: var(--ink); background: var(--off);
+}
+.tb input[type=text]:focus { outline: none; border-color: var(--navy-lt); background: #fff; }
+select { padding: 6px 9px; border: 1px solid var(--line); border-radius: 4px; font-size: 12px; background: var(--off); font-family: Arial, sans-serif; color: var(--ink); cursor: pointer; }
+select:focus { outline: none; border-color: var(--navy-lt); }
+.tb-sep { width: 1px; height: 20px; background: var(--line); margin: 0 3px; flex-shrink: 0; }
+.chip { border: 1px solid var(--line); padding: 4px 11px; border-radius: 20px; font-size: 11px; cursor: pointer; background: #fff; color: var(--muted); white-space: nowrap; user-select: none; transition: all 0.12s; }
+.chip:hover { border-color: var(--navy-lt); color: var(--navy); }
+.chip.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+.chip.on.c-flag { background: var(--red); border-color: var(--red); }
+.chip.on.c-miss { background: var(--amber); border-color: var(--amber); }
+.tb-right { margin-left: auto; display: flex; gap: 7px; align-items: center; }
+.cnt { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.btn { padding: 6px 15px; border-radius: 4px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: Arial, sans-serif; border: none; transition: all 0.12s; }
+.btn-add  { background: var(--navy); color: #fff; }
+.btn-add:hover  { background: var(--navy-dk); }
+.btn-save { background: #1e6b3a; color: #fff; }
+.btn-save:hover { background: #155228; }
+.btn-save:disabled { background: #a0b8a8; cursor: not-allowed; }
+.btn-cfg  { background: #fff; color: var(--muted); border: 1px solid var(--line); }
+.btn-cfg:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn-csv  { background: var(--ok-bg); color: var(--ok); border: 1px solid #b0d8be; }
+.btn-csv:hover  { background: var(--ok); color: #fff; }
+.btn-prt  { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+.btn-prt:hover  { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* ══ TABLE CONTAINER ══════════════════════════════════════════════════════ */
+.tc { flex: 1; min-height: 0; overflow: auto; background: #fff; position: relative; }
+.tc-loader {
+  display: none; position: absolute; inset: 0; z-index: 50;
+  background: rgba(255,255,255,0.82);
+  align-items: center; justify-content: center; flex-direction: column; gap: 14px;
+  backdrop-filter: blur(2px);
+}
+.tc-loader.on { display: flex; }
+.ld-spin { width: 36px; height: 36px; border: 3px solid var(--line); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.ld-text { font-size: 12px; color: var(--muted); }
+
+/* ══ TABLE ════════════════════════════════════════════════════════════════ */
+table { width: 100%; min-width: 2050px; border-collapse: collapse; font-size: 12px; }
+thead { position: sticky; top: 0; z-index: 30; }
+thead th {
+  background: var(--navy); color: rgba(255,255,255,0.85);
+  text-align: left; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 11px 10px; white-space: nowrap;
+  cursor: pointer; border-right: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 2px solid var(--navy-dk); user-select: none; font-weight: 600;
+}
+thead th:last-child { border-right: none; }
+thead th:hover { background: var(--navy-md); color: #fff; }
+thead th.sorted { background: var(--navy-md); color: #fff; }
+.si { margin-left: 4px; font-size: 9px; opacity: 0.55; }
+thead th.sorted .si { opacity: 1; }
+tr.sep td { background: var(--sep-bg); color: var(--sep-text); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 12px; border-top: 2px solid var(--sep-border); border-bottom: 1px solid var(--sep-border); }
+tr.sep td .sc { font-weight: 400; font-size: 10px; color: rgba(26,58,107,0.6); margin-left: 8px; text-transform: none; letter-spacing: 0; }
+tr.dr td { padding: 9px 10px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); vertical-align: middle; background: #fff; line-height: 1.35; }
+tr.dr td:last-child { border-right: none; }
+tr.dr:hover td { background: var(--navy-xpale); }
+tr.dr.odd td { background: var(--off); }
+tr.dr.odd:hover td { background: var(--navy-xpale); }
+tr.dr.flagged td { background: #fff1ec; }
+tr.dr.flagged:hover td { background: #fde0d4; }
+tr.dr.overdue td { background: #fff2ee; }
+tr.dr.overdue:hover td { background: #fed8cc; }
+td.cid  { color: var(--muted); font-family: 'Courier New', monospace; font-size: 10.5px; white-space: nowrap; }
+td.ctit { font-size: 12.5px; font-weight: 500; max-width: 215px; }
+td.cver { white-space: nowrap; font-size: 12px; }
+td.cnot { font-size: 11.5px; color: var(--muted); max-width: 180px; }
+td.edit { cursor: pointer; }
+td.edit:hover { outline: 2px solid var(--navy-pale); outline-offset: -2px; }
+td.editing { outline: 2px solid var(--navy-lt) !important; background: #eef4ff !important; }
+td.miss { background: var(--amber-bg) !important; }
+tr.dr.flagged td.miss { background: #fccfba !important; }
+tr.dr.overdue td.miss { background: #fbcfbe !important; }
+td input.ci, td select.cs { width: 100%; border: none; background: transparent; font-size: 12px; font-family: Arial, sans-serif; padding: 0; color: var(--ink); outline: none; }
+.badge { display: inline-block; padding: 3px 9px; border-radius: 3px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+.bDelivered, .bSignedOff { background: #1e6b3a; color: #fff; }
+.bApproved   { background: #d4edda; color: #1e6b3a; }
+.bInProgress { background: #d4f0e0; color: #1a5c35; }
+.bInReview   { background: #e8e0f8; color: #5a3a90; }
+.bRequested  { background: #fff3cd; color: #8a6000; }
+.bBlocked    { background: #fde8e6; color: #c0392b; }
+.bPending    { background: #fff3cd; color: #8a6000; }
+.bNotapproved{ background: #fde8e6; color: #c0392b; }
+.bempty      { background: #f0f0f0; color: #999; font-style: italic; }
+.bYes        { background: #ddeeff; color: #1a4a8a; }
+.bNo         { background: #f0f0ee; color: #888; }
+.tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 3px; margin-right: 4px; white-space: nowrap; vertical-align: middle; }
+.t-flag { background: #e8521a; color: #fff; }
+.t-over { background: #9b2010; color: #fff; }
+.pb { display: flex; align-items: center; gap: 8px; }
+.pbar { flex: 1; height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; min-width: 40px; }
+.pfill { height: 100%; border-radius: 3px; }
+.p100 { background: var(--ok); } .phi { background: #3a9a5a; } .pmid { background: var(--navy-lt); } .plo { background: var(--amber); } .p0 { background: var(--line); }
+.pnum { font-size: 11.5px; color: var(--muted); white-space: nowrap; min-width: 32px; text-align: right; }
+a.fl { color: var(--navy-md); text-decoration: none; font-size: 11.5px; font-weight: 500; }
+a.fl:hover { text-decoration: underline; }
+.dash { color: #bbb; }
+
+/* ══ FOOTER ══════════════════════════════════════════════════════════════ */
+footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); padding: 8px 28px; font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+
+/* ══ ADD TASK MODAL ══════════════════════════════════════════════════════ */
+.overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(15,28,60,0.5); backdrop-filter: blur(2px); }
+.overlay.open { display: flex; align-items: flex-start; justify-content: flex-end; }
+.mpanel { background: #fff; width: 500px; max-width: 95vw; height: 100vh; overflow-y: auto; box-shadow: -4px 0 28px rgba(0,0,0,0.18); display: flex; flex-direction: column; }
+.mhdr { background: var(--navy); color: #fff; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+.mhdr h2 { font-family: Georgia, serif; font-size: 16px; font-weight: 400; }
+.mclose { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 24px; cursor: pointer; line-height: 1; padding: 0; }
+.mclose:hover { color: #fff; }
+.mbody { padding: 22px; flex: 1; overflow-y: auto; }
+.fr { margin-bottom: 16px; }
+.fr label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 4px; }
+.fr label .req { color: var(--red); }
+.fr input[type=text], .fr input[type=date], .fr input[type=number], .fr input[type=url], .fr input[type=password], .fr select, .fr textarea {
+  width: 100%; padding: 8px 11px; border: 1px solid var(--line); border-radius: 4px;
+  font-size: 13px; font-family: Arial, sans-serif; color: var(--ink); background: var(--off);
+}
+.fr input:focus, .fr select:focus, .fr textarea:focus { outline: none; border-color: var(--navy-lt); background: #fff; box-shadow: 0 0 0 3px rgba(74,114,184,0.13); }
+.fr textarea { resize: vertical; min-height: 56px; }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fdiv { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
+.mftr { padding: 14px 22px; border-top: 1px solid var(--line); display: flex; gap: 10px; justify-content: flex-end; flex-shrink: 0; }
+.btn-cancel { background: var(--off); color: var(--muted); border: 1px solid var(--line); }
+.btn-cancel:hover { background: var(--line); }
+.btn-submit { background: var(--navy); color: #fff; }
+.btn-submit:hover { background: var(--navy-dk); }
+
+/* ══ SETTINGS MODAL ══════════════════════════════════════════════════════ */
+#cfgOverlay { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(15,28,60,0.55); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+#cfgOverlay.open { display: flex; }
+.cfg-panel { background: #fff; width: 480px; max-width: 95vw; border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.22); display: flex; flex-direction: column; overflow: hidden; }
+.cfg-hdr { background: var(--navy); color: #fff; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; }
+.cfg-hdr h2 { font-family: Georgia, serif; font-size: 16px; font-weight: 400; }
+.cfg-body { padding: 22px; }
+.cfg-hint { font-size: 11px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.cfg-ftr { padding: 14px 22px; border-top: 1px solid var(--line); display: flex; gap: 10px; justify-content: flex-end; }
+
+/* ══ TOAST ════════════════════════════════════════════════════════════════ */
+#toast { position: fixed; bottom: 28px; right: 28px; z-index: 9998; background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 6px; font-size: 13px; box-shadow: 0 4px 18px rgba(0,0,0,0.22); opacity: 0; transform: translateY(8px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; max-width: 340px; }
+#toast.show   { opacity: 1; transform: translateY(0); }
+#toast.t-ok  { background: #1e6b3a; }
+#toast.t-err { background: #c0392b; }
+
+/* ══ PRINT ════════════════════════════════════════════════════════════════ */
+@media print {
+  body { overflow: visible; height: auto; display: block; }
+  #lockScreen, .tb, .overlay, footer { display: none !important; }
+  .tc { overflow: visible; height: auto; }
+  thead { position: static; }
+  .ph { padding: 12px 20px; }
+  table { min-width: 100%; font-size: 9.5px; }
+  td { padding: 5px 7px !important; }
+  tr.sep td { padding: 5px 10px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="ls-brand">
+    <div class="ls-logo">BG</div>
+    <div>
+      <div class="ls-title">Baroque Group</div>
+      <div class="ls-sub">Design Project Register</div>
+    </div>
+  </div>
+  <div class="ls-card">
+    <div class="ls-label">Enter Your Access Code</div>
+    <div class="ls-dots" id="lsDots">
+      <div class="ls-dot" id="d0"></div>
+      <div class="ls-dot" id="d1"></div>
+      <div class="ls-dot" id="d2"></div>
+      <div class="ls-dot" id="d3"></div>
+    </div>
+    <div class="ls-msg" id="lsMsg">Enter your PIN to continue</div>
+    <div class="ls-pad">
+      <div class="ls-key" onclick="lsKey('1')">1</div>
+      <div class="ls-key" onclick="lsKey('2')">2</div>
+      <div class="ls-key" onclick="lsKey('3')">3</div>
+      <div class="ls-key" onclick="lsKey('4')">4</div>
+      <div class="ls-key" onclick="lsKey('5')">5</div>
+      <div class="ls-key" onclick="lsKey('6')">6</div>
+      <div class="ls-key" onclick="lsKey('7')">7</div>
+      <div class="ls-key" onclick="lsKey('8')">8</div>
+      <div class="ls-key" onclick="lsKey('9')">9</div>
+      <div class="ls-key k-back" onclick="lsBack()">&#9003;</div>
+      <div class="ls-key" onclick="lsKey('0')">0</div>
+      <div class="ls-key k-enter" onclick="lsEnter()">Enter</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<header class="ph">
+  <div class="ph-top">
+    <div class="ph-brand">
+      <div class="ph-logo">BG</div>
+      <div>
+        <div class="ph-title">Baroque Group &mdash; Design Project Register</div>
+        <div class="ph-sub">Mark Kevin Capili &middot; Design Department &middot; All Verticals &middot; Live Operational Record</div>
+      </div>
+    </div>
+    <div class="ph-meta">
+      <div class="ph-date" id="phDate"></div>
+      <div class="ph-saved" id="phSaved">No local edits</div>
+    </div>
+  </div>
+  <div class="ph-stats">
+    <div class="st"><span class="st-n" id="sTotal">0</span><div class="st-l">Total Items</div></div>
+    <div class="st delivered"><span class="st-n" id="sDel">0</span><div class="st-l">Delivered</div></div>
+    <div class="st progress"><span class="st-n" id="sProg">0</span><div class="st-l">In Progress</div></div>
+    <div class="st blocked"><span class="st-n" id="sBlk">0</span><div class="st-l">Blocked</div></div>
+    <div class="st overdue"><span class="st-n" id="sOvr">0</span><div class="st-l">Overdue</div></div>
+    <div class="st missing"><span class="st-n" id="sMis">0</span><div class="st-l">No Target Date</div></div>
+  </div>
+</header>
+
+<!-- TOOLBAR -->
+<div class="tb">
+  <input type="text" id="srch" placeholder="Search title, vertical, requestor, notes&hellip;">
+  <select id="fv"><option value="">All Verticals</option></select>
+  <select id="fs"><option value="">All Stages</option></select>
+  <select id="fa"><option value="">All Approval</option></select>
+  <div class="tb-sep"></div>
+  <div class="chip c-flag" id="cFlag">Flagged</div>
+  <div class="chip"        id="cOver">Overdue</div>
+  <div class="chip c-miss" id="cMiss">No Date</div>
+  <div class="tb-right">
+    <span class="cnt" id="cnt"></span>
+    <button class="btn btn-add"  onclick="openModal()">+ Add Task</button>
+    <button class="btn btn-save" id="btnSave" onclick="saveToGitHub()" title="Save all data to GitHub">&#8593; Save to GitHub</button>
+    <button class="btn btn-cfg"  onclick="openCfg()" title="GitHub settings">&#9881; Settings</button>
+    <button class="btn btn-csv"  onclick="exportCSV()">Export CSV</button>
+    <button class="btn btn-prt"  onclick="window.print()">Print</button>
+  </div>
+</div>
+
+<!-- TABLE CONTAINER -->
+<div class="tc">
+  <div class="tc-loader" id="tcLoader">
+    <div class="ld-spin"></div>
+    <div class="ld-text" id="ldText">Loading from GitHub&hellip;</div>
+  </div>
+  <table id="mt">
+    <thead>
+      <tr>
+        <th data-k="id"           style="width:92px">Project ID <span class="si">&#8597;</span></th>
+        <th data-k="title"        style="width:210px">Title <span class="si">&#8597;</span></th>
+        <th data-k="vertical"     style="width:140px">Vertical / Entity <span class="si">&#8597;</span></th>
+        <th data-k="requestedBy"  style="width:110px">Requested By <span class="si">&#8597;</span></th>
+        <th data-k="dateRequested" style="width:108px">Date Requested <span class="si">&#8597;</span></th>
+        <th data-k="approval"     style="width:122px">Approval Status <span class="si">&#8597;</span></th>
+        <th data-k="stage"        style="width:118px">Stage <span class="si">&#8597;</span></th>
+        <th data-k="started"      style="width:96px">Start Date <span class="si">&#8597;</span></th>
+        <th data-k="due"          style="width:108px">Target Delivery <span class="si">&#8597;</span></th>
+        <th data-k="completed"    style="width:108px">Actual Delivery <span class="si">&#8597;</span></th>
+        <th data-k="pct"          style="width:120px">% Complete <span class="si">&#8597;</span></th>
+        <th data-k="blocker"      style="width:155px">Blocker <span class="si">&#8597;</span></th>
+        <th data-k="link"         style="width:90px">Working Files</th>
+        <th data-k="finalLink"    style="width:88px">Final Asset</th>
+        <th data-k="ai"           style="width:96px">AI-Assisted <span class="si">&#8597;</span></th>
+        <th data-k="notes"        style="width:180px">Notes</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<footer>
+  <span>Baroque Group &mdash; Design Department &middot; Mark Kevin Capili &middot; Click any data cell to edit inline &middot; Updated daily</span>
+  <span id="footDate"></span>
+</footer>
+
+<!-- ADD TASK MODAL -->
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="mpanel" onclick="event.stopPropagation()">
+    <div class="mhdr">
+      <h2>Add New Task</h2>
+      <button class="mclose" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="mbody">
+      <form id="addForm" onsubmit="submitTask(event)">
+        <div class="fr">
+          <label>Title <span class="req">*</span></label>
+          <input type="text" name="title" required placeholder="Project or task title">
+        </div>
+        <div class="f2">
+          <div class="fr">
+            <label>Vertical / Entity <span class="req">*</span></label>
+            <select name="vertical" required>
+              <option value="">Select&hellip;</option>
+              <option>Baroque Access</option><option>Baroque Aviation</option>
+              <option>Baroque Yachts</option><option>Baroque Properties</option>
+              <option>Baroque Travel</option><option>Baroque Ground</option>
+              <option>Baroque Lifestyle</option><option>Baroque Group</option>
+              <option>LUJO</option><option>Multi-vertical</option>
+            </select>
+          </div>
+          <div class="fr">
+            <label>Requested By</label>
+            <input type="text" name="requestedBy" placeholder="Full name">
+          </div>
+        </div>
+        <div class="f2">
+          <div class="fr"><label>Date Requested</label><input type="date" name="dateRequested"></div>
+          <div class="fr">
+            <label>Approval Status</label>
+            <select name="approval">
+              <option value="">Not set</option><option>Approved</option><option>Pending</option><option>Not approved</option>
+            </select>
+          </div>
+        </div>
+        <div class="f2">
+          <div class="fr">
+            <label>Stage</label>
+            <select name="stage">
+              <option>Requested</option><option>Approved</option><option>In Progress</option>
+              <option>In Review</option><option>Signed Off</option><option>Delivered</option><option>Blocked</option>
+            </select>
+          </div>
+          <div class="fr">
+            <label>AI-Assisted</label>
+            <select name="ai"><option value="">Not set</option><option>Yes</option><option>No</option></select>
+          </div>
+        </div>
+        <hr class="fdiv">
+        <div class="f2">
+          <div class="fr"><label>Start Date</label><input type="date" name="started"></div>
+          <div class="fr"><label>Target Delivery <span class="req">*</span></label><input type="date" name="due" required></div>
+        </div>
+        <div class="f2">
+          <div class="fr"><label>% Complete</label><input type="number" name="pct" min="0" max="100" step="5" placeholder="0"></div>
+          <div class="fr"><label>Actual Delivery</label><input type="date" name="completed"></div>
+        </div>
+        <hr class="fdiv">
+        <div class="fr">
+          <label>Blocker</label>
+          <input type="text" name="blocker" placeholder="e.g. Waiting on copy from Sarah since 20 Jul">
+        </div>
+        <div class="fr">
+          <label>Working Files Link</label>
+          <input type="url" name="link" placeholder="https://figma.com/&hellip;">
+        </div>
+        <div class="fr">
+          <label>Notes</label>
+          <textarea name="notes" placeholder="Any additional context&hellip;"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="mftr">
+      <button type="button" class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+      <button type="submit" class="btn btn-submit" form="addForm">Add Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- GITHUB SETTINGS MODAL -->
+<div id="cfgOverlay" onclick="cfgOverlayClick(event)">
+  <div class="cfg-panel" onclick="event.stopPropagation()">
+    <div class="cfg-hdr">
+      <h2>GitHub Settings</h2>
+      <button class="mclose" onclick="closeCfg()">&times;</button>
+    </div>
+    <div class="cfg-body">
+      <p class="cfg-hint">Data is saved as <strong>projects.json</strong> in your GitHub repo. You need a Personal Access Token with <strong>repo</strong> scope. Settings are stored locally in your browser.</p>
+      <div class="f2">
+        <div class="fr"><label>GitHub Owner / Username</label><input type="text" id="cfgOwner" placeholder="e.g. baroque-group"></div>
+        <div class="fr"><label>Repository Name</label><input type="text" id="cfgRepo" placeholder="e.g. project-register"></div>
+      </div>
+      <div class="f2">
+        <div class="fr"><label>Branch</label><input type="text" id="cfgBranch" placeholder="main"></div>
+        <div class="fr"><label>File Path</label><input type="text" id="cfgPath" placeholder="projects.json"></div>
+      </div>
+      <div class="fr">
+        <label>Personal Access Token</label>
+        <input type="password" id="cfgToken" placeholder="ghp_&hellip;" autocomplete="off">
+      </div>
+    </div>
+    <div class="cfg-ftr">
+      <button class="btn btn-cancel" onclick="closeCfg()">Cancel</button>
+      <button class="btn btn-submit" onclick="saveCfg()">Save Settings</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+const BASE = [
+  {id:"2cy6fwpw",title:"Baroque Access Site — Bugs, Fixes, Suggestions, Image Check",vertical:"Baroque Access",requestedBy:"",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"",flagged:false},
+  {id:"riu0j7f5",title:"Plan My Trip Quotation",vertical:"Baroque Access",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"No action needed unless flagged",flagged:false},
+  {id:"ai69yo37",title:"Baroque Access Emails (Confirmation, Preference, Survey, Vendor Form)",vertical:"Baroque Access",requestedBy:"Mr. Sahle",dateRequested:"",approval:"Approved",stage:"Delivered",started:"",due:"",completed:"2026-06-12",pct:100,blocker:"",link:"https://www.figma.com/design/mFaZU2n9y8ncueIO4zD5IW/Social-Media-Research--Copy-?node-id=109-1854",finalLink:"",ai:"",notes:"All sent to Mr. Sahle",flagged:false},
+  {id:"utzmes45",title:"Socmed Moodboards · Access, Aviation, Travel",vertical:"Baroque Access",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-18",pct:100,blocker:"",link:"https://www.figma.com/design/mFaZU2n9y8ncueIO4zD5IW/Social-Media-Research--Copy-?node-id=109-1854",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"fv0c6rii",title:"Baroque Access Newsletter (preference-based)",vertical:"Baroque Access",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-06",pct:100,blocker:"",link:"https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=1-3767",finalLink:"",ai:"",notes:"Design done — preference UI follow-up pending",flagged:false},
+  {id:"1519ka9s",title:"Email Notification, Confirmation Email, WhatsApp Notification Suite",vertical:"Baroque Access",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-14",pct:100,blocker:"",link:"https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"7dbyweyw",title:"Baroque Access Invitation",vertical:"Baroque Access",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-25",pct:100,blocker:"",link:"https://app.netlify.com/projects/baroque-access-invitation/",finalLink:"",ai:"",notes:"",flagged:false},
+  {id:"pdb0z5o2",title:"Aviation Confirmation Email",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"In test email phase",flagged:false},
+  {id:"nqrjgpti",title:"Socmed Moodboards · Access, Aviation, Travel",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-18",pct:100,blocker:"",link:"https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=73-5210",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"i5a68lqc",title:"User Website Redesign",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Angular site live — design at 0%, needs design pass",flagged:true},
+  {id:"90a4v5dp",title:"Admin / Agent Dashboard Redesign",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"nqyvdvtm",title:"Suppliers Backend Design",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Not started — design and dev both at 0%",flagged:false},
+  {id:"7biww91u",title:"Confirmation Emails Redesign",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"8z55hq54",title:"Newsletter Redesign",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"ktvrwq15",title:"Social Media Redesign",vertical:"Baroque Aviation",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-27",pct:100,blocker:"",link:"https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=73-5210",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"1iup5pwm",title:"Yacht Option for Sohail — minor revisions for Henry",vertical:"Baroque Yachts",requestedBy:"Sohail",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"Reopened Jul 27",flagged:false},
+  {id:"15hg6v9s",title:"Yacht Confirmation Emails",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"In test email phase",flagged:false},
+  {id:"wpae264n",title:"Yacht Preferences Icons for Dheraj",vertical:"Baroque Yachts",requestedBy:"Dheraj",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-03",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"4vgrla78",title:"Socmed Moodboards · Yachts, Properties, Lifestyle, LUJO",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-22",pct:100,blocker:"",link:"https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=103-2",finalLink:"",ai:"",notes:"All 7 verticals complete",flagged:false},
+  {id:"34h59dnx",title:"Yacht Option for Sohail",vertical:"Baroque Yachts",requestedBy:"Sohail",dateRequested:"",approval:"Approved",stage:"Delivered",started:"",due:"",completed:"2026-07-21",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Delivered to Sohail",flagged:false},
+  {id:"fb5tae1s",title:"Moonrise Yacht",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-25",pct:100,blocker:"",link:"https://baroqueyacht-moonrise.netlify.app/",finalLink:"",ai:"",notes:"",flagged:false},
+  {id:"luubpznz",title:"User Website Redesign",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Vue.js site live — design at 0%, needs design pass",flagged:true},
+  {id:"uvde6ohn",title:"Admin / Agent / Supplier Dashboard Redesign",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"far2pbch",title:"Supplier Dashboard Redesign",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"9zshzcac",title:"Newsletter Redesign",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"344wjlvt",title:"Social Media Redesign",vertical:"Baroque Yachts",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-27",pct:100,blocker:"",link:"https://www.figma.com/design/yA8RBmQeOsa8oooAY7dK78/Social-Media-Research?node-id=103-2",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"lw8b2jsa",title:"Properties Confirmation Emails",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"In Progress",started:"",due:"",completed:"",pct:null,blocker:"",link:"https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=749-34395",finalLink:"",ai:"",notes:"In test email phase",flagged:false},
+  {id:"0gf3c32r",title:"BP-973 Cannes Property Images for Andy Zelman",vertical:"Baroque Properties",requestedBy:"Andy Zelman",dateRequested:"",approval:"Approved",stage:"Delivered",started:"",due:"",completed:"2026-05-25",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Delivered to Andy Zelman",flagged:false},
+  {id:"zi1tdg7h",title:"Socmed Moodboards · Yachts, Properties, Lifestyle, LUJO",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-22",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"All 7 verticals complete",flagged:false},
+  {id:"53lluis3",title:"Sohail's Agent Page Redesign",vertical:"Baroque Properties",requestedBy:"Sohail",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-06",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"dqzux4je",title:"Properties Option Request",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-06",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"map8s9cw",title:"Properties UAE Accountant Signature",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-21",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"7o9hrde3",title:"User Website Redesign",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Angular site live — design at 0%, needs design pass",flagged:true},
+  {id:"jgbxuy1y",title:"Landing Page For Supplier Design",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Not started — design and dev both at 0%",flagged:false},
+  {id:"iexrhtjw",title:"Admin / Agent Dashboard Redesign",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"4gx1aqk3",title:"Supplier Dashboard Redesign",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"2cd46vrn",title:"Backend API Redesign",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"evvji2r1",title:"Confirmation Emails Redesign",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=749-34395",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"pr9om5pp",title:"Newsletter Redesign",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"bkc2wyy7",title:"Social Media Redesign",vertical:"Baroque Properties",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"4gg9x62l",title:"Socmed Moodboards · Access, Aviation, Travel",vertical:"Baroque Travel",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-18",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"2mktjckm",title:"Salesforce Website Redesign",vertical:"Baroque Travel",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"e2q6f3ny",title:"Confirmation Emails Design",vertical:"Baroque Travel",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Not started — design and dev both at 0%",flagged:false},
+  {id:"whgqu8vi",title:"Newsletter Redesign",vertical:"Baroque Travel",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"4bpy8hx2",title:"Social Media Redesign",vertical:"Baroque Travel",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"zgbecvtk",title:"Transportation Assets",vertical:"Baroque Ground",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-24",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"nva48wx9",title:"User Website Redesign",vertical:"Baroque Ground",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"HTML site live — design at 0%, needs design pass",flagged:true},
+  {id:"bez1o665",title:"Newsletter Redesign",vertical:"Baroque Ground",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"q0ajeujm",title:"Social Media Redesign",vertical:"Baroque Ground",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"s9fe9vbo",title:"Socmed Moodboards · Yachts, Properties, Lifestyle, LUJO",vertical:"Baroque Lifestyle",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-22",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"All 7 verticals complete",flagged:false},
+  {id:"5nemk1n9",title:"User Website Redesign",vertical:"Baroque Lifestyle",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"WordPress site live — design at 0%, needs design pass",flagged:true},
+  {id:"qt1l4ze4",title:"Newsletter Redesign",vertical:"Baroque Lifestyle",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"xu9swges",title:"Social Media Redesign",vertical:"Baroque Lifestyle",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"hih9qolt",title:"Newsletter Redesign",vertical:"Baroque Group",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"h64g51jb",title:"Social Media Redesign",vertical:"Baroque Group",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:0,blocker:"",link:"",finalLink:"",ai:"",notes:"Live in dev — design at 0%, needs design pass",flagged:true},
+  {id:"u5yu7d9v",title:"LUJO Questionnaire Preference",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"Approved",stage:"Delivered",started:"",due:"",completed:"2026-05-20",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Approved & pushed",flagged:false},
+  {id:"badk6h4w",title:"Skeleton Approved — Pushed to Devs",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-05-20",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"iob4go03",title:"Splash Screen Adjustment",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-05-21",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"ewxikgd8",title:"Dining LUJO Flow — Polish & Prototype",vertical:"LUJO",requestedBy:"Mr. Sahle",dateRequested:"",approval:"Approved",stage:"Delivered",started:"",due:"",completed:"2026-05-25",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Approved by Mr. Sahle",flagged:false},
+  {id:"igcr6f3u",title:"LUJO Moodboard",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"Approved",stage:"Delivered",started:"",due:"",completed:"2026-06-12",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Approved — sent to Marketing Team",flagged:false},
+  {id:"hhtu8a4n",title:"App Store Redesign",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-18",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"lzevooag",title:"Discover Reduction Documentation",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-24",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false},
+  {id:"7qfme4n5",title:"LUJO Font & Discrepancy Audit",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"No action needed unless flagged",flagged:false},
+  {id:"s8r3yd3i",title:"RULE Design System Push",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"Resume as vertical gaps open",flagged:false},
+  {id:"ngv5i6m6",title:"Gift Reservation Catalogue",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"Epic X Bridges V2, Black Steel Orange",flagged:false},
+  {id:"xodxog2h",title:"Restaurant & Beach Club Confirmation Brochure",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"",flagged:false},
+  {id:"l1ejt5as",title:"Destination Itineraries Experience — Morocco",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"",flagged:false},
+  {id:"4jpljk3c",title:"Events Brochure",vertical:"LUJO",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"Canva link on file",flagged:false},
+  {id:"60d5jrxr",title:"Preference Pop-up — All Verticals",vertical:"Multi-vertical",requestedBy:"",dateRequested:"",approval:"",stage:"Requested",started:"",due:"",completed:"",pct:null,blocker:"",link:"",finalLink:"",ai:"",notes:"Newsletter preference UI follow-up",flagged:false},
+  {id:"bwyzn1mv",title:"Moodboard Strategy",vertical:"Multi-vertical",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-06-24",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Handed to social media team",flagged:false},
+  {id:"rdo188p2",title:"Prototype Navigation",vertical:"Multi-vertical",requestedBy:"",dateRequested:"",approval:"",stage:"Delivered",started:"",due:"",completed:"2026-07-06",pct:100,blocker:"",link:"",finalLink:"",ai:"",notes:"Done",flagged:false}
+];
+
+const VERT_ORDER    = ["Baroque Access","Baroque Aviation","Baroque Yachts","Baroque Properties","Baroque Travel","Baroque Ground","Baroque Lifestyle","Baroque Group","LUJO","Multi-vertical"];
+const STAGE_OPTS    = ["Requested","Approved","In Progress","In Review","Signed Off","Delivered","Blocked"];
+const APPROVAL_OPTS = ["Approved","Pending","Not approved"];
+const AI_OPTS       = ["Yes","No"];
+const SEL_FIELDS    = {stage:STAGE_OPTS,approval:APPROVAL_OPTS,ai:AI_OPTS};
+const DATE_F        = new Set(["dateRequested","started","due","completed"]);
+const NUM_F         = new Set(["pct"]);
+const TODAY         = new Date().toISOString().slice(0,10);
+const PINS = { "2026": "designer", "2027": "manager" };
+
+let LIVE_DATA    = null;
+let LIVE_SHA     = null;
+let CURRENT_ROLE = null;
+
+// ── LOCK SCREEN ───────────────────────────────────────────────────────────────
+let lsPin = "";
+function lsKey(k) {
+  if (lsPin.length >= 4) return;
+  lsPin += k; updateDots();
+  if (lsPin.length === 4) setTimeout(lsEnter, 180);
+}
+function lsBack() { lsPin = lsPin.slice(0,-1); updateDots(); setLsMsg("",""); }
+function lsEnter() {
+  const role = PINS[lsPin];
+  if (role) {
+    CURRENT_ROLE = role;
+    const name = role === "designer" ? "Mark" : "Mr. Sahle";
+    setLsMsg("Welcome, " + name, "success");
+    setTimeout(() => {
+      document.getElementById("lockScreen").classList.add("hidden");
+      applyRoleUI();
+      loadGitHubData();
+    }, 400);
+  } else {
+    const dots = document.getElementById("lsDots");
+    dots.classList.add("shake");
+    setTimeout(() => dots.classList.remove("shake"), 420);
+    setLsMsg("Incorrect code — try again","error");
+    lsPin = ""; updateDots();
+  }
+}
+function applyRoleUI() {
+  if (CURRENT_ROLE === "manager") {
+    document.getElementById("btnSave").style.display = "none";
+    document.querySelectorAll(".btn-cfg").forEach(b => b.style.display = "none");
+    document.querySelectorAll(".btn-add").forEach(b => b.style.display = "none");
+  }
+}
+function updateDots() {
+  for (let i=0;i<4;i++) document.getElementById("d"+i).classList.toggle("filled", i<lsPin.length);
+}
+function setLsMsg(text, cls) {
+  const el = document.getElementById("lsMsg");
+  el.textContent = text;
+  el.className = "ls-msg" + (cls ? " "+cls : "");
+}
+document.addEventListener("keydown", function(e) {
+  if (document.getElementById("lockScreen").classList.contains("hidden")) return;
+  if (e.key >= "0" && e.key <= "9") lsKey(e.key);
+  else if (e.key === "Backspace") lsBack();
+  else if (e.key === "Enter") lsEnter();
+});
+
+// ── GITHUB CONFIG ─────────────────────────────────────────────────────────────
+const GH_DEFAULTS = { owner:"mark-baroque", repo:"baroque-project-register", branch:"main", path:"projects.json", token:"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" };
+function getGHConfig() {
+  return {
+    owner:  localStorage.getItem("gh_owner")  || GH_DEFAULTS.owner,
+    repo:   localStorage.getItem("gh_repo")   || GH_DEFAULTS.repo,
+    branch: localStorage.getItem("gh_branch") || GH_DEFAULTS.branch,
+    path:   localStorage.getItem("gh_path")   || GH_DEFAULTS.path,
+    token:  localStorage.getItem("gh_token")  || GH_DEFAULTS.token
+  };
+}
+function openCfg() {
+  const c = getGHConfig();
+  document.getElementById("cfgOwner").value  = c.owner;
+  document.getElementById("cfgRepo").value   = c.repo;
+  document.getElementById("cfgBranch").value = c.branch;
+  document.getElementById("cfgPath").value   = c.path;
+  document.getElementById("cfgToken").value  = c.token;
+  document.getElementById("cfgOverlay").classList.add("open");
+}
+function closeCfg() { document.getElementById("cfgOverlay").classList.remove("open"); }
+function cfgOverlayClick(e) { if (e.target===document.getElementById("cfgOverlay")) closeCfg(); }
+function saveCfg() {
+  localStorage.setItem("gh_owner",  document.getElementById("cfgOwner").value.trim());
+  localStorage.setItem("gh_repo",   document.getElementById("cfgRepo").value.trim());
+  localStorage.setItem("gh_branch", document.getElementById("cfgBranch").value.trim()||"main");
+  localStorage.setItem("gh_path",   document.getElementById("cfgPath").value.trim()||"projects.json");
+  localStorage.setItem("gh_token",  document.getElementById("cfgToken").value.trim());
+  closeCfg(); showToast("Settings saved","ok");
+}
+
+// ── GITHUB LOAD ───────────────────────────────────────────────────────────────
+async function loadGitHubData() {
+  const c = getGHConfig();
+  if (!c.owner || !c.repo || !c.token) {
+    showToast("GitHub not configured — using built-in data. Click ⚙ Settings to connect.","");
+    render(); return;
+  }
+  showLoader("Loading from GitHub…");
+  try {
+    const url = "https://api.github.com/repos/"+c.owner+"/"+c.repo+"/contents/"+c.path+"?ref="+c.branch;
+    const res = await fetch(url, { headers: { Authorization: "token "+c.token, Accept: "application/vnd.github.v3+json" } });
+    if (res.status === 404) {
+      hideLoader();
+      showToast("projects.json not found in repo — using built-in data.","");
+      render(); return;
+    }
+    if (!res.ok) throw new Error("HTTP "+res.status);
+    const json = await res.json();
+    LIVE_SHA  = json.sha;
+    LIVE_DATA = JSON.parse(atob(json.content.replace(/\n/g,"")));
+    hideLoader();
+    showToast("Loaded "+LIVE_DATA.length+" projects from GitHub","ok");
+  } catch(err) {
+    hideLoader();
+    showToast("Could not load from GitHub: "+err.message,"err");
+    LIVE_DATA = null;
+  }
+  render();
+}
+
+// ── GITHUB SAVE ───────────────────────────────────────────────────────────────
+async function saveToGitHub() {
+  const c = getGHConfig();
+  if (!c.owner || !c.repo || !c.token) { openCfg(); showToast("Configure GitHub settings first.","err"); return; }
+  const btn = document.getElementById("btnSave");
+  btn.disabled = true; btn.textContent = "Saving…";
+  showLoader("Saving to GitHub…");
+  try {
+    const data    = getMerged();
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+    const url     = "https://api.github.com/repos/"+c.owner+"/"+c.repo+"/contents/"+c.path;
+    const body    = { message:"Update project register — "+new Date().toISOString().slice(0,10), content, branch:c.branch };
+    if (LIVE_SHA) body.sha = LIVE_SHA;
+    const res = await fetch(url, {
+      method:"PUT",
+      headers:{ Authorization:"token "+c.token, Accept:"application/vnd.github.v3+json", "Content-Type":"application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) { const e=await res.json(); throw new Error(e.message||"HTTP "+res.status); }
+    const json = await res.json();
+    LIVE_SHA  = json.content.sha;
+    LIVE_DATA = data;
+    hideLoader();
+    showToast("Saved to GitHub successfully","ok");
+    localStorage.setItem("bq_ts",new Date().toISOString());
+    refreshSaved();
+  } catch(err) {
+    hideLoader();
+    showToast("Save failed: "+err.message,"err");
+  }
+  btn.disabled = false; btn.textContent = "↑ Save to GitHub";
+}
+
+// ── LOADER ────────────────────────────────────────────────────────────────────
+function showLoader(text) { document.getElementById("ldText").textContent=text||"Loading…"; document.getElementById("tcLoader").classList.add("on"); }
+function hideLoader()     { document.getElementById("tcLoader").classList.remove("on"); }
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+let _tt;
+function showToast(msg,type) {
+  const el=document.getElementById("toast");
+  el.textContent=msg;
+  el.className="show"+(type==="ok"?" t-ok":type==="err"?" t-err":"");
+  clearTimeout(_tt); _tt=setTimeout(()=>{ el.className=""; },3800);
+}
+
+// ── LOCAL STORAGE ─────────────────────────────────────────────────────────────
+function getOv()  { try{return JSON.parse(localStorage.getItem("bq_ov")||"{}");}catch(e){return {};} }
+function getNew() { try{return JSON.parse(localStorage.getItem("bq_new")||"[]");}catch(e){return [];} }
+function saveOv(obj) { localStorage.setItem("bq_ov",JSON.stringify(obj)); localStorage.setItem("bq_ts",new Date().toISOString()); refreshSaved(); }
+function getMerged() {
+  const source = LIVE_DATA || BASE;
+  const ov=getOv();
+  const base=source.map(r=>({...r,...(ov[r.id]||{})}));
+  const newItems=getNew().map(r=>({...r,...(ov[r.id]||{})}));
+  return [...base,...newItems];
+}
+function hasEdits() { const ov=getOv(); return Object.values(ov).some(v=>Object.keys(v).length>0)||getNew().length>0; }
+function refreshSaved() {
+  const el=document.getElementById("phSaved"); if(!el) return;
+  const ts=localStorage.getItem("bq_ts");
+  if(!ts||!hasEdits()) { el.textContent="No local edits"; el.className="ph-saved"; }
+  else {
+    const d=new Date(ts);
+    const fmt=d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})+" "+d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+    el.textContent="Last edited "+fmt; el.className="ph-saved changed";
+  }
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function isOverdue(r) { if(!r.due)return false; return (r.stage!=="Delivered"&&r.stage!=="Signed Off")&&r.due<TODAY; }
+function noDate(r)    { return (r.stage!=="Delivered"&&r.stage!=="Signed Off")&&!r.due; }
+function sk(s)        { return s?(s.replace(/[^A-Za-z]/g,"")):"empty"; }
+function dateFmt(d) {
+  if(!d)return "";
+  try{return new Date(d+"T00:00:00").toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});}
+  catch(e){return d;}
+}
+function pbarHtml(pct) {
+  if(pct===null||pct===undefined||pct==="") return '<span class="dash">—</span>';
+  const n=Math.max(0,Math.min(100,parseInt(pct,10)||0));
+  const cls=n>=100?"p100":n>=75?"phi":n>=40?"pmid":n>0?"plo":"p0";
+  return '<div class="pb"><div class="pbar"><div class="pfill '+cls+'" style="width:'+n+'%"></div></div><span class="pnum">'+n+'%</span></div>';
+}
+function linkH(href) { if(!href)return '<span class="dash">—</span>'; return '<a class="fl" href="'+href+'" target="_blank" rel="noopener">Open ↗</a>'; }
+function dash(v)     { return v||'<span class="dash">—</span>'; }
+
+// ── SORT / FILTER ─────────────────────────────────────────────────────────────
+let SK="",SD=1,fFlag=false,fOver=false,fMiss=false;
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function render() {
+  const q=document.getElementById("srch").value.toLowerCase();
+  const vf=document.getElementById("fv").value;
+  const sf=document.getElementById("fs").value;
+  const af=document.getElementById("fa").value;
+  const all=getMerged();
+  let rows=all.filter(r=>{
+    if(fFlag&&!r.flagged)    return false;
+    if(fOver&&!isOverdue(r)) return false;
+    if(fMiss&&!noDate(r))    return false;
+    if(vf&&r.vertical!==vf)  return false;
+    if(sf&&r.stage!==sf)     return false;
+    if(af){if(af==="(blank)"&&r.approval)return false;if(af!=="(blank)"&&r.approval!==af)return false;}
+    if(q){const h=[r.title,r.vertical,r.requestedBy,r.notes,r.blocker].join(" ").toLowerCase();if(!h.includes(q))return false;}
+    return true;
+  });
+  const groups=new Map();
+  rows.forEach(r=>{if(!groups.has(r.vertical))groups.set(r.vertical,[]);groups.get(r.vertical).push(r);});
+  if(SK){groups.forEach(g=>g.sort((a,b)=>{const av=String(a[SK]??"").toLowerCase(),bv=String(b[SK]??"").toLowerCase();return av<bv?-SD:av>bv?SD:0;}));}
+  const verts=VERT_ORDER.filter(v=>groups.has(v));
+  groups.forEach((_,v)=>{if(!VERT_ORDER.includes(v))verts.push(v);});
+  let html=""; let ri=0;
+  verts.forEach(vert=>{
+    const gr=groups.get(vert);
+    html+='<tr class="sep"><td colspan="16">'+vert+'<span class="sc">'+gr.length+' item'+(gr.length!==1?"s":"")+'</span></td></tr>';
+    gr.forEach(r=>{html+=buildRow(r,ri%2===1);ri++;});
+  });
+  document.getElementById("tbody").innerHTML=html;
+  document.getElementById("cnt").textContent=rows.length+" of "+all.length+" items";
+  updateStats(all);
+  attachEditHandlers();
+}
+
+function canEdit(field) {
+  if (CURRENT_ROLE === "designer") return true;
+  if (CURRENT_ROLE === "manager")  return field === "approval";
+  return false;
+}
+function ec(field, extra) {
+  return canEdit(field) ? ' class="edit' + (extra||"") + '" data-f="' + field + '"' : ' class="' + (extra||"").trim() + '"';
+}
+
+function buildRow(r,odd) {
+  const overdue=isOverdue(r);
+  const cls=["dr",odd?"odd":"",r.flagged?"flagged":"",overdue?"overdue":""].filter(Boolean).join(" ");
+  const stk=sk(r.stage),apk=sk(r.approval);
+  const needDue=noDate(r);
+  const overSty=overdue?' style="color:#9b2010;font-weight:600"':"";
+  const tags=[r.flagged?'<span class="tag t-flag">Flagged</span>':"",overdue?'<span class="tag t-over">Overdue</span>':""].join("");
+  return '<tr class="'+cls+'" data-id="'+r.id+'">'
+    +'<td class="cid">'+r.id+'</td>'
+    +'<td class="ctit">'+tags+r.title+'</td>'
+    +'<td class="cver">'+r.vertical+'</td>'
+    +'<td'+ec("requestedBy", (r.requestedBy?"":" miss"))+'>'+dash(r.requestedBy)+'</td>'
+    +'<td'+ec("dateRequested", (r.dateRequested?"":" miss"))+'>'+(r.dateRequested?dateFmt(r.dateRequested):'<span class="dash">—</span>')+'</td>'
+    +'<td'+ec("approval", (r.approval?"":" miss"))+'><span class="badge b'+(apk||"empty")+'">'+(r.approval||"Not set")+'</span></td>'
+    +'<td'+ec("stage")+'><span class="badge b'+(stk||"empty")+'">'+(r.stage||"—")+'</span></td>'
+    +'<td'+ec("started", (r.started?"":" miss"))+'>'+(r.started?dateFmt(r.started):'<span class="dash">—</span>')+'</td>'
+    +'<td'+ec("due", (needDue?" miss":""))+overSty+'>'+(r.due?dateFmt(r.due):'<span class="dash">—</span>')+'</td>'
+    +'<td'+ec("completed")+'>'+(r.completed?dateFmt(r.completed):'<span class="dash">—</span>')+'</td>'
+    +'<td'+ec("pct")+'>'+pbarHtml(r.pct)+'</td>'
+    +'<td'+ec("blocker"," cnot")+'>'+dash(r.blocker)+'</td>'
+    +'<td'+ec("link")+'>'+linkH(r.link)+'</td>'
+    +'<td'+ec("finalLink")+'>'+linkH(r.finalLink)+'</td>'
+    +'<td'+ec("ai", (r.ai?"":" miss"))+'>'+(r.ai?'<span class="badge b'+r.ai+'">'+r.ai+'</span>':'<span class="dash">—</span>')+'</td>'
+    +'<td'+ec("notes"," cnot")+'>'+dash(r.notes)+'</td>'
+    +'</tr>';
+}
+
+function updateStats(data) {
+  document.getElementById("sTotal").textContent=data.length;
+  document.getElementById("sDel").textContent  =data.filter(r=>r.stage==="Delivered"||r.stage==="Signed Off").length;
+  document.getElementById("sProg").textContent =data.filter(r=>r.stage==="In Progress"||r.stage==="In Review").length;
+  document.getElementById("sBlk").textContent  =data.filter(r=>r.stage==="Blocked").length;
+  document.getElementById("sOvr").textContent  =data.filter(isOverdue).length;
+  document.getElementById("sMis").textContent  =data.filter(r=>noDate(r)&&r.stage!=="Requested").length;
+}
+
+// ── INLINE EDITING ────────────────────────────────────────────────────────────
+function attachEditHandlers() { document.querySelectorAll("td.edit").forEach(td=>td.addEventListener("click",startEdit)); }
+function startEdit(e) {
+  if(e.target.closest("a"))return;
+  const td=this;
+  if(td.querySelector("input,select"))return;
+  const field=td.dataset.f;
+  if(!canEdit(field))return;
+  const row=td.closest("tr[data-id]");if(!row)return;
+  const id=row.dataset.id;
+  const rec=getMerged().find(r=>r.id===id);if(!rec)return;
+  const cur=rec[field]??"";
+  td.classList.add("editing"); td.innerHTML="";
+  let inp;
+  if(SEL_FIELDS[field]){
+    inp=document.createElement("select");inp.className="cs";
+    const emp=document.createElement("option");emp.value="";emp.textContent="— select —";inp.appendChild(emp);
+    SEL_FIELDS[field].forEach(o=>{const el=document.createElement("option");el.value=o;el.textContent=o;if(o===cur)el.selected=true;inp.appendChild(el);});
+  } else {
+    inp=document.createElement("input");inp.className="ci";
+    inp.type=DATE_F.has(field)?"date":NUM_F.has(field)?"number":"text";
+    if(NUM_F.has(field)){inp.min=0;inp.max=100;inp.step=5;}
+    inp.value=cur;
+  }
+  td.appendChild(inp);inp.focus();
+  if(inp.type==="text"||inp.type==="number")inp.select?.();
+  function commit(){
+    const v=inp.value;
+    const ov=getOv();if(!ov[id])ov[id]={};
+    ov[id][field]=NUM_F.has(field)?(v===""?null:parseInt(v,10)):v;
+    saveOv(ov);render();
+  }
+  inp.addEventListener("blur",commit);
+  inp.addEventListener("keydown",ev=>{if(ev.key==="Enter"){ev.preventDefault();inp.blur();}if(ev.key==="Escape"){render();}});
+}
+
+// ── SORT ──────────────────────────────────────────────────────────────────────
+document.querySelectorAll("thead th[data-k]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const k=th.getAttribute("data-k");
+    if(SK===k){SD*=-1;}else{SK=k;SD=1;}
+    document.querySelectorAll("thead th").forEach(t=>{t.classList.remove("sorted");const si=t.querySelector(".si");if(si)si.textContent="↕";});
+    th.classList.add("sorted");
+    const si=th.querySelector(".si");if(si)si.textContent=SD===1?"↑":"↓";
+    render();
+  });
+});
+
+// ── CHIPS ─────────────────────────────────────────────────────────────────────
+function chip(id,getter,setter){document.getElementById(id).addEventListener("click",function(){setter(!getter());this.classList.toggle("on");render();});}
+chip("cFlag",()=>fFlag,v=>fFlag=v);
+chip("cOver",()=>fOver,v=>fOver=v);
+chip("cMiss",()=>fMiss,v=>fMiss=v);
+["srch","fv","fs","fa"].forEach(id=>document.getElementById(id).addEventListener(id==="srch"?"input":"change",render));
+
+// ── FILTERS ───────────────────────────────────────────────────────────────────
+function populateFilters(){
+  const vSel=document.getElementById("fv");
+  VERT_ORDER.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;vSel.appendChild(o);});
+  const stages=[...new Set(BASE.map(r=>r.stage))].sort();
+  const sSel=document.getElementById("fs");
+  stages.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sSel.appendChild(o);});
+  const approvals=[...new Set(BASE.map(r=>r.approval).filter(Boolean))].sort();
+  const aSel=document.getElementById("fa");
+  approvals.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=a;aSel.appendChild(o);});
+  const bl=document.createElement("option");bl.value="(blank)";bl.textContent="Not yet set";aSel.appendChild(bl);
+}
+
+// ── ADD TASK ──────────────────────────────────────────────────────────────────
+function openModal()  { document.getElementById("overlay").classList.add("open"); }
+function closeModal() { document.getElementById("overlay").classList.remove("open"); document.getElementById("addForm").reset(); }
+function overlayClick(e){ if(e.target===document.getElementById("overlay"))closeModal(); }
+function submitTask(e){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const id="NEW"+Date.now().toString(36).toUpperCase();
+  const item={
+    id,flagged:false,
+    title:fd.get("title")||"",vertical:fd.get("vertical")||"",requestedBy:fd.get("requestedBy")||"",
+    dateRequested:fd.get("dateRequested")||"",approval:fd.get("approval")||"",stage:fd.get("stage")||"Requested",
+    started:fd.get("started")||"",due:fd.get("due")||"",completed:fd.get("completed")||"",
+    pct:fd.get("pct")!==""?parseInt(fd.get("pct"),10):0,
+    blocker:fd.get("blocker")||"",link:fd.get("link")||"",finalLink:"",ai:fd.get("ai")||"",notes:fd.get("notes")||""
+  };
+  const newItems=getNew();newItems.push(item);
+  localStorage.setItem("bq_new",JSON.stringify(newItems));
+  localStorage.setItem("bq_ts",new Date().toISOString());
+  closeModal();refreshSaved();render();
+  showToast("Task added — click Save to GitHub to persist","ok");
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────────────────────────
+function exportCSV(){
+  const cols=["id","title","vertical","requestedBy","dateRequested","approval","stage","started","due","completed","pct","blocker","link","finalLink","ai","notes"];
+  const head=["Project ID","Title","Vertical","Requested By","Date Requested","Approval","Stage","Start Date","Target Delivery","Actual Delivery","% Complete","Blocker","Working Files","Final Asset","AI-Assisted","Notes"];
+  const data=getMerged();
+  const lines=[head.join(",")];
+  data.forEach(r=>lines.push(cols.map(k=>'"'+String(r[k]??"").replace(/"/g,'""')+'"').join(",")));
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([lines.join("\n")],{type:"text/csv"}));
+  a.download="baroque-register-"+TODAY+".csv";a.click();
+}
+
+// ── DATES + INIT ──────────────────────────────────────────────────────────────
+function setDates(){
+  const fmt=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+  document.getElementById("phDate").textContent=fmt;
+  document.getElementById("footDate").textContent="Record current as of "+fmt;
+}
+setDates();
+populateFilters();
+refreshSaved();
+</script>
+</body>
+</html>
