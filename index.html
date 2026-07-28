@@ -1383,8 +1383,10 @@ function renderToday() {
     document.getElementById("tvAddBtn").style.display = "none";
   }
 
-  // Pinned Tasks
-  const ids = getPriority();
+  // Pinned Tasks — filter out stale IDs that no longer exist in data
+  const rawIds = getPriority();
+  const ids = rawIds.filter(id => all.find(x => x.id === id));
+  if (ids.length !== rawIds.length) savePriority(ids); // auto-clean stale pins
   document.getElementById("tvPriorityCount").textContent = ids.length+" / 5";
   if (CURRENT_ROLE === "designer") {
     document.getElementById("tvAddBtn").style.display = ids.length >= 5 ? "none" : "";
