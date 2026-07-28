@@ -1016,11 +1016,25 @@ function saveCfg() {
 }
 
 // ── GITHUB LOAD ───────────────────────────────────────────────────────────────
+function applyGHPayload(raw) {
+  if (Array.isArray(raw)) {
+    // Legacy format — just projects array
+    LIVE_DATA = raw;
+  } else {
+    // New format — {data, pins, taskNotes, eodNotes}
+    LIVE_DATA = raw.data || [];
+    // Sahle gets Mark's pins and notes synced from GitHub
+    if (CURRENT_ROLE === "manager") {
+      if (raw.pins)      localStorage.setItem("bq_priority", JSON.stringify(raw.pins));
+      if (raw.taskNotes) Object.entries(raw.taskNotes).forEach(([d,n]) => localStorage.setItem("bq_focus_"+d, n));
+      if (raw.eodNotes)  Object.entries(raw.eodNotes).forEach(([d,n]) => localStorage.setItem("bq_eod_"+d, n));
+    }
+  }
+}
 async function loadGitHubData() {
   const c = getGHConfig();
   showLoader("Loading from GitHub…");
   try {
-    // Public raw URL — no token needed for reading
     const rawUrl = "https://raw.githubusercontent.com/"+c.owner+"/"+c.repo+"/"+c.branch+"/"+c.path+"?t="+Date.now();
     const res = await fetch(rawUrl);
     if (res.status === 404) {
@@ -1029,7 +1043,7 @@ async function loadGitHubData() {
       render(); return;
     }
     if (!res.ok) throw new Error("HTTP "+res.status);
-    LIVE_DATA = await res.json();
+    applyGHPayload(await res.json());
     localStorage.removeItem("bq_del");
     localStorage.removeItem("bq_ov");
     localStorage.removeItem("bq_new");
@@ -1051,8 +1065,13 @@ async function saveToGitHub() {
   btn.disabled = true; btn.textContent = "Saving…";
   showLoader("Saving to GitHub…");
   try {
-    const data    = getMerged();
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+    const data = getMerged();
+    // Bundle pins + notes so Sahle sees them on load
+    const pins      = JSON.parse(localStorage.getItem("bq_priority")||"{}");
+    const taskNotes = {}; taskNotes[TODAY] = localStorage.getItem("bq_focus_"+TODAY)||"";
+    const eodNotes  = {}; eodNotes[TODAY]  = localStorage.getItem("bq_eod_"+TODAY)||"";
+    const payload   = { data, pins, taskNotes, eodNotes };
+    const content   = btoa(unescape(encodeURIComponent(JSON.stringify(payload,null,2))));
     const url     = "https://api.github.com/repos/"+c.owner+"/"+c.repo+"/contents/"+c.path;
     // Always fetch current SHA before writing so stale/null LIVE_SHA never blocks the save
     const shaRes  = await fetch(url+"?t="+Date.now(), {
@@ -1070,7 +1089,7 @@ async function saveToGitHub() {
     if (!res.ok) { const e=await res.json(); throw new Error(e.message||"HTTP "+res.status); }
     const json = await res.json();
     LIVE_SHA  = json.content.sha;
-    LIVE_DATA = data;
+    LIVE_DATA = data; // data is the projects array (payload.data)
     localStorage.removeItem("bq_new");
     localStorage.removeItem("bq_ov");
     localStorage.removeItem("bq_del");
@@ -1785,10 +1804,12 @@ function startAutoRefresh() {
       const res = await fetch(rawUrl);
       if (!res.ok) return;
       const fresh = await res.json();
-      if (JSON.stringify(fresh) !== JSON.stringify(LIVE_DATA)) {
-        LIVE_DATA = fresh;
+      const freshData = Array.isArray(fresh) ? fresh : (fresh.data||[]);
+      if (JSON.stringify(freshData) !== JSON.stringify(LIVE_DATA)) {
+        applyGHPayload(fresh);
         render();
         if (CURRENT_TAB === "today") renderToday();
+        if (CURRENT_TAB === "eod")   renderEOD();
         showToast("Register updated with latest data","ok");
       }
     } catch(e) { /* silent */ }
