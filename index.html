@@ -921,6 +921,7 @@ const PINS = { "110826": "designer", "2027": "manager" };
 let LIVE_DATA    = null;
 let LIVE_SHA     = null;
 let EOD_VIEW_DATE = TODAY;
+let PINS_DIRTY   = false;
 let CURRENT_ROLE = null;
 
 // ── LOCK SCREEN ───────────────────────────────────────────────────────────────
@@ -1113,6 +1114,7 @@ async function saveToGitHub() {
     localStorage.removeItem("bq_new");
     localStorage.removeItem("bq_ov");
     localStorage.removeItem("bq_del");
+    PINS_DIRTY = false;
     hideLoader();
     showToast("Saved to GitHub successfully","ok");
     localStorage.setItem("bq_ts",new Date().toISOString());
@@ -1174,7 +1176,7 @@ function getMerged() {
   const newItems=getNew().map(r=>({...r,...(ov[r.id]||{})}));
   return [...base,...newItems];
 }
-function hasEdits() { const ov=getOv(); return Object.values(ov).some(v=>Object.keys(v).length>0)||getNew().length>0; }
+function hasEdits() { const ov=getOv(); return Object.values(ov).some(v=>Object.keys(v).length>0)||getNew().length>0||PINS_DIRTY; }
 function refreshSaved() {
   const el=document.getElementById("phSaved"); if(!el) return;
   const ts=localStorage.getItem("bq_ts");
@@ -1452,6 +1454,9 @@ function getPriority() {
 }
 function savePriority(ids) {
   localStorage.setItem("bq_priority", JSON.stringify({ date: TODAY, ids }));
+  PINS_DIRTY = true;
+  localStorage.setItem("bq_ts", new Date().toISOString());
+  refreshSaved();
 }
 function togglePin(id) {
   const ids = getPriority();
