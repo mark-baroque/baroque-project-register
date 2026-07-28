@@ -336,8 +336,8 @@
       "completed": "2026-07-21",
       "pct": 60,
       "blocker": "Henry Gave Minor Adjustment Jul 27",
-      "link": "https://app.netlify.com/projects/yacht-option/",
-      "finalLink": "https://app.netlify.com/projects/yacht-option/",
+      "link": "",
+      "finalLink": "https://yacht-option.netlify.app/",
       "ai": "Yes",
       "notes": "Passcode:4826 Need to change fonts as per henry, Design is Finished sent to Mr. Sahle & Henry for Final Push",
       "flagged": false
@@ -488,7 +488,7 @@
       "completed": "2026-07-06",
       "pct": 100,
       "blocker": "",
-      "link": "https://baroque-properties-option.netlify.app/",
+      "link": "",
       "finalLink": "",
       "ai": "Yes",
       "notes": "Passcode:1234 Design Is Done , Now on Test, Yesterday Jul27 - Mr. Sahle wants to changes fonts ",
@@ -1108,7 +1108,8 @@
     "ids": [
       "NEWMS4DGZA3BSAS",
       "34h59dnx",
-      "53lluis3"
+      "53lluis3",
+      "2cy6fwpw"
     ]
   },
   "taskNotes": {
