@@ -287,6 +287,21 @@ tr.dr:hover .del-btn, tr.dr:hover .flag-btn { opacity: 1; }
 /* ══ TODAY VIEW ═══════════════════════════════════════════════════════════ */
 #todayView { flex:1; min-height:0; overflow:auto; background:var(--off); display:none; padding:24px 28px; }
 #todayView.active { display:block; }
+#eodView { flex:1; min-height:0; overflow:auto; background:var(--off); display:none; padding:24px 28px; }
+#eodView.active { display:block; }
+.tab-badge.green { background:#1e6b3a; }
+.eod-hero { background:var(--navy-dk); color:#fff; border-radius:10px; padding:24px 28px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.eod-hero-date { font-family:Georgia,serif; font-size:22px; }
+.eod-hero-day  { font-size:11px; text-transform:uppercase; letter-spacing:0.07em; opacity:0.55; margin-top:3px; }
+.eod-stat { text-align:center; }
+.eod-stat-n { font-size:28px; font-weight:700; font-family:Georgia,serif; }
+.eod-stat-l { font-size:10px; text-transform:uppercase; letter-spacing:0.06em; opacity:0.6; margin-top:2px; }
+.eod-done-card { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); }
+.eod-done-card:last-child { border-bottom:none; }
+.eod-check { width:22px; height:22px; border-radius:50%; background:var(--ok); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px; color:#fff; margin-top:1px; }
+.eod-card-title { font-size:13px; font-weight:600; color:var(--ink); }
+.eod-card-meta  { font-size:11px; color:var(--muted); margin-top:2px; }
+.eod-empty { font-size:13px; color:var(--muted); font-style:italic; padding:24px 0; text-align:center; }
 .tv-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:1200px; }
 .tv-panel { background:#fff; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
 .tv-panel-hdr { background:var(--navy); color:#fff; padding:12px 16px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; display:flex; align-items:center; justify-content:space-between; }
@@ -505,6 +520,7 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
 <div class="tabbar">
   <button class="tab active" id="tabReg" onclick="switchTab('register')">Project Register</button>
   <button class="tab" id="tabToday" onclick="switchTab('today')">Tasks Board <span class="tab-badge orange" id="todayBadge" style="display:none">0</span></button>
+  <button class="tab" id="tabEod" onclick="switchTab('eod')">End of Day <span class="tab-badge green" id="eodBadge" style="display:none">0</span></button>
 </div>
 
 <!-- TOOLBAR -->
@@ -636,6 +652,58 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
         <div class="tv-panel">
           <div class="tv-panel-hdr" style="background:#2c7a5e;">Requested — Not Started <span id="tvReqCount" class="tv-count"></span></div>
           <div class="tv-panel-body" id="tvRequested"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- END OF DAY VIEW -->
+<div id="eodView">
+  <div style="max-width:1000px;">
+
+    <!-- Hero bar -->
+    <div class="eod-hero">
+      <div>
+        <div class="eod-hero-date" id="eodDate"></div>
+        <div class="eod-hero-day"  id="eodDay"></div>
+      </div>
+      <div style="display:flex;gap:32px;">
+        <div class="eod-stat"><div class="eod-stat-n" id="eodDoneCount">0</div><div class="eod-stat-l">Finished Today</div></div>
+        <div class="eod-stat"><div class="eod-stat-n" id="eodInProgCount">0</div><div class="eod-stat-l">Still In Progress</div></div>
+        <div class="eod-stat"><div class="eod-stat-n" id="eodBlockCount">0</div><div class="eod-stat-l">Blocked</div></div>
+      </div>
+    </div>
+
+    <!-- 2-col layout -->
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
+
+      <!-- LEFT: Done today -->
+      <div class="tv-panel">
+        <div class="tv-panel-hdr" style="background:#1e6b3a;">Finished Today <span id="eodDoneLbl" class="tv-count"></span></div>
+        <div class="tv-panel-body" id="eodDoneList"></div>
+      </div>
+
+      <!-- RIGHT: EOD note -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="tv-panel">
+          <div class="tv-panel-hdr" style="background:var(--navy-dk);">
+            <span>End of Day Summary</span>
+            <span style="font-size:10px;opacity:0.6;font-weight:400;">Resets daily</span>
+          </div>
+          <div class="tv-panel-body">
+            <div id="eodNoteDesigner" style="display:none;">
+              <textarea class="tv-focus-area" id="eodNote" placeholder="What did you finish today? Any handoffs, blockers resolved, or notes for Mr. Sahle…" oninput="saveEodNote()" style="min-height:140px;"></textarea>
+            </div>
+            <div id="eodNoteSahle" style="display:none;">
+              <div id="eodNoteReadOnly" style="font-size:13px;color:var(--ink);line-height:1.7;font-style:italic;min-height:80px;white-space:pre-wrap;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tv-panel">
+          <div class="tv-panel-hdr orange">Still Blocked <span id="eodBlockLbl" class="tv-count"></span></div>
+          <div class="tv-panel-body" id="eodBlockList"></div>
         </div>
       </div>
 
@@ -1136,6 +1204,7 @@ function render() {
   updateStats(all);
   attachEditHandlers();
   updateTodayBadge();
+  updateEodBadge();
 }
 
 function canEdit(field) {
@@ -1322,12 +1391,15 @@ let CURRENT_TAB = "register";
 
 function switchTab(tab) {
   CURRENT_TAB = tab;
-  document.getElementById("tabReg").classList.toggle("active", tab==="register");
+  document.getElementById("tabReg").classList.toggle("active",   tab==="register");
   document.getElementById("tabToday").classList.toggle("active", tab==="today");
-  document.querySelector(".tb").style.display   = tab==="register" ? "" : "none";
-  document.querySelector(".tc").style.display   = tab==="register" ? "" : "none";
+  document.getElementById("tabEod").classList.toggle("active",   tab==="eod");
+  document.querySelector(".tb").style.display = tab==="register" ? "" : "none";
+  document.querySelector(".tc").style.display = tab==="register" ? "" : "none";
   document.getElementById("todayView").classList.toggle("active", tab==="today");
+  document.getElementById("eodView").classList.toggle("active",   tab==="eod");
   if (tab==="today") renderToday();
+  if (tab==="eod")   renderEOD();
 }
 
 function getPriority() {
@@ -1449,6 +1521,85 @@ function renderToday() {
   renderSection("tvInReview",   "tvReviewCount", all.filter(r=>r.stage==="In Review"),  "slate", "No designs waiting on implementation.");
   renderSection("tvPending",    "tvPendCount", all.filter(r=>r.approval==="Pending"&&r.stage!=="Delivered"&&r.stage!=="Signed Off"), "purple", "No pending approvals.");
   renderSection("tvRequested",  "tvReqCount",  all.filter(r=>(r.stage==="Requested"||r.stage==="Not Started")&&r.approval!=="Pending"), "slate",  "No items in the queue.");
+}
+
+// ── END OF DAY ────────────────────────────────────────────────────────────────
+function saveEodNote() {
+  localStorage.setItem("bq_eod_"+TODAY, document.getElementById("eodNote").value);
+}
+function updateEodBadge() {
+  const done = getMerged().filter(r => r.completed === TODAY && (r.stage==="Delivered"||r.stage==="Signed Off"||r.pct==100)).length;
+  const badge = document.getElementById("eodBadge");
+  badge.textContent = done;
+  badge.style.display = done > 0 ? "" : "none";
+}
+function renderEOD() {
+  const all  = getMerged();
+  const now  = new Date();
+  document.getElementById("eodDate").textContent = now.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
+  document.getElementById("eodDay").textContent  = now.toLocaleDateString("en-GB",{weekday:"long"});
+
+  // Done today = actual delivery date is today
+  const done    = all.filter(r => r.completed === TODAY);
+  const inProg  = all.filter(r => r.stage==="In Progress");
+  const blocked = all.filter(r => r.stage==="Blocked");
+
+  // Hero stats
+  document.getElementById("eodDoneCount").textContent  = done.length;
+  document.getElementById("eodInProgCount").textContent = inProg.length;
+  document.getElementById("eodBlockCount").textContent  = blocked.length;
+  document.getElementById("eodDoneLbl").textContent     = "("+done.length+")";
+  document.getElementById("eodBlockLbl").textContent    = "("+blocked.length+")";
+
+  // Done list
+  const doneEl = document.getElementById("eodDoneList");
+  if (done.length === 0) {
+    doneEl.innerHTML = '<div class="eod-empty">Nothing marked as delivered today yet.<br>Set the Actual Delivery date to today on any completed task.</div>';
+  } else {
+    doneEl.innerHTML = done.map(r => {
+      const stk = r.stage ? r.stage.replace(/[^A-Za-z]/g,"") : "empty";
+      return `<div class="eod-done-card" onclick="openDetailPanel('${r.id}')" style="cursor:pointer;">
+        <div class="eod-check">✓</div>
+        <div style="flex:1;min-width:0;">
+          <div class="eod-card-title">${r.title}</div>
+          <div class="eod-card-meta">${r.vertical} · <span class="badge b${stk}" style="font-size:10px;padding:1px 7px;">${r.stage||"—"}</span>${r.requestedBy?" · "+r.requestedBy:""}</div>
+        </div>
+        <div class="acard-arrow">›</div>
+      </div>`;
+    }).join("");
+  }
+
+  // Blocked list
+  const blockEl = document.getElementById("eodBlockList");
+  if (blocked.length === 0) {
+    blockEl.innerHTML = '<div class="tv-empty">No blocked items — clear day!</div>';
+  } else {
+    blockEl.innerHTML = blocked.slice(0,5).map(r =>
+      `<div class="acard" onclick="openDetailPanel('${r.id}')" style="cursor:pointer;">
+        <div class="acard-dot red"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="acard-title">${r.title}</div>
+          <div class="acard-meta">${r.vertical}${r.blocker?" · "+r.blocker:""}</div>
+        </div>
+        <div class="acard-arrow">›</div>
+      </div>`
+    ).join("")+(blocked.length>5?`<span class="tv-more" onclick="void(0)">+${blocked.length-5} more</span>`:"");
+  }
+
+  // EOD note
+  const noteKey = "bq_eod_"+TODAY;
+  if (CURRENT_ROLE === "designer") {
+    document.getElementById("eodNoteDesigner").style.display = "";
+    document.getElementById("eodNoteSahle").style.display    = "none";
+    document.getElementById("eodNote").value = localStorage.getItem(noteKey)||"";
+  } else {
+    document.getElementById("eodNoteDesigner").style.display = "none";
+    document.getElementById("eodNoteSahle").style.display    = "";
+    const val = localStorage.getItem(noteKey)||"";
+    document.getElementById("eodNoteReadOnly").textContent = val || "Mark hasn't written an end of day summary yet.";
+  }
+
+  updateEodBadge();
 }
 
 // ── SECTION EXPAND/COLLAPSE ───────────────────────────────────────────────────
