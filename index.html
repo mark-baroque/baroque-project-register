@@ -310,8 +310,10 @@ tr.dr:hover .del-btn, tr.dr:hover .flag-btn { opacity: 1; }
 .acard-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:4px; }
 .acard-dot.red { background:#c0392b; }
 .acard-dot.orange { background:#e07b00; }
-.acard-dot.blue { background:#2c5098; }
-.acard-dot.green { background:#1e6b3a; }
+.acard-dot.blue   { background:#2c5098; }
+.acard-dot.green  { background:#1e6b3a; }
+.acard-dot.purple { background:#6b4a9e; }
+.acard-dot.slate  { background:#2c7a5e; }
 .acard-title { font-size:12px; font-weight:500; color:var(--ink); }
 .acard-meta { font-size:11px; color:var(--muted); margin-top:1px; }
 .tv-empty { font-size:12px; color:var(--muted); font-style:italic; padding:8px 0; }
@@ -450,7 +452,7 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
 <!-- TAB BAR -->
 <div class="tabbar">
   <button class="tab active" id="tabReg" onclick="switchTab('register')">Project Register</button>
-  <button class="tab" id="tabToday" onclick="switchTab('today')">Today's Focus <span class="tab-badge orange" id="todayBadge" style="display:none">0</span></button>
+  <button class="tab" id="tabToday" onclick="switchTab('today')">Tasks Board <span class="tab-badge orange" id="todayBadge" style="display:none">0</span></button>
 </div>
 
 <!-- TOOLBAR -->
@@ -511,33 +513,49 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
   <span id="footDate"></span>
 </footer>
 
-<!-- TODAY'S FOCUS VIEW -->
+<!-- TASKS BOARD VIEW -->
 <div id="todayView">
-  <div style="max-width:1200px;">
-    <div class="tv-date" id="tvDate"></div>
-    <div class="tv-dayname" id="tvDay"></div>
-    <div class="tv-grid">
-      <!-- LEFT: Priority + Focus Note -->
-      <div style="display:flex;flex-direction:column;gap:20px;">
+  <div style="max-width:1300px;">
+
+    <!-- Board header -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="tv-date" id="tvDate"></div>
+        <div class="tv-dayname" id="tvDay"></div>
+      </div>
+      <div id="tvDesignerNote" style="display:none;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:320px;max-width:480px;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:6px;font-weight:700;">Mark's Note for Today</div>
+        <textarea class="tv-focus-area" id="tvNote" placeholder="What are you focused on today? Goals, reminders, blockers…" oninput="saveFocusNote()" style="min-height:52px;"></textarea>
+      </div>
+      <div id="tvSahleNote" style="display:none;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;min-width:280px;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:6px;font-weight:700;">Mark's Note for Today</div>
+        <div id="tvNoteReadOnly" style="font-size:13px;color:var(--ink);line-height:1.6;font-style:italic;min-height:36px;"></div>
+      </div>
+    </div>
+
+    <!-- 3-col grid -->
+    <div style="display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:18px;align-items:start;">
+
+      <!-- COL 1: Pinned Tasks (Mark picks) -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
         <div class="tv-panel">
-          <div class="tv-panel-hdr">
-            <span>My Priority Today</span>
+          <div class="tv-panel-hdr" style="background:var(--navy-dk);">
+            <span>Pinned Tasks — Working Today</span>
             <span class="tv-count" id="tvPriorityCount">0 / 5</span>
           </div>
           <div class="tv-panel-body">
             <div id="tvPriorityList"></div>
-            <button class="tv-add-btn" id="tvAddBtn" onclick="openPriorityPicker()">+ Add task from register</button>
+            <button class="tv-add-btn" id="tvAddBtn" onclick="openPriorityPicker()" style="display:none;">+ Pick tasks from register</button>
           </div>
         </div>
         <div class="tv-panel">
-          <div class="tv-panel-hdr green">Focus Note</div>
-          <div class="tv-panel-body">
-            <textarea class="tv-focus-area" id="tvNote" placeholder="What are you focused on today? Any blockers, goals, or reminders…" oninput="saveFocusNote()"></textarea>
-          </div>
+          <div class="tv-panel-hdr" style="background:#1e6b3a;">In Progress / In Review <span id="tvProgCount" class="tv-count"></span></div>
+          <div class="tv-panel-body" id="tvInProgress"></div>
         </div>
       </div>
-      <!-- RIGHT: Auto-pulled alerts -->
-      <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <!-- COL 2: Alerts -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
         <div class="tv-panel">
           <div class="tv-panel-hdr red">Overdue <span id="tvOvrCount" class="tv-count"></span></div>
           <div class="tv-panel-body" id="tvOverdue"></div>
@@ -550,26 +568,38 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
           <div class="tv-panel-hdr slate">Blocked <span id="tvBlkCount" class="tv-count"></span></div>
           <div class="tv-panel-body" id="tvBlocked"></div>
         </div>
+      </div>
+
+      <!-- COL 3: Pending Projects -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
         <div class="tv-panel">
-          <div class="tv-panel-hdr" style="background:#1a3a6b;">In Progress <span id="tvProgCount" class="tv-count"></span></div>
-          <div class="tv-panel-body" id="tvInProgress"></div>
+          <div class="tv-panel-hdr" style="background:#6b4a9e;">Pending Approval <span id="tvPendCount" class="tv-count"></span></div>
+          <div class="tv-panel-body" id="tvPending"></div>
+        </div>
+        <div class="tv-panel">
+          <div class="tv-panel-hdr" style="background:#2c7a5e;">Requested — Not Started <span id="tvReqCount" class="tv-count"></span></div>
+          <div class="tv-panel-body" id="tvRequested"></div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
 
 <!-- PRIORITY PICKER MODAL -->
 <div id="pickerOverlay" onclick="if(event.target===this)closePicker()" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(18,40,90,0.55);backdrop-filter:blur(3px);align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:10px;width:560px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.25);">
+  <div style="background:#fff;border-radius:10px;width:580px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.25);">
     <div style="background:var(--navy);color:#fff;padding:14px 18px;font-size:13px;font-weight:700;display:flex;justify-content:space-between;align-items:center;">
-      <span>Add Task to Today's Focus</span>
+      <span>Pick Tasks — What Are You Working on Today?</span>
       <button onclick="closePicker()" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&times;</button>
     </div>
     <div style="padding:10px 14px;border-bottom:1px solid var(--line);">
-      <input type="text" id="pickerSearch" placeholder="Search tasks…" oninput="renderPicker()" style="width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:5px;font-size:12px;font-family:Arial,sans-serif;">
+      <input type="text" id="pickerSearch" placeholder="Search by title or vertical…" oninput="renderPicker()" style="width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:5px;font-size:12px;font-family:Arial,sans-serif;">
     </div>
     <div id="pickerList" style="overflow:auto;flex:1;padding:8px 0;"></div>
+    <div style="padding:10px 16px;border-top:1px solid var(--line);text-align:right;">
+      <button onclick="closePicker()" style="padding:7px 18px;background:var(--navy);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">Done</button>
+    </div>
   </div>
 </div>
 
@@ -1232,7 +1262,7 @@ function togglePin(id) {
   render();
   updateTodayBadge();
   if (CURRENT_TAB==="today") renderToday();
-  showToast(idx > -1 ? "Removed from Today's Focus" : "Pinned to Today's Focus","ok");
+  showToast(idx > -1 ? "Removed from Tasks Board" : "Pinned to Tasks Board","ok");
 }
 function saveFocusNote() {
   localStorage.setItem("bq_focus_"+TODAY, document.getElementById("tvNote").value);
@@ -1252,21 +1282,41 @@ function renderToday() {
   // Date header
   document.getElementById("tvDate").textContent = now.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
   document.getElementById("tvDay").textContent  = now.toLocaleDateString("en-GB",{weekday:"long"});
-  // Focus note
-  document.getElementById("tvNote").value = localStorage.getItem("bq_focus_"+TODAY)||"";
 
-  // Priority queue
+  // Role-based note area
+  const noteKey = "bq_focus_"+TODAY;
+  if (CURRENT_ROLE === "designer") {
+    document.getElementById("tvDesignerNote").style.display = "";
+    document.getElementById("tvSahleNote").style.display    = "none";
+    document.getElementById("tvNote").value = localStorage.getItem(noteKey)||"";
+    document.getElementById("tvAddBtn").style.display = "";
+  } else {
+    document.getElementById("tvDesignerNote").style.display = "none";
+    document.getElementById("tvSahleNote").style.display    = "";
+    const noteVal = localStorage.getItem(noteKey)||"";
+    document.getElementById("tvNoteReadOnly").textContent = noteVal || "No note from Mark today.";
+    document.getElementById("tvAddBtn").style.display = "none";
+  }
+
+  // Pinned Tasks
   const ids = getPriority();
   document.getElementById("tvPriorityCount").textContent = ids.length+" / 5";
-  document.getElementById("tvAddBtn").style.display = ids.length >= 5 ? "none" : "";
+  if (CURRENT_ROLE === "designer") {
+    document.getElementById("tvAddBtn").style.display = ids.length >= 5 ? "none" : "";
+  }
   const pList = document.getElementById("tvPriorityList");
   if (ids.length === 0) {
-    pList.innerHTML = '<div class="tv-empty">No priority tasks yet — pin tasks from the register or click + below.</div>';
+    pList.innerHTML = CURRENT_ROLE === "designer"
+      ? '<div class="tv-empty">No pinned tasks yet — click + below or pin rows from the register.</div>'
+      : '<div class="tv-empty">Mark has not pinned any tasks for today yet.</div>';
   } else {
     pList.innerHTML = ids.map((id,i) => {
       const r = all.find(x=>x.id===id);
       if (!r) return "";
       const stk = r.stage ? r.stage.replace(/[^A-Za-z]/g,"") : "empty";
+      const removeBtn = CURRENT_ROLE === "designer"
+        ? `<button class="pcard-remove" onclick="togglePin('${id}')" title="Remove">&times;</button>`
+        : "";
       return `<div class="pcard">
         <div class="pcard-num">${i+1}</div>
         <div class="pcard-body">
@@ -1277,28 +1327,31 @@ function renderToday() {
             ${r.due?`<span>Due: ${dateFmt(r.due)}</span>`:""}
           </div>
         </div>
-        <button class="pcard-remove" onclick="togglePin('${id}')" title="Remove">&times;</button>
+        ${removeBtn}
       </div>`;
     }).join("");
   }
 
   // Auto sections
-  function renderSection(elId, countId, items, dotCls) {
+  function renderSection(elId, countId, items, dotCls, emptyMsg) {
     document.getElementById(countId).textContent = "("+items.length+")";
     const el = document.getElementById(elId);
-    if (items.length===0) { el.innerHTML='<div class="tv-empty">None right now — great!</div>'; return; }
-    el.innerHTML = items.slice(0,6).map(r=>`<div class="acard">
+    const msg = emptyMsg || "None right now.";
+    if (items.length===0) { el.innerHTML='<div class="tv-empty">'+msg+'</div>'; return; }
+    el.innerHTML = items.slice(0,8).map(r=>`<div class="acard">
       <div class="acard-dot ${dotCls}"></div>
       <div>
         <div class="acard-title">${r.title}</div>
         <div class="acard-meta">${r.vertical}${r.due?" · Due "+dateFmt(r.due):""}${r.requestedBy?" · "+r.requestedBy:""}</div>
       </div>
-    </div>`).join("")+(items.length>6?`<div class="tv-empty">+${items.length-6} more</div>`:"");
+    </div>`).join("")+(items.length>8?`<div class="tv-empty">+${items.length-8} more</div>`:"");
   }
-  renderSection("tvOverdue",    "tvOvrCount",  all.filter(isOverdue),     "red");
-  renderSection("tvApproaching","tvApprCount", all.filter(isApproaching), "orange");
-  renderSection("tvBlocked",    "tvBlkCount",  all.filter(r=>r.stage==="Blocked"), "blue");
-  renderSection("tvInProgress", "tvProgCount", all.filter(r=>r.stage==="In Progress"||r.stage==="In Review"), "green");
+  renderSection("tvOverdue",    "tvOvrCount",  all.filter(isOverdue),     "red",    "No overdue items — great!");
+  renderSection("tvApproaching","tvApprCount", all.filter(isApproaching), "orange", "Nothing due this week.");
+  renderSection("tvBlocked",    "tvBlkCount",  all.filter(r=>r.stage==="Blocked"), "blue", "No blocked items.");
+  renderSection("tvInProgress", "tvProgCount", all.filter(r=>r.stage==="In Progress"||r.stage==="In Review"), "green", "No items in progress.");
+  renderSection("tvPending",    "tvPendCount", all.filter(r=>r.approval==="Pending"&&r.stage!=="Delivered"&&r.stage!=="Signed Off"), "purple", "No pending approvals.");
+  renderSection("tvRequested",  "tvReqCount",  all.filter(r=>(r.stage==="Requested"||r.stage==="Not Started")&&r.approval!=="Pending"), "slate",  "No items in the queue.");
 }
 
 // Priority picker modal
