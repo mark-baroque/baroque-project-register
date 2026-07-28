@@ -523,6 +523,7 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
     <button class="btn btn-cfg"  onclick="openCfg()" title="GitHub settings">&#9881; Settings</button>
     <button class="btn btn-csv"  onclick="exportCSV()">Export CSV</button>
     <button class="btn btn-prt"  onclick="window.print()">Print</button>
+    <button class="btn" id="btnRefresh" onclick="manualRefresh()" title="Reload latest data from GitHub" style="display:none;">&#8635; Refresh</button>
   </div>
 </div>
 
@@ -853,6 +854,7 @@ function lsEnter() {
       } else {
         loadGitHubData();
       }
+      startAutoRefresh();
     }, 400);
   } else {
     const dots = document.getElementById("lsDots");
@@ -868,6 +870,7 @@ function applyRoleUI() {
     document.getElementById("thDel").style.display = "none";
     document.querySelectorAll(".btn-cfg").forEach(b => b.style.display = "none");
     document.querySelectorAll(".btn-add").forEach(b => b.style.display = "none");
+    document.getElementById("btnRefresh").style.display = "";
   }
 }
 function showTokenPrompt() {
@@ -1569,6 +1572,34 @@ function pickerToggle(id) {
   render();
   updateTodayBadge();
   renderToday();
+}
+
+// ── SAHLE REFRESH ─────────────────────────────────────────────────────────────
+async function manualRefresh() {
+  const btn = document.getElementById("btnRefresh");
+  btn.disabled = true; btn.textContent = "Refreshing…";
+  await loadGitHubData();
+  btn.disabled = false; btn.textContent = "↻ Refresh";
+}
+
+function startAutoRefresh() {
+  if (CURRENT_ROLE !== "manager") return;
+  setInterval(async () => {
+    if (document.visibilityState !== "visible") return; // only when tab is open
+    const c = getGHConfig();
+    try {
+      const rawUrl = "https://raw.githubusercontent.com/"+c.owner+"/"+c.repo+"/"+c.branch+"/"+c.path+"?t="+Date.now();
+      const res = await fetch(rawUrl);
+      if (!res.ok) return;
+      const fresh = await res.json();
+      if (JSON.stringify(fresh) !== JSON.stringify(LIVE_DATA)) {
+        LIVE_DATA = fresh;
+        render();
+        if (CURRENT_TAB === "today") renderToday();
+        showToast("Register updated with latest data","ok");
+      }
+    } catch(e) { /* silent */ }
+  }, 60 * 60 * 1000); // 1 hour
 }
 
 // ── SECURITY ──────────────────────────────────────────────────────────────────
