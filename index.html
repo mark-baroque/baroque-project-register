@@ -371,6 +371,43 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
 #toast.t-ok  { background: #1e6b3a; }
 #toast.t-err { background: #c0392b; }
 
+/* ══ DETAIL PANEL ════════════════════════════════════════════════════════ */
+#dpOverlay { display:none; position:fixed; inset:0; z-index:8000; background:rgba(15,28,60,0.45); backdrop-filter:blur(2px); }
+#dpPanel { position:absolute; right:0; top:0; height:100%; width:480px; max-width:95vw; background:#fff; display:flex; flex-direction:column; box-shadow:-4px 0 28px rgba(0,0,0,0.18); transform:translateX(100%); transition:transform 0.22s ease; }
+#dpOverlay.open #dpPanel { transform:translateX(0); }
+.dp-hdr { background:var(--navy); color:#fff; padding:18px 22px; display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0; }
+.dp-id { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; opacity:0.55; margin-bottom:4px; }
+.dp-title { font-family:Georgia,serif; font-size:16px; font-weight:400; line-height:1.35; }
+.dp-body { flex:1; overflow-y:auto; padding:20px 22px; }
+.dp-ftr { padding:14px 22px; border-top:1px solid var(--line); display:flex; gap:10px; align-items:center; justify-content:space-between; flex-shrink:0; }
+.dp-section { margin-bottom:18px; }
+.dp-section-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:8px; border-bottom:1px solid var(--line); padding-bottom:4px; }
+.dp-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.dp-field label { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:3px; }
+.dp-field .dp-val { font-size:13px; color:var(--ink); line-height:1.4; }
+.dp-field .dp-val.empty { color:var(--muted); font-style:italic; }
+.dp-blocker { padding:12px 14px; background:var(--red-bg); border-left:3px solid var(--red); border-radius:0 6px 6px 0; margin-bottom:14px; }
+.dp-blocker-lbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--red); margin-bottom:4px; }
+.dp-blocker-val { font-size:13px; color:var(--ink); line-height:1.5; }
+.dp-notes { font-size:13px; color:var(--ink); line-height:1.6; white-space:pre-wrap; background:var(--off); border:1px solid var(--line); border-radius:6px; padding:10px 12px; }
+.dp-link { color:var(--navy-lt); text-decoration:underline; font-size:13px; }
+.dp-chips { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; }
+.btn-jump { padding:8px 18px; background:var(--navy); color:#fff; border:none; border-radius:5px; font-size:12px; font-weight:600; cursor:pointer; }
+.btn-jump:hover { background:var(--navy-dk); }
+
+/* acard hover & arrow */
+.acard { cursor:pointer; transition:background 0.1s; }
+.acard:hover { background:var(--navy-xpale); }
+.acard-arrow { font-size:14px; color:var(--muted); margin-left:auto; flex-shrink:0; align-self:center; opacity:0.5; }
+
+/* tv-more expand button */
+.tv-more { display:inline-block; margin-top:8px; font-size:11.5px; color:var(--navy-lt); cursor:pointer; font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+.tv-more:hover { color:var(--navy); }
+
+/* row flash when jumping from board */
+@keyframes rowFlash { 0%,100%{background:inherit} 30%{background:#d6e8ff} }
+.row-flash { animation:rowFlash 1.6s ease; }
+
 /* ══ PRINT ════════════════════════════════════════════════════════════════ */
 @media print {
   body { overflow: visible; height: auto; display: block; }
@@ -600,6 +637,21 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
     <div style="padding:10px 16px;border-top:1px solid var(--line);text-align:right;">
       <button onclick="closePicker()" style="padding:7px 18px;background:var(--navy);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">Done</button>
     </div>
+  </div>
+</div>
+
+<!-- PROJECT DETAIL PANEL -->
+<div id="dpOverlay" onclick="if(event.target===this)closeDetailPanel()">
+  <div id="dpPanel" onclick="event.stopPropagation()">
+    <div class="dp-hdr">
+      <div style="flex:1;min-width:0;margin-right:12px;">
+        <div class="dp-id" id="dpMeta"></div>
+        <div class="dp-title" id="dpTitle"></div>
+      </div>
+      <button onclick="closeDetailPanel()" style="background:none;border:none;color:rgba(255,255,255,0.7);font-size:26px;cursor:pointer;line-height:1;padding:0;flex-shrink:0;">&times;</button>
+    </div>
+    <div class="dp-body" id="dpBody"></div>
+    <div class="dp-ftr" id="dpFtr"></div>
   </div>
 </div>
 
@@ -1321,9 +1373,9 @@ function renderToday() {
       if (!r) return "";
       const stk = r.stage ? r.stage.replace(/[^A-Za-z]/g,"") : "empty";
       const removeBtn = CURRENT_ROLE === "designer"
-        ? `<button class="pcard-remove" onclick="togglePin('${id}')" title="Remove">&times;</button>`
+        ? `<button class="pcard-remove" onclick="event.stopPropagation();togglePin('${id}')" title="Remove">&times;</button>`
         : "";
-      return `<div class="pcard">
+      return `<div class="pcard" onclick="openDetailPanel('${id}')" style="cursor:pointer;">
         <div class="pcard-num">${i+1}</div>
         <div class="pcard-body">
           <div class="pcard-title">${r.title}</div>
@@ -1339,18 +1391,27 @@ function renderToday() {
   }
 
   // Auto sections
+  const LIMIT = 5;
   function renderSection(elId, countId, items, dotCls, emptyMsg) {
     document.getElementById(countId).textContent = "("+items.length+")";
     const el = document.getElementById(elId);
-    const msg = emptyMsg || "None right now.";
-    if (items.length===0) { el.innerHTML='<div class="tv-empty">'+msg+'</div>'; return; }
-    el.innerHTML = items.slice(0,8).map(r=>`<div class="acard">
+    if (items.length===0) { el.innerHTML='<div class="tv-empty">'+(emptyMsg||"None right now.")+'</div>'; return; }
+    const expanded = EXPANDED_SECTIONS.has(elId);
+    const visible  = expanded ? items : items.slice(0, LIMIT);
+    const overflow = items.length - LIMIT;
+    el.innerHTML = visible.map(r=>`<div class="acard" onclick="openDetailPanel('${r.id}')">
       <div class="acard-dot ${dotCls}"></div>
-      <div>
+      <div style="flex:1;min-width:0;">
         <div class="acard-title">${r.title}</div>
         <div class="acard-meta">${r.vertical}${r.due?" · Due "+dateFmt(r.due):""}${r.requestedBy?" · "+r.requestedBy:""}</div>
       </div>
-    </div>`).join("")+(items.length>8?`<div class="tv-empty">+${items.length-8} more</div>`:"");
+      <div class="acard-arrow">›</div>
+    </div>`).join("");
+    if (!expanded && overflow > 0) {
+      el.innerHTML += `<span class="tv-more" onclick="toggleSection('${elId}')">+ ${overflow} more</span>`;
+    } else if (expanded && items.length > LIMIT) {
+      el.innerHTML += `<span class="tv-more" onclick="toggleSection('${elId}')">Show less ↑</span>`;
+    }
   }
   renderSection("tvOverdue",    "tvOvrCount",  all.filter(isOverdue),     "red",    "No overdue items — great!");
   renderSection("tvApproaching","tvApprCount", all.filter(isApproaching), "orange", "Nothing due this week.");
@@ -1358,6 +1419,95 @@ function renderToday() {
   renderSection("tvInProgress", "tvProgCount", all.filter(r=>r.stage==="In Progress"||r.stage==="In Review"), "green", "No items in progress.");
   renderSection("tvPending",    "tvPendCount", all.filter(r=>r.approval==="Pending"&&r.stage!=="Delivered"&&r.stage!=="Signed Off"), "purple", "No pending approvals.");
   renderSection("tvRequested",  "tvReqCount",  all.filter(r=>(r.stage==="Requested"||r.stage==="Not Started")&&r.approval!=="Pending"), "slate",  "No items in the queue.");
+}
+
+// ── SECTION EXPAND/COLLAPSE ───────────────────────────────────────────────────
+const EXPANDED_SECTIONS = new Set();
+function toggleSection(elId) {
+  EXPANDED_SECTIONS.has(elId) ? EXPANDED_SECTIONS.delete(elId) : EXPANDED_SECTIONS.add(elId);
+  renderToday();
+}
+
+// ── PROJECT DETAIL PANEL ──────────────────────────────────────────────────────
+function dpField(label, val, style) {
+  const display = val ? `<div class="dp-val"${style?` style="${style}"`:""}>${val}</div>` : `<div class="dp-val empty">—</div>`;
+  return `<div class="dp-field"><label>${label}</label>${display}</div>`;
+}
+function openDetailPanel(id) {
+  const r = getMerged().find(x => x.id === id);
+  if (!r) return;
+  const stk = r.stage ? r.stage.replace(/[^A-Za-z]/g,"") : "empty";
+  document.getElementById("dpMeta").textContent = (r.vertical||"") + (r.id ? "  ·  " + r.id : "");
+  document.getElementById("dpTitle").textContent = r.title || "Untitled";
+
+  // Status chips
+  const chipApvBg  = r.approval==="Approved" ? "var(--ok-bg)" : r.approval==="Pending" ? "var(--amber-bg)" : "#eee";
+  const chipApvClr = r.approval==="Approved" ? "var(--ok)"    : r.approval==="Pending" ? "var(--amber)"    : "#666";
+  let chips = "";
+  if (r.stage)    chips += `<span class="badge b${stk}" style="font-size:11px;padding:3px 10px;">${r.stage}</span>`;
+  if (r.approval) chips += `<span style="font-size:11px;padding:3px 10px;background:${chipApvBg};color:${chipApvClr};border-radius:4px;font-weight:600;">${r.approval}</span>`;
+  if (r.pct!=null && r.pct!=="") chips += `<span style="font-size:11px;padding:3px 10px;background:var(--navy-pale);color:var(--navy);border-radius:4px;font-weight:700;">${r.pct}%</span>`;
+  if (r.ai==="Yes") chips += `<span style="font-size:11px;padding:3px 10px;background:#f0e8f8;color:#6b4a9e;border-radius:4px;">AI‑Assisted</span>`;
+
+  const dueCls = r.due && isOverdue(r) ? "color:var(--red);font-weight:600;" : isApproaching(r) ? "color:#e07b00;font-weight:600;" : "";
+
+  document.getElementById("dpBody").innerHTML = `
+    <div class="dp-chips">${chips||"<span style='font-size:12px;color:var(--muted);font-style:italic;'>No status set</span>"}</div>
+
+    <div class="dp-section">
+      <div class="dp-section-label">Dates</div>
+      <div class="dp-grid">
+        ${dpField("Date Requested", dateFmt(r.dateRequested))}
+        ${dpField("Start Date",     dateFmt(r.started))}
+        ${dpField("Target Delivery",dateFmt(r.due), dueCls)}
+        ${dpField("Actual Delivery",dateFmt(r.completed))}
+      </div>
+    </div>
+
+    ${r.requestedBy ? `<div class="dp-section">
+      <div class="dp-section-label">Requested By</div>
+      <div class="dp-field"><div class="dp-val">${r.requestedBy}</div></div>
+    </div>` : ""}
+
+    ${r.blocker ? `<div class="dp-blocker">
+      <div class="dp-blocker-lbl">Blocker</div>
+      <div class="dp-blocker-val">${r.blocker}</div>
+    </div>` : ""}
+
+    ${r.link ? `<div class="dp-section">
+      <div class="dp-section-label">Working Files</div>
+      <a href="${r.link}" target="_blank" class="dp-link">Open file ↗</a>
+    </div>` : ""}
+
+    ${r.notes ? `<div class="dp-section">
+      <div class="dp-section-label">Notes</div>
+      <div class="dp-notes">${r.notes}</div>
+    </div>` : ""}
+  `;
+
+  const ftr = document.getElementById("dpFtr");
+  ftr.innerHTML = `<span style="font-size:11px;color:var(--muted);">ID: ${r.id}</span>`
+    + (CURRENT_ROLE==="designer" ? `<button class="btn-jump" onclick="jumpToRegister('${r.id}')">Edit in Register →</button>` : "");
+
+  const ov = document.getElementById("dpOverlay");
+  ov.style.display = "block";
+  setTimeout(() => ov.classList.add("open"), 10);
+}
+function closeDetailPanel() {
+  const ov = document.getElementById("dpOverlay");
+  ov.classList.remove("open");
+  setTimeout(() => { ov.style.display = "none"; }, 230);
+}
+function jumpToRegister(id) {
+  closeDetailPanel();
+  switchTab("register");
+  setTimeout(() => {
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    if (!row) return;
+    row.scrollIntoView({ behavior:"smooth", block:"center" });
+    row.classList.add("row-flash");
+    setTimeout(() => row.classList.remove("row-flash"), 1800);
+  }, 260);
 }
 
 // Priority picker modal
