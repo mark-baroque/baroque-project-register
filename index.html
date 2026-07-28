@@ -674,31 +674,45 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
         <div class="eod-hero-day"  id="eodDay"></div>
       </div>
       <div style="display:flex;gap:32px;">
-        <div class="eod-stat"><div class="eod-stat-n" id="eodDoneCount">0</div><div class="eod-stat-l">Finished Today</div></div>
-        <div class="eod-stat"><div class="eod-stat-n" id="eodInProgCount">0</div><div class="eod-stat-l">Still In Progress</div></div>
+        <div class="eod-stat"><div class="eod-stat-n" id="eodDoneCount">0</div><div class="eod-stat-l" id="eodDoneStatLbl">Finished Today</div></div>
+        <div class="eod-stat"><div class="eod-stat-n" id="eodInProgCount">0</div><div class="eod-stat-l">In Progress</div></div>
+        <div class="eod-stat"><div class="eod-stat-n" id="eodReviewStatN">0</div><div class="eod-stat-l">In Review</div></div>
         <div class="eod-stat"><div class="eod-stat-n" id="eodBlockCount">0</div><div class="eod-stat-l">Blocked</div></div>
       </div>
+    </div>
+
+    <!-- Date History Navigation -->
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;justify-content:center;">
+      <button onclick="eodPrev()" style="padding:5px 14px;background:var(--navy);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">← Earlier</button>
+      <div style="text-align:center;min-width:180px;">
+        <div id="eodNavLabel" style="font-size:13px;font-weight:700;color:var(--navy);"></div>
+        <div id="eodNavSub" style="font-size:10px;color:var(--muted);"></div>
+      </div>
+      <button id="eodNextBtn" onclick="eodNext()" style="padding:5px 14px;background:var(--navy);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">Later →</button>
     </div>
 
     <!-- 2-col layout -->
     <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
 
-      <!-- LEFT: Done today -->
+      <!-- LEFT: Done on selected date -->
       <div class="tv-panel">
-        <div class="tv-panel-hdr" style="background:#1e6b3a;">Finished Today <span id="eodDoneLbl" class="tv-count"></span></div>
+        <div class="tv-panel-hdr" style="background:#1e6b3a;" id="eodDoneHdr">Finished Today <span id="eodDoneLbl" class="tv-count"></span></div>
         <div class="tv-panel-body" id="eodDoneList"></div>
       </div>
 
-      <!-- RIGHT: EOD note -->
+      <!-- RIGHT: EOD note + Still Blocked -->
       <div style="display:flex;flex-direction:column;gap:18px;">
         <div class="tv-panel">
           <div class="tv-panel-hdr" style="background:var(--navy-dk);">
-            <span>End of Day Summary</span>
-            <span style="font-size:10px;opacity:0.6;font-weight:400;">Resets daily</span>
+            <span id="eodNoteHdrLabel">End of Day Summary</span>
+            <span style="font-size:10px;opacity:0.6;font-weight:400;" id="eodNoteHdrSub">Today</span>
           </div>
           <div class="tv-panel-body">
             <div id="eodNoteDesigner" style="display:none;">
               <textarea class="tv-focus-area" id="eodNote" placeholder="What did you finish today? Any handoffs, blockers resolved, or notes for Mr. Sahle…" oninput="saveEodNote()" style="min-height:140px;"></textarea>
+            </div>
+            <div id="eodNotePastDesigner" style="display:none;">
+              <div id="eodNotePastReadOnly" style="font-size:13px;color:var(--ink);line-height:1.7;font-style:italic;min-height:80px;white-space:pre-wrap;"></div>
             </div>
             <div id="eodNoteSahle" style="display:none;">
               <div id="eodNoteReadOnly" style="font-size:13px;color:var(--ink);line-height:1.7;font-style:italic;min-height:80px;white-space:pre-wrap;"></div>
@@ -712,6 +726,17 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
       </div>
 
     </div>
+
+    <!-- In Review — full width, below 2-col -->
+    <div class="tv-panel" style="margin-top:20px;">
+      <div class="tv-panel-hdr" style="background:#34748a;">
+        In Review — Design Done, Awaiting Implementation
+        <span id="eodReviewLbl" class="tv-count"></span>
+        <span style="font-size:10px;opacity:0.65;font-weight:400;margin-left:auto;" id="eodReviewRoleHint"></span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0;" id="eodReviewList"></div>
+    </div>
+
   </div>
 </div>
 
@@ -906,6 +931,7 @@ const PINS = { "110826": "designer", "2027": "manager" };
 
 let LIVE_DATA    = null;
 let LIVE_SHA     = null;
+let EOD_VIEW_DATE = TODAY;
 let CURRENT_ROLE = null;
 
 // ── LOCK SCREEN ───────────────────────────────────────────────────────────────
@@ -1068,8 +1094,13 @@ async function saveToGitHub() {
     const data = getMerged();
     // Bundle pins + notes so Sahle sees them on load
     const pins      = JSON.parse(localStorage.getItem("bq_priority")||"{}");
-    const taskNotes = {}; taskNotes[TODAY] = localStorage.getItem("bq_focus_"+TODAY)||"";
-    const eodNotes  = {}; eodNotes[TODAY]  = localStorage.getItem("bq_eod_"+TODAY)||"";
+    // Collect ALL bq_focus_* and bq_eod_* keys so history is preserved for Sahle
+    const taskNotes = {};
+    const eodNotes  = {};
+    Object.keys(localStorage).forEach(k => {
+      if (k.startsWith("bq_focus_")) { const v=localStorage.getItem(k); if(v) taskNotes[k.replace("bq_focus_","")] = v; }
+      if (k.startsWith("bq_eod_"))   { const v=localStorage.getItem(k); if(v) eodNotes[k.replace("bq_eod_","")]   = v; }
+    });
     const payload   = { data, pins, taskNotes, eodNotes };
     const content   = btoa(unescape(encodeURIComponent(JSON.stringify(payload,null,2))));
     const url     = "https://api.github.com/repos/"+c.owner+"/"+c.repo+"/contents/"+c.path;
@@ -1422,7 +1453,7 @@ function switchTab(tab) {
   document.getElementById("todayView").classList.toggle("active", tab==="today");
   document.getElementById("eodView").classList.toggle("active",   tab==="eod");
   if (tab==="today") renderToday();
-  if (tab==="eod")   renderEOD();
+  if (tab==="eod")   { EOD_VIEW_DATE = TODAY; renderEOD(); }
 }
 
 function getPriority() {
@@ -1563,27 +1594,47 @@ function updateEodBadge() {
   badge.style.display = done > 0 ? "" : "none";
 }
 function renderEOD() {
-  const all  = getMerged();
-  const now  = new Date();
+  const all     = getMerged();
+  const viewDate = EOD_VIEW_DATE;
+  const isToday  = viewDate === TODAY;
+
+  // Hero date always shows today's actual date
+  const now = new Date();
   document.getElementById("eodDate").textContent = now.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
   document.getElementById("eodDay").textContent  = now.toLocaleDateString("en-GB",{weekday:"long"});
 
-  // Done today = actual delivery date is today
-  const done    = all.filter(r => r.completed === TODAY);
+  // Date nav
+  const viewD   = new Date(viewDate+"T12:00:00");
+  const navFmt  = viewD.toLocaleDateString("en-GB",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+  document.getElementById("eodNavLabel").textContent = isToday ? "Today" : navFmt;
+  document.getElementById("eodNavSub").textContent   = isToday ? viewDate : "Viewing history — "+viewDate;
+  document.getElementById("eodNextBtn").disabled     = isToday;
+  document.getElementById("eodNextBtn").style.opacity = isToday ? "0.35" : "1";
+
+  // Panel header label
+  const shortDate = viewD.toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
+  document.getElementById("eodDoneHdr").innerHTML = (isToday ? "Finished Today" : "Finished on "+shortDate) + ' <span id="eodDoneLbl" class="tv-count">('+all.filter(r=>r.completed===viewDate).length+')</span>';
+  document.getElementById("eodDoneStatLbl").textContent = isToday ? "Finished Today" : "Finished "+shortDate;
+
+  // Live stats (always current)
+  const done    = all.filter(r => r.completed === viewDate);
   const inProg  = all.filter(r => r.stage==="In Progress");
+  const inRev   = all.filter(r => r.stage==="In Review");
   const blocked = all.filter(r => r.stage==="Blocked");
 
-  // Hero stats
-  document.getElementById("eodDoneCount").textContent  = done.length;
-  document.getElementById("eodInProgCount").textContent = inProg.length;
-  document.getElementById("eodBlockCount").textContent  = blocked.length;
-  document.getElementById("eodDoneLbl").textContent     = "("+done.length+")";
-  document.getElementById("eodBlockLbl").textContent    = "("+blocked.length+")";
+  document.getElementById("eodDoneCount").textContent    = done.length;
+  document.getElementById("eodInProgCount").textContent  = inProg.length;
+  document.getElementById("eodReviewStatN").textContent  = inRev.length;
+  document.getElementById("eodBlockCount").textContent   = blocked.length;
+  document.getElementById("eodBlockLbl").textContent     = "("+blocked.length+")";
 
-  // Done list
+  // Done list (filtered by viewDate)
   const doneEl = document.getElementById("eodDoneList");
   if (done.length === 0) {
-    doneEl.innerHTML = '<div class="eod-empty">Nothing marked as delivered today yet.<br>Set the Actual Delivery date to today on any completed task.</div>';
+    const msg = isToday
+      ? 'Nothing delivered today yet.<br>Use the tick ✓ on In Progress cards or set Actual Delivery to today.'
+      : 'No deliveries recorded for this date.';
+    doneEl.innerHTML = '<div class="eod-empty">'+msg+'</div>';
   } else {
     doneEl.innerHTML = done.map(r => {
       const stk = r.stage ? r.stage.replace(/[^A-Za-z]/g,"") : "empty";
@@ -1598,7 +1649,7 @@ function renderEOD() {
     }).join("");
   }
 
-  // Blocked list
+  // Blocked list (always live)
   const blockEl = document.getElementById("eodBlockList");
   if (blocked.length === 0) {
     blockEl.innerHTML = '<div class="tv-empty">No blocked items — clear day!</div>';
@@ -1615,20 +1666,71 @@ function renderEOD() {
     ).join("")+(blocked.length>5?`<span class="tv-more" onclick="void(0)">+${blocked.length-5} more</span>`:"");
   }
 
-  // EOD note
-  const noteKey = "bq_eod_"+TODAY;
-  if (CURRENT_ROLE === "designer") {
-    document.getElementById("eodNoteDesigner").style.display = "";
-    document.getElementById("eodNoteSahle").style.display    = "none";
-    document.getElementById("eodNote").value = localStorage.getItem(noteKey)||"";
+  // In Review panel (always live)
+  const revEl = document.getElementById("eodReviewList");
+  document.getElementById("eodReviewLbl").textContent = "("+inRev.length+")";
+  document.getElementById("eodReviewRoleHint").textContent = CURRENT_ROLE==="manager"
+    ? "Click any item to review & update approval"
+    : "Design done — waiting on development";
+  if (inRev.length === 0) {
+    revEl.innerHTML = '<div class="tv-empty" style="grid-column:1/-1;">All clear — nothing waiting on implementation!</div>';
   } else {
-    document.getElementById("eodNoteDesigner").style.display = "none";
-    document.getElementById("eodNoteSahle").style.display    = "";
-    const val = localStorage.getItem(noteKey)||"";
-    document.getElementById("eodNoteReadOnly").textContent = val || "Mark hasn't written an end of day summary yet.";
+    revEl.innerHTML = inRev.map(r =>
+      `<div class="acard" onclick="openDetailPanel('${r.id}')" style="cursor:pointer;border-bottom:1px solid var(--line);">
+        <div class="acard-dot slate"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="acard-title">${r.title}</div>
+          <div class="acard-meta">${r.vertical}${r.requestedBy?" · "+r.requestedBy:""}${r.link?` · <a href="${r.link}" target="_blank" onclick="event.stopPropagation()" style="color:var(--navy);text-decoration:none;">View Design ↗</a>`:""}</div>
+        </div>
+        ${CURRENT_ROLE==="manager" ? `<span class="badge b${(r.approval||"Pending").replace(/[^A-Za-z]/g,"")}" style="font-size:10px;flex-shrink:0;">${r.approval||"Pending"}</span>` : ""}
+        <div class="acard-arrow">›</div>
+      </div>`
+    ).join("");
+  }
+
+  // EOD note (uses viewDate for key)
+  const noteKey = "bq_eod_"+viewDate;
+  const noteVal = localStorage.getItem(noteKey)||"";
+  const noteHdrSub = isToday ? "Today" : shortDate;
+  document.getElementById("eodNoteHdrSub").textContent = noteHdrSub;
+
+  if (CURRENT_ROLE === "designer") {
+    if (isToday) {
+      // Editable
+      document.getElementById("eodNoteDesigner").style.display     = "";
+      document.getElementById("eodNotePastDesigner").style.display = "none";
+      document.getElementById("eodNoteSahle").style.display        = "none";
+      document.getElementById("eodNote").value = noteVal;
+    } else {
+      // Past day — read-only for designer too
+      document.getElementById("eodNoteDesigner").style.display     = "none";
+      document.getElementById("eodNotePastDesigner").style.display = "";
+      document.getElementById("eodNoteSahle").style.display        = "none";
+      document.getElementById("eodNotePastReadOnly").textContent = noteVal || "No summary written for this day.";
+    }
+  } else {
+    document.getElementById("eodNoteDesigner").style.display     = "none";
+    document.getElementById("eodNotePastDesigner").style.display = "none";
+    document.getElementById("eodNoteSahle").style.display        = "";
+    document.getElementById("eodNoteReadOnly").textContent = noteVal || (isToday ? "Mark hasn't written today's summary yet." : "No summary written for this day.");
   }
 
   updateEodBadge();
+}
+
+function eodPrev() {
+  const d = new Date(EOD_VIEW_DATE+"T12:00:00");
+  d.setDate(d.getDate()-1);
+  EOD_VIEW_DATE = d.toISOString().slice(0,10);
+  renderEOD();
+}
+function eodNext() {
+  const d = new Date(EOD_VIEW_DATE+"T12:00:00");
+  d.setDate(d.getDate()+1);
+  const next = d.toISOString().slice(0,10);
+  if (next > TODAY) return;
+  EOD_VIEW_DATE = next;
+  renderEOD();
 }
 
 // ── MARK DONE TODAY ───────────────────────────────────────────────────────────
