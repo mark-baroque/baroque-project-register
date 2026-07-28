@@ -34,7 +34,7 @@
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=114-1186&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "Design is Sent On Slack Still not yet implemented",
+    "notes": "Design is Sent On Slack Still not yet implemented on Access Website",
     "flagged": false
   },
   {
@@ -91,7 +91,7 @@
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=1-3767&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "Design is Sent On Slack Still not yet implemented",
+    "notes": "Design is Sent On Slack Still not yet implemented on Access Website",
     "flagged": false
   },
   {
@@ -101,16 +101,16 @@
     "requestedBy": "Mr. Sahle",
     "dateRequested": "2026-07-06",
     "approval": "Approved",
-    "stage": "Delivered",
+    "stage": "In Review",
     "started": "2026-07-07",
-    "due": "",
+    "due": "2026-07-06",
     "completed": "2026-07-14",
-    "pct": 100,
-    "blocker": "",
+    "pct": 80,
+    "blocker": "Pending AI From Mr. Sahle",
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=67-77&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "Done",
+    "notes": "Design is Sent On Slack Still not yet implemented on Access Website",
     "flagged": false
   },
   {
@@ -120,16 +120,16 @@
     "requestedBy": "Mr. Sahle",
     "dateRequested": "2026-06-26",
     "approval": "Approved",
-    "stage": "Delivered",
+    "stage": "In Review",
     "started": "2026-06-26",
     "due": "2026-07-25",
     "completed": "2026-06-30",
-    "pct": 100,
+    "pct": 80,
     "blocker": "",
     "link": "https://app.netlify.com/projects/baroque-access-invitation/",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "",
+    "notes": "Design is updated but still not implemented ",
     "flagged": false
   },
   {
@@ -1060,7 +1060,7 @@
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "Design is Sent On Slack Still not yet implemented",
+    "notes": "Design is Sent On Slack Still not yet implemented on Access Website",
     "flagged": false
   },
   {
@@ -1070,7 +1070,7 @@
     "requestedBy": "Mr. Sahle",
     "dateRequested": "2026-06-30",
     "approval": "Approved",
-    "stage": "Approved",
+    "stage": "In Review",
     "started": "2026-06-25",
     "due": "2026-06-26",
     "completed": "2026-06-26",
@@ -1079,7 +1079,7 @@
     "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472&t=jwPOrdH0TreB1RPy-1",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "Design is Sent On Slack Still not yet implemented",
+    "notes": "Design is Sent On Slack Still not yet implemented on Access Website",
     "flagged": false
   },
   {
