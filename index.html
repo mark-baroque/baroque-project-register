@@ -676,7 +676,6 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
       <div style="display:flex;gap:32px;">
         <div class="eod-stat"><div class="eod-stat-n" id="eodDoneCount">0</div><div class="eod-stat-l" id="eodDoneStatLbl">Finished Today</div></div>
         <div class="eod-stat"><div class="eod-stat-n" id="eodInProgCount">0</div><div class="eod-stat-l">In Progress</div></div>
-        <div class="eod-stat"><div class="eod-stat-n" id="eodReviewStatN">0</div><div class="eod-stat-l">In Review</div></div>
         <div class="eod-stat"><div class="eod-stat-n" id="eodBlockCount">0</div><div class="eod-stat-l">Blocked</div></div>
       </div>
     </div>
@@ -725,16 +724,6 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
         </div>
       </div>
 
-    </div>
-
-    <!-- In Review — full width, below 2-col -->
-    <div class="tv-panel" style="margin-top:20px;">
-      <div class="tv-panel-hdr" style="background:#34748a;">
-        In Review — Design Done, Awaiting Implementation
-        <span id="eodReviewLbl" class="tv-count"></span>
-        <span style="font-size:10px;opacity:0.65;font-weight:400;margin-left:auto;" id="eodReviewRoleHint"></span>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0;" id="eodReviewList"></div>
     </div>
 
   </div>
@@ -1619,12 +1608,10 @@ function renderEOD() {
   // Live stats (always current)
   const done    = all.filter(r => r.completed === viewDate);
   const inProg  = all.filter(r => r.stage==="In Progress");
-  const inRev   = all.filter(r => r.stage==="In Review");
   const blocked = all.filter(r => r.stage==="Blocked");
 
   document.getElementById("eodDoneCount").textContent    = done.length;
   document.getElementById("eodInProgCount").textContent  = inProg.length;
-  document.getElementById("eodReviewStatN").textContent  = inRev.length;
   document.getElementById("eodBlockCount").textContent   = blocked.length;
   document.getElementById("eodBlockLbl").textContent     = "("+blocked.length+")";
 
@@ -1664,28 +1651,6 @@ function renderEOD() {
         <div class="acard-arrow">›</div>
       </div>`
     ).join("")+(blocked.length>5?`<span class="tv-more" onclick="void(0)">+${blocked.length-5} more</span>`:"");
-  }
-
-  // In Review panel (always live)
-  const revEl = document.getElementById("eodReviewList");
-  document.getElementById("eodReviewLbl").textContent = "("+inRev.length+")";
-  document.getElementById("eodReviewRoleHint").textContent = CURRENT_ROLE==="manager"
-    ? "Click any item to review & update approval"
-    : "Design done — waiting on development";
-  if (inRev.length === 0) {
-    revEl.innerHTML = '<div class="tv-empty" style="grid-column:1/-1;">All clear — nothing waiting on implementation!</div>';
-  } else {
-    revEl.innerHTML = inRev.map(r =>
-      `<div class="acard" onclick="openDetailPanel('${r.id}')" style="cursor:pointer;border-bottom:1px solid var(--line);">
-        <div class="acard-dot slate"></div>
-        <div style="flex:1;min-width:0;">
-          <div class="acard-title">${r.title}</div>
-          <div class="acard-meta">${r.vertical}${r.requestedBy?" · "+r.requestedBy:""}${r.link?` · <a href="${r.link}" target="_blank" onclick="event.stopPropagation()" style="color:var(--navy);text-decoration:none;">View Design ↗</a>`:""}</div>
-        </div>
-        ${CURRENT_ROLE==="manager" ? `<span class="badge b${(r.approval||"Pending").replace(/[^A-Za-z]/g,"")}" style="font-size:10px;flex-shrink:0;">${r.approval||"Pending"}</span>` : ""}
-        <div class="acard-arrow">›</div>
-      </div>`
-    ).join("");
   }
 
   // EOD note (uses viewDate for key)
