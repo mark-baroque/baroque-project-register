@@ -328,8 +328,8 @@
     "vertical": "Baroque Yachts",
     "requestedBy": "Sohail",
     "dateRequested": "2026-06-12",
-    "approval": "Pending",
-    "stage": "In Review",
+    "approval": "Approved",
+    "stage": "In Progress",
     "started": "2026-07-13",
     "due": "2026-07-31",
     "completed": "2026-07-21",
@@ -338,7 +338,7 @@
     "link": "",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "Delivered to Sohail",
+    "notes": "Need to change fonts as per henry ",
     "flagged": false
   },
   {
@@ -481,7 +481,7 @@
     "requestedBy": "Sohail",
     "dateRequested": "2026-06-12",
     "approval": "Approved",
-    "stage": "In Review",
+    "stage": "In Progress",
     "started": "2026-06-30",
     "due": "2026-07-30",
     "completed": "2026-07-06",
@@ -490,7 +490,7 @@
     "link": "",
     "finalLink": "",
     "ai": "Yes",
-    "notes": "Design Is Done , Now on Test",
+    "notes": "Design Is Done , Now on Test, Yesterday Jul27 - Mr. Sahle wants to changes fonts ",
     "flagged": false
   },
   {
