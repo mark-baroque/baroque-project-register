@@ -853,7 +853,6 @@ function lsEnter() {
       } else {
         loadGitHubData();
       }
-      startAutoRefresh();
     }, 400);
   } else {
     const dots = document.getElementById("lsDots");
@@ -1071,25 +1070,6 @@ function refreshSaved() {
   }
 }
 
-// ── AUTO-REFRESH FOR SAHLE (manager) ─────────────────────────────────────────
-function startAutoRefresh() {
-  if(CURRENT_ROLE !== "manager") return;
-  setInterval(async () => {
-    const c = getGHConfig();
-    try {
-      const rawUrl = "https://raw.githubusercontent.com/"+c.owner+"/"+c.repo+"/"+c.branch+"/"+c.path+"?t="+Date.now();
-      const res = await fetch(rawUrl);
-      if(!res.ok) return;
-      const fresh = await res.json();
-      if(JSON.stringify(fresh) !== JSON.stringify(LIVE_DATA)) {
-        LIVE_DATA = fresh;
-        render();
-        if(CURRENT_TAB==="today") renderToday();
-        showToast("Register updated — refreshed from GitHub","ok");
-      }
-    } catch(e) { /* silent fail */ }
-  }, 2 * 60 * 1000); // every 2 minutes
-}
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function isOverdue(r)     { if(!r.due)return false; return (r.stage!=="Delivered"&&r.stage!=="Signed Off")&&r.due<TODAY; }
