@@ -1770,10 +1770,19 @@ function openDetailPanel(id) {
       <div class="dp-blocker-val">${r.blocker}</div>
     </div>` : ""}
 
-    ${r.link ? `<div class="dp-section">
+    <div class="dp-section">
       <div class="dp-section-label">Working Files</div>
-      <a href="${r.link}" target="_blank" class="dp-link">Open file ↗</a>
-    </div>` : ""}
+      ${r.link
+        ? `<a href="${r.link}" target="_blank" class="dp-link">Open file ↗</a>`
+        : `<span style="font-size:13px;color:var(--muted);font-style:italic;">No file linked yet</span>`}
+    </div>
+
+    <div class="dp-section">
+      <div class="dp-section-label">Final Asset</div>
+      ${r.finalLink
+        ? `<a href="${r.finalLink}" target="_blank" class="dp-link">Open final ↗</a>`
+        : `<span style="font-size:13px;color:var(--muted);font-style:italic;">Not delivered yet</span>`}
+    </div>
 
     ${r.notes ? `<div class="dp-section">
       <div class="dp-section-label">Notes</div>
