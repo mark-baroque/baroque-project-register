@@ -422,7 +422,11 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
 /* acard hover & arrow */
 .acard { cursor:pointer; transition:background 0.1s; }
 .acard:hover { background:var(--navy-xpale); }
-.acard-arrow { font-size:14px; color:var(--muted); margin-left:auto; flex-shrink:0; align-self:center; opacity:0.5; }
+.acard-arrow { font-size:14px; color:var(--muted); flex-shrink:0; align-self:center; opacity:0.5; }
+
+/* tick done button on In Progress cards */
+.tick-done { width:26px; height:26px; border-radius:50%; border:2px solid #1e6b3a; background:#fff; color:#1e6b3a; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; align-self:center; transition:all 0.15s; margin-right:4px; }
+.tick-done:hover { background:#1e6b3a; color:#fff; transform:scale(1.1); }
 
 /* tv-more expand button */
 .tv-more { display:inline-block; margin-top:8px; font-size:11.5px; color:var(--navy-lt); cursor:pointer; font-weight:600; text-decoration:underline; text-underline-offset:2px; }
@@ -1493,21 +1497,27 @@ function renderToday() {
 
   // Auto sections
   const LIMIT = 5;
-  function renderSection(elId, countId, items, dotCls, emptyMsg) {
+  function renderSection(elId, countId, items, dotCls, emptyMsg, showTick) {
     document.getElementById(countId).textContent = "("+items.length+")";
     const el = document.getElementById(elId);
     if (items.length===0) { el.innerHTML='<div class="tv-empty">'+(emptyMsg||"None right now.")+'</div>'; return; }
     const expanded = EXPANDED_SECTIONS.has(elId);
     const visible  = expanded ? items : items.slice(0, LIMIT);
     const overflow = items.length - LIMIT;
-    el.innerHTML = visible.map(r=>`<div class="acard" onclick="openDetailPanel('${r.id}')">
-      <div class="acard-dot ${dotCls}"></div>
-      <div style="flex:1;min-width:0;">
-        <div class="acard-title">${r.title}</div>
-        <div class="acard-meta">${r.vertical}${r.due?" · Due "+dateFmt(r.due):""}${r.requestedBy?" · "+r.requestedBy:""}</div>
-      </div>
-      <div class="acard-arrow">›</div>
-    </div>`).join("");
+    el.innerHTML = visible.map(r=>{
+      const tick = (showTick && CURRENT_ROLE==="designer")
+        ? `<button class="tick-done" onclick="event.stopPropagation();markDoneToday('${r.id}')" title="Mark as finished today">✓</button>`
+        : "";
+      return `<div class="acard" onclick="openDetailPanel('${r.id}')">
+        <div class="acard-dot ${dotCls}"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="acard-title">${r.title}</div>
+          <div class="acard-meta">${r.vertical}${r.due?" · Due "+dateFmt(r.due):""}${r.requestedBy?" · "+r.requestedBy:""}</div>
+        </div>
+        ${tick}
+        <div class="acard-arrow">›</div>
+      </div>`;
+    }).join("");
     if (!expanded && overflow > 0) {
       el.innerHTML += `<span class="tv-more" onclick="toggleSection('${elId}')">+ ${overflow} more</span>`;
     } else if (expanded && items.length > LIMIT) {
@@ -1517,7 +1527,7 @@ function renderToday() {
   renderSection("tvOverdue",    "tvOvrCount",  all.filter(isOverdue),     "red",    "No overdue items — great!");
   renderSection("tvApproaching","tvApprCount", all.filter(isApproaching), "orange", "Nothing due this week.");
   renderSection("tvBlocked",    "tvBlkCount",  all.filter(r=>r.stage==="Blocked"), "blue", "No blocked items.");
-  renderSection("tvInProgress", "tvProgCount",  all.filter(r=>r.stage==="In Progress"), "green", "Nothing actively in progress.");
+  renderSection("tvInProgress", "tvProgCount",  all.filter(r=>r.stage==="In Progress"), "green", "Nothing actively in progress.", true);
   renderSection("tvInReview",   "tvReviewCount", all.filter(r=>r.stage==="In Review"),  "slate", "No designs waiting on implementation.");
   renderSection("tvPending",    "tvPendCount", all.filter(r=>r.approval==="Pending"&&r.stage!=="Delivered"&&r.stage!=="Signed Off"), "purple", "No pending approvals.");
   renderSection("tvRequested",  "tvReqCount",  all.filter(r=>(r.stage==="Requested"||r.stage==="Not Started")&&r.approval!=="Pending"), "slate",  "No items in the queue.");
@@ -1600,6 +1610,20 @@ function renderEOD() {
   }
 
   updateEodBadge();
+}
+
+// ── MARK DONE TODAY ───────────────────────────────────────────────────────────
+function markDoneToday(id) {
+  const ov = getOv();
+  if (!ov[id]) ov[id] = {};
+  ov[id].stage     = "Delivered";
+  ov[id].completed = TODAY;
+  ov[id].pct       = 100;
+  saveOv(ov);
+  render();
+  renderToday();
+  updateEodBadge();
+  showToast("Marked as done — check End of Day tab ✓", "ok");
 }
 
 // ── SECTION EXPAND/COLLAPSE ───────────────────────────────────────────────────
