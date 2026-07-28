@@ -602,8 +602,12 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
           </div>
         </div>
         <div class="tv-panel">
-          <div class="tv-panel-hdr" style="background:#1e6b3a;">In Progress / In Review <span id="tvProgCount" class="tv-count"></span></div>
+          <div class="tv-panel-hdr" style="background:#1e6b3a;">In Progress <span id="tvProgCount" class="tv-count"></span></div>
           <div class="tv-panel-body" id="tvInProgress"></div>
+        </div>
+        <div class="tv-panel">
+          <div class="tv-panel-hdr" style="background:#1a6b55;">In Review — Awaiting Implementation <span id="tvReviewCount" class="tv-count"></span></div>
+          <div class="tv-panel-body" id="tvInReview"></div>
         </div>
       </div>
 
@@ -1439,7 +1443,8 @@ function renderToday() {
   renderSection("tvOverdue",    "tvOvrCount",  all.filter(isOverdue),     "red",    "No overdue items — great!");
   renderSection("tvApproaching","tvApprCount", all.filter(isApproaching), "orange", "Nothing due this week.");
   renderSection("tvBlocked",    "tvBlkCount",  all.filter(r=>r.stage==="Blocked"), "blue", "No blocked items.");
-  renderSection("tvInProgress", "tvProgCount", all.filter(r=>r.stage==="In Progress"||r.stage==="In Review"), "green", "No items in progress.");
+  renderSection("tvInProgress", "tvProgCount",  all.filter(r=>r.stage==="In Progress"), "green", "Nothing actively in progress.");
+  renderSection("tvInReview",   "tvReviewCount", all.filter(r=>r.stage==="In Review"),  "slate", "No designs waiting on implementation.");
   renderSection("tvPending",    "tvPendCount", all.filter(r=>r.approval==="Pending"&&r.stage!=="Delivered"&&r.stage!=="Signed Off"), "purple", "No pending approvals.");
   renderSection("tvRequested",  "tvReqCount",  all.filter(r=>(r.stage==="Requested"||r.stage==="Not Started")&&r.approval!=="Pending"), "slate",  "No items in the queue.");
 }
