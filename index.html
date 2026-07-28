@@ -925,6 +925,7 @@ let LIVE_DATA    = null;
 let LIVE_SHA     = null;
 let EOD_VIEW_DATE = TODAY;
 let PINS_DIRTY   = false;
+let EOD_DIRTY    = false;
 let CURRENT_ROLE = null;
 
 // ── LOCK SCREEN ───────────────────────────────────────────────────────────────
@@ -1118,6 +1119,7 @@ async function saveToGitHub() {
     localStorage.removeItem("bq_ov");
     localStorage.removeItem("bq_del");
     PINS_DIRTY = false;
+    EOD_DIRTY  = false;
     hideLoader();
     showToast("Saved to GitHub successfully","ok");
     localStorage.setItem("bq_ts",new Date().toISOString());
@@ -1179,7 +1181,7 @@ function getMerged() {
   const newItems=getNew().map(r=>({...r,...(ov[r.id]||{})}));
   return [...base,...newItems];
 }
-function hasEdits() { const ov=getOv(); return Object.values(ov).some(v=>Object.keys(v).length>0)||getNew().length>0||PINS_DIRTY; }
+function hasEdits() { const ov=getOv(); return Object.values(ov).some(v=>Object.keys(v).length>0)||getNew().length>0||PINS_DIRTY||EOD_DIRTY; }
 function refreshSaved() {
   const el=document.getElementById("phSaved"); if(!el) return;
   const ts=localStorage.getItem("bq_ts");
@@ -1598,6 +1600,9 @@ function renderToday() {
 // ── END OF DAY ────────────────────────────────────────────────────────────────
 function saveEodNote() {
   localStorage.setItem("bq_eod_"+TODAY, document.getElementById("eodNote").value);
+  EOD_DIRTY = true;
+  localStorage.setItem("bq_ts", new Date().toISOString());
+  refreshSaved();
 }
 function updateEodBadge() {
   const done = getMerged().filter(r => r.completed === TODAY && (r.stage==="Delivered"||r.stage==="Signed Off"||r.pct==100)).length;
