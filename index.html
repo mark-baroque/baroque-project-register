@@ -224,7 +224,9 @@ tr.dr.overdue:hover td { background: #fbd0cc; }
 tr.dr.approaching td { background: #fff4e6; }
 tr.dr.approaching:hover td { background: #ffe8cc; }
 tr.dr.approaching td.miss { background: #ffd9a8 !important; }
-td.cid  { color: var(--muted); font-family: 'Courier New', monospace; font-size: 10.5px; white-space: nowrap; }
+td.cid  { color: var(--muted); font-family: 'Courier New', monospace; font-size: 10.5px; white-space: nowrap; cursor:pointer; user-select:none; }
+td.cid:hover { color: var(--navy); background: var(--navy-xpale) !important; }
+td.cid:hover::after { content: " ⎘"; font-size:10px; opacity:0.5; }
 td.ctit { font-size: 12.5px; font-weight: 500; max-width: 215px; }
 td.cver { white-space: nowrap; font-size: 12px; }
 td.cnot { font-size: 11.5px; color: var(--muted); max-width: 180px; }
@@ -1149,7 +1151,7 @@ function buildRow(r,odd) {
   const overSty=overdue?' style="color:#c0392b;font-weight:600"':"";
   const tags=[r.flagged?'<span class="tag t-flag">Flagged</span>':"",overdue?'<span class="tag t-over">Overdue</span>':"",approaching?'<span class="tag t-appr">Due Soon</span>':""].join("");
   return '<tr class="'+cls+'" data-id="'+r.id+'">'
-    +'<td class="cid">'+r.id+'</td>'
+    +'<td class="cid" onclick="copyId(\''+r.id+'\')" title="Click to copy ID">'+r.id+'</td>'
     +'<td'+ec("title"," ctit")+'>'+tags+r.title+'</td>'
     +'<td'+ec("vertical"," cver")+'>'+r.vertical+'</td>'
     +'<td'+ec("requestedBy", (r.requestedBy?"":" miss"))+'>'+dash(r.requestedBy)+'</td>'
@@ -1572,6 +1574,15 @@ function pickerToggle(id) {
   render();
   updateTodayBadge();
   renderToday();
+}
+
+// ── COPY ID ───────────────────────────────────────────────────────────────────
+function copyId(id) {
+  navigator.clipboard.writeText(id).then(() => {
+    showToast("Copied: " + id, "ok");
+  }).catch(() => {
+    showToast("Could not copy — try again", "err");
+  });
 }
 
 // ── SAHLE REFRESH ─────────────────────────────────────────────────────────────
