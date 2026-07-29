@@ -606,7 +606,7 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
       </div>
       <div id="tvSahleNote" style="display:none;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;min-width:280px;">
         <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:6px;font-weight:700;">Mark's Note for Today</div>
-        <div id="tvNoteReadOnly" style="font-size:13px;color:var(--ink);line-height:1.6;font-style:italic;min-height:36px;"></div>
+        <div id="tvNoteReadOnly" style="font-size:13px;color:var(--ink);line-height:1.6;font-style:italic;min-height:36px;white-space:pre-wrap;"></div>
       </div>
     </div>
 
@@ -1533,7 +1533,7 @@ function renderToday() {
     document.getElementById("tvDesignerNote").style.display = "none";
     document.getElementById("tvSahleNote").style.display    = "";
     const noteVal = localStorage.getItem(noteKey)||"";
-    document.getElementById("tvNoteReadOnly").textContent = noteVal || "No note from Mark today.";
+    document.getElementById("tvNoteReadOnly").textContent = noteVal || "No note from Mark today."; // pre-wrap handles newlines
     document.getElementById("tvAddBtn").style.display = "none";
   }
 
