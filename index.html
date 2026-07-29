@@ -1408,9 +1408,8 @@ function statFilter(id, stageVal) {
 function populateFilters(){
   const vSel=document.getElementById("fv");
   VERT_ORDER.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;vSel.appendChild(o);});
-  const stages=[...new Set(BASE.map(r=>r.stage))].sort();
   const sSel=document.getElementById("fs");
-  stages.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sSel.appendChild(o);});
+  STAGE_OPTS.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sSel.appendChild(o);});
   const approvals=[...new Set(BASE.map(r=>r.approval).filter(Boolean))].sort();
   const aSel=document.getElementById("fa");
   approvals.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=a;aSel.appendChild(o);});
