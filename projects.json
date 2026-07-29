@@ -1139,6 +1139,25 @@
       "finalLink": "",
       "ai": "",
       "notes": "Mr. Sahle is asking about the LUJO V3 design. However, since I was prioritizing other tasks, I haven't been able to complete it yet. I have now allocated time to work on it, but I need confirmation on what you would like me to prioritize or work on first."
+    },
+    {
+      "id": "NEWMS674G437K6W",
+      "flagged": false,
+      "title": "Test Website ",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-07-29",
+      "approval": "",
+      "stage": "Requested",
+      "started": "",
+      "due": "2026-07-31",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Mr. Sahle has asked me to perform a complete end-to-end test of the member request flow on baroqueaccess.com and screen-record the entire process.\n\nThe test includes:\n\n* Submitting a member request (Book a Ride or Dining Request).\n* Pricing the request and sending the quotation from the agent workbench.\n* Confirming the quotation as the member through WhatsApp and the app.\n* Adding a guest to the request.\n* Completing the process by moving it to **Closed Won** on the agent side.\n\nHowever, I haven't started the test yet because I need full agent access. At the moment, I only have designer access, which doesn't allow me to create or send quotations. Those actions require agent-level permissions."
     }
   ],
   "pins": {
@@ -1156,6 +1175,6 @@
   },
   "eodNotes": {
     "2026-07-28": "I've finished the three major tasks for today:\n\n1. Updated the images across the verticals – Completed from my end. I also sent the bugs to Slack, and Mr. Sahle's AI will handle the fixes.\n\n2. Properties Option  Agent – Mr. Sahle approved the design, especially the typography and overall contrast. His only feedback was to make a few changes.\n\n3. Yacht Option – He liked this version better than the first design. He mentioned that it only needs a few minor adjustments, and we'll finalize it tomorrow.",
-    "2026-07-29": "1. I sent the Baroque Access Website Bug Documentation to Mr. Sahle via Slack.\n\n2. Along with the documentation, I also sent the design files for the All the overdue Baroque Access items so they can be implemented on the website.\n\n3.The accountant's signature for Baroque Group has been updated."
+    "2026-07-29": "1. I sent the Baroque Access Website Bug Documentation to Mr. Sahle via Slack. - NEW TASK : Mr Sahle now requesting me a recording screen of test from end to end but before that I request the full or agen access in order for me to test it. \n\n2. Along with the documentation, I also sent the design files for the All the overdue Baroque Access items so they can be implemented on the website.\n\n3.The accountant's signature for Baroque Group has been updated."
   }
 }
