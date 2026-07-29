@@ -7,11 +7,11 @@
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-07-13",
       "approval": "Pending",
-      "stage": "In Progress",
+      "stage": "Delivered",
       "started": "2026-06-29",
       "due": "2026-07-14",
-      "completed": "2026-07-14",
-      "pct": 80,
+      "completed": "2026-07-29",
+      "pct": 100,
       "blocker": "Pending AI From Mr. Sahle",
       "link": "",
       "finalLink": "",
@@ -1110,11 +1110,11 @@
       "requestedBy": "Tayaba Ali",
       "dateRequested": "2026-07-28",
       "approval": "",
-      "stage": "In Progress",
+      "stage": "Delivered",
       "started": "2026-07-28",
       "due": "2026-07-29",
-      "completed": "",
-      "pct": 0,
+      "completed": "2026-07-29",
+      "pct": 100,
       "blocker": "",
       "link": "",
       "finalLink": "",
@@ -1136,6 +1136,7 @@
     "2026-07-29": "Minor Revisions\n\n1. Baroque Yacht Option – I made a few minor design adjustments. As discussed with Mr. Sahle, we will finalize the design today pending his final confirmation.\n\n2. Baroque Properties Option – I made minor updates to the typography and the property card layout. It is now awaiting Mr. Sahle's final confirmation before development.\n\n3.Baroque Access Website QA – I am preparing the QA documentation and will send it to Mr. Sahle via Slack or email so the AI can process it. This project is currently overdue, including the email templates, newsletters, and WhatsApp notifications. All of the designs are already complete, but they have not yet been fully implemented on the Baroque Access website.\n\n4. Accountants requested a signature for baroque group"
   },
   "eodNotes": {
-    "2026-07-28": "I've finished the three major tasks for today:\n\n1. Updated the images across the verticals – Completed from my end. I also sent the bugs to Slack, and Mr. Sahle's AI will handle the fixes.\n\n2. Properties Option  Agent – Mr. Sahle approved the design, especially the typography and overall contrast. His only feedback was to make a few changes.\n\n3. Yacht Option – He liked this version better than the first design. He mentioned that it only needs a few minor adjustments, and we'll finalize it tomorrow."
+    "2026-07-28": "I've finished the three major tasks for today:\n\n1. Updated the images across the verticals – Completed from my end. I also sent the bugs to Slack, and Mr. Sahle's AI will handle the fixes.\n\n2. Properties Option  Agent – Mr. Sahle approved the design, especially the typography and overall contrast. His only feedback was to make a few changes.\n\n3. Yacht Option – He liked this version better than the first design. He mentioned that it only needs a few minor adjustments, and we'll finalize it tomorrow.",
+    "2026-07-29": "1. I sent the Baroque Access Website Bug Documentation to Mr. Sahle via Slack.\n\n2. Along with the documentation, I also sent the design files for the All the overdue Baroque Access items so they can be implemented on the website.\n\n3.The accountant's signature for Baroque Group has been updated."
   }
 }
