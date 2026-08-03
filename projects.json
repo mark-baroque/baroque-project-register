@@ -1161,15 +1161,13 @@
     }
   ],
   "pins": {
-    "date": "2026-07-29",
+    "date": "2026-08-03",
     "ids": [
-      "34h59dnx",
-      "53lluis3",
-      "2cy6fwpw",
-      "NEWMS4LDEJZ23NG"
+      "NEWMSCXC0OT1SSW"
     ]
   },
   "taskNotes": {
+    "2026-08-03": "Test the Baroque Access website ",
     "2026-07-28": "3 pinned task ",
     "2026-07-29": "Minor Revisions\n\n1. Baroque Yacht Option – Made minor design adjustments. As discussed with Mr. Sahle, the design will be finalized today pending his approval.\n\n2. Baroque Properties Option– Updated the typography and property card layout. The design is now awaiting Mr. Sahle's final approval before development.\n\n3. Baroque Access Website QA – Preparing the QA documentation to send to Mr. Sahle via Slack or email for AI processing. This overdue project also includes the email templates, newsletters, and WhatsApp notifications. All designs are complete but have not yet been fully implemented on the Baroque Access website.\n\n4. Baroque Group – Updated the accountant's email signature as requested."
   },
