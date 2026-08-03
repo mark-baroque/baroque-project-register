@@ -1147,8 +1147,8 @@
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-08-03",
-      "approval": "",
-      "stage": "Requested",
+      "approval": "Pending",
+      "stage": "In Review",
       "started": "2026-08-03",
       "due": "2026-08-05",
       "completed": "",
@@ -1173,6 +1173,7 @@
   },
   "eodNotes": {
     "2026-07-28": "I've finished the three major tasks for today:\n\n1. Updated the images across the verticals – Completed from my end. I also sent the bugs to Slack, and Mr. Sahle's AI will handle the fixes.\n\n2. Properties Option  Agent – Mr. Sahle approved the design, especially the typography and overall contrast. His only feedback was to make a few changes.\n\n3. Yacht Option – He liked this version better than the first design. He mentioned that it only needs a few minor adjustments, and we'll finalize it tomorrow.",
-    "2026-07-29": "1. I sent the **Baroque Access Website Bug Documentation** to Mr. Sahle via Slack.\n\n   **New Task:** Mr. Sahle has requested that I need to perform and screen-record a complete end-to-end test of the member request flow. Before I can begin, I have requested full agent access, as my current designer access does not allow me to complete the required agent tasks.\n\n2. Along with the documentation, I also sent the design files for all overdue **Baroque Access** items so they can be implemented on the website.  \n\n3. The accountant's signature for **Baroque Group** has been updated."
+    "2026-07-29": "1. I sent the **Baroque Access Website Bug Documentation** to Mr. Sahle via Slack.\n\n   **New Task:** Mr. Sahle has requested that I need to perform and screen-record a complete end-to-end test of the member request flow. Before I can begin, I have requested full agent access, as my current designer access does not allow me to complete the required agent tasks.\n\n2. Along with the documentation, I also sent the design files for all overdue **Baroque Access** items so they can be implemented on the website.  \n\n3. The accountant's signature for **Baroque Group** has been updated.",
+    "2026-08-03": "I completed the full Baroque Access testing requested by Mr. Sahle and documented the results in the attached text file. However, I wasn't able to complete the end-to-end flow because I don't have the required access.\n"
   }
 }
