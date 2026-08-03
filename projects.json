@@ -330,10 +330,10 @@
       "requestedBy": "Sohail",
       "dateRequested": "2026-06-12",
       "approval": "Approved",
-      "stage": "Revising",
+      "stage": "Delivered",
       "started": "2026-07-13",
       "due": "2026-07-31",
-      "completed": "2026-07-28",
+      "completed": "2026-08-03",
       "pct": 100,
       "blocker": "Henry Gave Minor Adjustment Jul 27",
       "link": "",
@@ -1141,23 +1141,23 @@
       "notes": "Mr. Sahle is asking about the LUJO V3 design. However, since I was prioritizing other tasks, I haven't been able to complete it yet. I have now allocated time to work on it, but I need confirmation on what you would like me to prioritize or work on first."
     },
     {
-      "id": "NEWMS674G437K6W",
+      "id": "NEWMSCXC0OT1SSW",
       "flagged": false,
-      "title": "Test Website ",
+      "title": "Staging Test for Baroque Website Access",
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
-      "dateRequested": "2026-07-29",
+      "dateRequested": "2026-08-03",
       "approval": "",
       "stage": "Requested",
-      "started": "",
-      "due": "2026-07-31",
+      "started": "2026-08-03",
+      "due": "2026-08-05",
       "completed": "",
       "pct": 0,
       "blocker": "",
       "link": "",
       "finalLink": "",
       "ai": "",
-      "notes": "Mr. Sahle has asked me to perform a complete end-to-end test of the member request flow on baroqueaccess.com and screen-record the entire process.\n\nThe test includes:\n\n* Submitting a member request (Book a Ride or Dining Request).\n* Pricing the request and sending the quotation from the agent workbench.\n* Confirming the quotation as the member through WhatsApp and the app.\n* Adding a guest to the request.\n* Completing the process by moving it to **Closed Won** on the agent side.\n\nHowever, I haven't started the test yet because I need full agent access. At the moment, I only have designer access, which doesn't allow me to create or send quotations. Those actions require agent-level permissions."
+      "notes": "Objective\nPerform a complete QA verification on the STAGING environment before launch.\n\nTasks\n\nVerify Request Forms (/requests/new)\nTest location autocomplete\nVerify maps (Properties, Hotels, Wellness)\nTest date picker on desktop and iPhone/Safari\nCheck scrolling behavior\nVerify Aviation (Round Trip → Multi-leg data reset)\nIdentify UI/UX issues (overlaps, spacing, responsiveness, performance)\nPerform end-to-end workflow (Create Request → Price → Confirm → Add Guest → Closed Won)\nRecord one complete screen recording\nDocument findings with screenshots and videos\nSubmit QA report and bug list\nProvide pending social media links"
     }
   ],
   "pins": {
