@@ -265,8 +265,25 @@ a.fl { color: var(--navy-md); text-decoration: none; font-size: 11.5px; font-wei
 a.fl:hover { text-decoration: underline; }
 .dash { color: #bbb; }
 .note-text { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
-.note-toggle { background: none; border: none; color: var(--navy-md); font-size: 11px; font-weight: 600; cursor: pointer; padding: 0; margin-left: 2px; text-decoration: underline; }
-.note-toggle:hover { color: var(--navy-dk); }
+.note-more { color: var(--navy-md); font-size: 11px; font-weight: 600; text-decoration: underline; cursor: pointer; }
+.note-add  { font-size: 11px; color: var(--navy-lt); font-style: italic; opacity: 0.75; }
+/* ── Notes Modal ── */
+#nmBg { display:none; position:fixed; inset:0; z-index:600; background:rgba(15,28,60,0.55); backdrop-filter:blur(3px); align-items:center; justify-content:center; }
+#nmBg.open { display:flex; }
+#nmCard { background:#fff; border-radius:12px; width:100%; max-width:480px; max-height:80vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(15,28,60,0.3); overflow:hidden; margin:0 16px; }
+#nmHdr { background:var(--navy); color:#fff; padding:16px 20px; display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0; }
+#nmMeta { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; opacity:0.55; margin-bottom:4px; }
+#nmTitle { font-family:Georgia,serif; font-size:15px; font-weight:400; line-height:1.35; }
+#nmBody { flex:1; overflow-y:auto; padding:20px; }
+#nmLbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:10px; }
+#nmTA { width:100%; min-height:150px; border:1px solid var(--line); border-radius:6px; padding:12px 14px; font-size:13px; font-family:Arial,Helvetica,sans-serif; color:var(--ink); line-height:1.7; resize:vertical; background:var(--off); outline:none; transition:border-color 0.15s; }
+#nmTA:focus { border-color:var(--navy-lt); background:#fff; }
+#nmRO { font-size:13px; color:var(--ink); line-height:1.7; white-space:pre-wrap; background:var(--off); border:1px solid var(--line); border-radius:6px; padding:12px 14px; min-height:80px; }
+#nmFtr { padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:8px; justify-content:flex-end; flex-shrink:0; }
+.nm-btn { padding:8px 18px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--ink); transition:background 0.1s; }
+.nm-btn:hover { background:var(--off); }
+.nm-btn.nm-primary { background:var(--navy); color:#fff; border-color:var(--navy); }
+.nm-btn.nm-primary:hover { background:var(--navy-md); }
 .del-btn  { opacity: 0; background: none; border: none; color: #c0392b; font-size: 15px; cursor: pointer; padding: 2px 5px; border-radius: 4px; line-height: 1; transition: all 0.1s; }
 .del-btn:hover  { background: #fde8e6; }
 .flag-btn { opacity: 0; background: none; border: none; font-size: 13px; cursor: pointer; padding: 2px 5px; border-radius: 4px; line-height: 1; transition: all 0.1s; color: #bbb; }
@@ -855,6 +872,28 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
   </div>
 </div>
 
+<!-- NOTES MODAL -->
+<div id="nmBg" onclick="if(event.target===this)closeNoteModal()">
+  <div id="nmCard" onclick="event.stopPropagation()">
+    <div id="nmHdr">
+      <div style="flex:1;min-width:0;margin-right:12px;">
+        <div id="nmMeta"></div>
+        <div id="nmTitle"></div>
+      </div>
+      <button onclick="closeNoteModal()" style="background:none;border:none;color:rgba(255,255,255,0.7);font-size:26px;cursor:pointer;line-height:1;padding:0;flex-shrink:0;">&times;</button>
+    </div>
+    <div id="nmBody">
+      <div id="nmLbl">Notes</div>
+      <textarea id="nmTA" placeholder="Add a note for this task…"></textarea>
+      <div id="nmRO"></div>
+    </div>
+    <div id="nmFtr">
+      <button class="nm-btn" onclick="closeNoteModal()">Cancel</button>
+      <button class="nm-btn nm-primary" id="nmSaveBtn" onclick="saveNoteModal()">Save Note</button>
+    </div>
+  </div>
+</div>
+
 <!-- GITHUB SETTINGS MODAL -->
 <div id="cfgOverlay" onclick="cfgOverlayClick(event)">
   <div class="cfg-panel" onclick="event.stopPropagation()">
@@ -1227,23 +1266,11 @@ function linkH(href) { if(!href)return '<span class="dash">—</span>'; return '
 function dash(v)     { return v||'<span class="dash">—</span>'; }
 const NOTE_LIMIT = 60;
 function noteHtml(v) {
-  if(!v) return '<span class="dash">—</span>';
-  if(v.length <= NOTE_LIMIT) return '<span class="note-text">'+v+'</span>';
-  const short = v.slice(0, NOTE_LIMIT).trim();
-  const esc   = v.replace(/'/g,"&#39;").replace(/"/g,"&quot;");
-  return '<span class="note-text note-collapsed" data-full="'+esc+'" data-short="'+short.replace(/'/g,"&#39;").replace(/"/g,"&quot;")+'">'+short+'… <button class="note-toggle" onclick="toggleNote(this)">see more</button></span>';
-}
-function toggleNote(btn) {
-  const sp = btn.closest('.note-text');
-  if(sp.classList.contains('note-collapsed')) {
-    sp.innerHTML = sp.dataset.full + ' <button class="note-toggle" onclick="toggleNote(this)">see less</button>';
-    sp.classList.remove('note-collapsed');
-    sp.classList.add('note-expanded');
-  } else {
-    sp.innerHTML = sp.dataset.short + '… <button class="note-toggle" onclick="toggleNote(this)">see more</button>';
-    sp.classList.remove('note-expanded');
-    sp.classList.add('note-collapsed');
-  }
+  if (!v) return CURRENT_ROLE === 'designer'
+    ? '<span class="note-add">+ Add note</span>'
+    : '<span class="dash">—</span>';
+  if (v.length <= NOTE_LIMIT) return '<span class="note-text">'+v+'</span>';
+  return '<span class="note-text">'+v.slice(0, NOTE_LIMIT).trim()+'… <span class="note-more">see more</span></span>';
 }
 
 // ── SORT / FILTER ─────────────────────────────────────────────────────────────
@@ -1329,7 +1356,7 @@ function buildRow(r,odd) {
     +'<td'+ec("link")+'>'+linkH(r.link)+'</td>'
     +'<td'+ec("finalLink")+'>'+linkH(r.finalLink)+'</td>'
     +'<td'+ec("ai", (r.ai?"":" miss"))+'>'+(r.ai?'<span class="badge b'+r.ai+'">'+r.ai+'</span>':'<span class="dash">—</span>')+'</td>'
-    +'<td'+ec("notes"," cnot")+'>'+noteHtml(r.notes)+'</td>'
+    +'<td'+ec("notes"," cnot")+' onclick="openNoteModal(\''+r.id+'\')" style="cursor:pointer;">'+noteHtml(r.notes)+'</td>'
     +(CURRENT_ROLE==="designer"?'<td class="td-del"><button class="pin-btn'+(getPriority().includes(r.id)?' on':'')+'" onclick="togglePin(\''+r.id+'\')" title="Pin to Today\'s Focus">&#128204;</button><button class="flag-btn'+(r.flagged?' on':'')+'" onclick="toggleFlag(\''+r.id+'\')" title="'+(r.flagged?'Unflag':'Flag')+' this row">&#9873;</button><button class="del-btn" onclick="deleteRow(\''+r.id+'\')" title="Delete row">&times;</button></td>':'<td></td>')
     +'</tr>';
 }
@@ -1351,6 +1378,7 @@ function startEdit(e) {
   const td=this;
   if(td.querySelector("input,select"))return;
   const field=td.dataset.f;
+  if(field==="notes")return;
   if(!canEdit(field))return;
   const row=td.closest("tr[data-id]");if(!row)return;
   const id=row.dataset.id;
@@ -1438,6 +1466,46 @@ function populateFilters(){
   approvals.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=a;aSel.appendChild(o);});
   const bl=document.createElement("option");bl.value="(blank)";bl.textContent="Not yet set";aSel.appendChild(bl);
 }
+
+// ── NOTES MODAL ───────────────────────────────────────────────────────────────
+let NM_ID = null;
+function openNoteModal(id) {
+  const r = getMerged().find(x => x.id === id);
+  if (!r) return;
+  NM_ID = id;
+  document.getElementById("nmMeta").textContent = (r.vertical||"") + (r.id ? "  ·  " + r.id : "");
+  document.getElementById("nmTitle").textContent = r.title || "Untitled";
+  const isDesigner = CURRENT_ROLE === "designer";
+  const ta  = document.getElementById("nmTA");
+  const ro  = document.getElementById("nmRO");
+  const btn = document.getElementById("nmSaveBtn");
+  if (isDesigner) {
+    ta.value = r.notes || "";
+    ta.style.display = ""; ro.style.display = "none"; btn.style.display = "";
+  } else {
+    ro.textContent = r.notes || "No notes added for this task yet.";
+    ta.style.display = "none"; ro.style.display = ""; btn.style.display = "none";
+  }
+  document.getElementById("nmBg").classList.add("open");
+  if (isDesigner) setTimeout(() => ta.focus(), 50);
+}
+function closeNoteModal() {
+  document.getElementById("nmBg").classList.remove("open");
+  NM_ID = null;
+}
+function saveNoteModal() {
+  if (!NM_ID) return;
+  const v  = document.getElementById("nmTA").value;
+  const ov = getOv();
+  if (!ov[NM_ID]) ov[NM_ID] = {};
+  ov[NM_ID]["notes"] = v;
+  saveOv(ov);
+  closeNoteModal();
+  render();
+}
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape" && NM_ID) closeNoteModal();
+});
 
 // ── ADD TASK ──────────────────────────────────────────────────────────────────
 function openModal()  { document.getElementById("overlay").classList.add("open"); }
