@@ -264,6 +264,9 @@ td input.ci, td select.cs { width: 100%; border: none; background: transparent; 
 a.fl { color: var(--navy-md); text-decoration: none; font-size: 11.5px; font-weight: 500; }
 a.fl:hover { text-decoration: underline; }
 .dash { color: #bbb; }
+.note-text { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.note-toggle { background: none; border: none; color: var(--navy-md); font-size: 11px; font-weight: 600; cursor: pointer; padding: 0; margin-left: 2px; text-decoration: underline; }
+.note-toggle:hover { color: var(--navy-dk); }
 .del-btn  { opacity: 0; background: none; border: none; color: #c0392b; font-size: 15px; cursor: pointer; padding: 2px 5px; border-radius: 4px; line-height: 1; transition: all 0.1s; }
 .del-btn:hover  { background: #fde8e6; }
 .flag-btn { opacity: 0; background: none; border: none; font-size: 13px; cursor: pointer; padding: 2px 5px; border-radius: 4px; line-height: 1; transition: all 0.1s; color: #bbb; }
@@ -1222,6 +1225,26 @@ function pbarHtml(pct) {
 }
 function linkH(href) { if(!href)return '<span class="dash">—</span>'; return '<a class="fl" href="'+href+'" target="_blank" rel="noopener">Open ↗</a>'; }
 function dash(v)     { return v||'<span class="dash">—</span>'; }
+const NOTE_LIMIT = 60;
+function noteHtml(v) {
+  if(!v) return '<span class="dash">—</span>';
+  if(v.length <= NOTE_LIMIT) return '<span class="note-text">'+v+'</span>';
+  const short = v.slice(0, NOTE_LIMIT).trim();
+  const esc   = v.replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+  return '<span class="note-text note-collapsed" data-full="'+esc+'" data-short="'+short.replace(/'/g,"&#39;").replace(/"/g,"&quot;")+'">'+short+'… <button class="note-toggle" onclick="toggleNote(this)">see more</button></span>';
+}
+function toggleNote(btn) {
+  const sp = btn.closest('.note-text');
+  if(sp.classList.contains('note-collapsed')) {
+    sp.innerHTML = sp.dataset.full + ' <button class="note-toggle" onclick="toggleNote(this)">see less</button>';
+    sp.classList.remove('note-collapsed');
+    sp.classList.add('note-expanded');
+  } else {
+    sp.innerHTML = sp.dataset.short + '… <button class="note-toggle" onclick="toggleNote(this)">see more</button>';
+    sp.classList.remove('note-expanded');
+    sp.classList.add('note-collapsed');
+  }
+}
 
 // ── SORT / FILTER ─────────────────────────────────────────────────────────────
 let SK="",SD=1,fFlag=false,fOver=false,fMiss=false,fAppr=false,fNew=false;
@@ -1306,7 +1329,7 @@ function buildRow(r,odd) {
     +'<td'+ec("link")+'>'+linkH(r.link)+'</td>'
     +'<td'+ec("finalLink")+'>'+linkH(r.finalLink)+'</td>'
     +'<td'+ec("ai", (r.ai?"":" miss"))+'>'+(r.ai?'<span class="badge b'+r.ai+'">'+r.ai+'</span>':'<span class="dash">—</span>')+'</td>'
-    +'<td'+ec("notes"," cnot")+'>'+dash(r.notes)+'</td>'
+    +'<td'+ec("notes"," cnot")+'>'+noteHtml(r.notes)+'</td>'
     +(CURRENT_ROLE==="designer"?'<td class="td-del"><button class="pin-btn'+(getPriority().includes(r.id)?' on':'')+'" onclick="togglePin(\''+r.id+'\')" title="Pin to Today\'s Focus">&#128204;</button><button class="flag-btn'+(r.flagged?' on':'')+'" onclick="toggleFlag(\''+r.id+'\')" title="'+(r.flagged?'Unflag':'Flag')+' this row">&#9873;</button><button class="del-btn" onclick="deleteRow(\''+r.id+'\')" title="Delete row">&times;</button></td>':'<td></td>')
     +'</tr>';
 }
