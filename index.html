@@ -345,6 +345,11 @@ tr.dr:hover .del-btn, tr.dr:hover .flag-btn { opacity: 1; }
 .pcard-meta { font-size:11px; color:var(--muted); margin-top:2px; display:flex; gap:8px; flex-wrap:wrap; }
 .pcard-remove { background:none; border:none; color:#ccc; font-size:16px; cursor:pointer; padding:0 2px; flex-shrink:0; line-height:1; }
 .pcard-remove:hover { color:#c0392b; }
+.pcard.done { opacity:0.42; }
+.pcard.done .pcard-num { background:var(--ok); font-size:12px; }
+.acard.done { opacity:0.42; }
+.done-divider { font-size:10px; text-transform:uppercase; letter-spacing:0.07em; color:var(--muted); padding:10px 0 4px; border-top:1px dashed var(--line); margin-top:4px; display:flex; align-items:center; gap:6px; }
+.done-divider::before { content:"✓"; color:var(--ok); font-weight:700; font-size:11px; }
 .acard { padding:8px 0; border-bottom:1px solid var(--line); display:flex; gap:10px; align-items:flex-start; }
 .acard:last-child { border-bottom:none; }
 .acard-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:4px; }
@@ -656,6 +661,10 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
         <div class="tv-panel">
           <div class="tv-panel-hdr" style="background:#1a6b55;">In Review — Awaiting Implementation <span id="tvReviewCount" class="tv-count"></span></div>
           <div class="tv-panel-body" id="tvInReview"></div>
+        </div>
+        <div class="tv-panel" style="opacity:0.72;">
+          <div class="tv-panel-hdr" style="background:#1e6b3a;">Delivered <span id="tvDeliveredCount" class="tv-count"></span></div>
+          <div class="tv-panel-body" id="tvDelivered"></div>
         </div>
       </div>
 
@@ -1636,31 +1645,40 @@ function renderToday() {
     document.getElementById("tvAddBtn").style.display = ids.length >= 5 ? "none" : "";
   }
   const pList = document.getElementById("tvPriorityList");
+  const isDone = r => r.stage === "Delivered" || r.stage === "Signed Off";
+  const activeIds = ids.filter(id => { const r = all.find(x=>x.id===id); return r && !isDone(r); });
+  const doneIds   = ids.filter(id => { const r = all.find(x=>x.id===id); return r && isDone(r); });
+  function buildPcard(id, label, done) {
+    const r = all.find(x=>x.id===id);
+    if (!r) return "";
+    const stk = r.stage ? r.stage.replace(/[^A-Za-z]/g,"") : "empty";
+    const removeBtn = CURRENT_ROLE === "designer"
+      ? `<button class="pcard-remove" onclick="event.stopPropagation();togglePin('${id}')" title="Remove">&times;</button>`
+      : "";
+    return `<div class="pcard${done?" done":""}" onclick="openDetailPanel('${id}')" style="cursor:pointer;">
+      <div class="pcard-num">${label}</div>
+      <div class="pcard-body">
+        <div class="pcard-title">${r.title}</div>
+        <div class="pcard-meta">
+          <span>${r.vertical}</span>
+          <span class="badge b${stk}" style="font-size:10px;padding:1px 7px;">${r.stage||"—"}</span>
+          ${r.due?`<span>Due: ${dateFmt(r.due)}</span>`:""}
+        </div>
+      </div>
+      ${removeBtn}
+    </div>`;
+  }
   if (ids.length === 0) {
     pList.innerHTML = CURRENT_ROLE === "designer"
       ? '<div class="tv-empty">No pinned tasks yet — click + below or pin rows from the register.</div>'
       : '<div class="tv-empty">Mark has not pinned any tasks for today yet.</div>';
   } else {
-    pList.innerHTML = ids.map((id,i) => {
-      const r = all.find(x=>x.id===id);
-      if (!r) return "";
-      const stk = r.stage ? r.stage.replace(/[^A-Za-z]/g,"") : "empty";
-      const removeBtn = CURRENT_ROLE === "designer"
-        ? `<button class="pcard-remove" onclick="event.stopPropagation();togglePin('${id}')" title="Remove">&times;</button>`
-        : "";
-      return `<div class="pcard" onclick="openDetailPanel('${id}')" style="cursor:pointer;">
-        <div class="pcard-num">${i+1}</div>
-        <div class="pcard-body">
-          <div class="pcard-title">${r.title}</div>
-          <div class="pcard-meta">
-            <span>${r.vertical}</span>
-            <span class="badge b${stk}" style="font-size:10px;padding:1px 7px;">${r.stage||"—"}</span>
-            ${r.due?`<span>Due: ${dateFmt(r.due)}</span>`:""}
-          </div>
-        </div>
-        ${removeBtn}
-      </div>`;
-    }).join("");
+    let pinHtml = activeIds.map((id,i) => buildPcard(id, i+1, false)).join("");
+    if (doneIds.length > 0) {
+      pinHtml += `<div class="done-divider">Completed</div>`;
+      pinHtml += doneIds.map(id => buildPcard(id, "✓", true)).join("");
+    }
+    pList.innerHTML = pinHtml;
   }
 
   // Auto sections
@@ -1700,6 +1718,35 @@ function renderToday() {
   renderSection("tvInReview",   "tvReviewCount", all.filter(r=>r.stage==="In Review"),  "slate",  "No designs waiting on implementation.", true);
   renderSection("tvPending",    "tvPendCount", all.filter(r=>r.approval==="Pending"&&r.stage!=="Delivered"&&r.stage!=="Signed Off"), "purple", "No pending approvals.");
   renderSection("tvRequested",  "tvReqCount",  all.filter(r=>(r.stage==="Requested"||r.stage==="Not Started")&&r.approval!=="Pending"), "slate",  "No items in the queue.");
+
+  // Delivered — dimmed at bottom, sorted most-recent first
+  const deliveredItems = all
+    .filter(r => r.stage==="Delivered" || r.stage==="Signed Off")
+    .sort((a,b) => (b.completed||"").localeCompare(a.completed||""));
+  const deliveredEl    = document.getElementById("tvDelivered");
+  document.getElementById("tvDeliveredCount").textContent = "("+deliveredItems.length+")";
+  if (deliveredItems.length === 0) {
+    deliveredEl.innerHTML = '<div class="tv-empty">No delivered items yet.</div>';
+  } else {
+    const DLIMIT = 5;
+    const expanded = EXPANDED_SECTIONS.has("tvDelivered");
+    const visible  = expanded ? deliveredItems : deliveredItems.slice(0, DLIMIT);
+    const overflow = deliveredItems.length - DLIMIT;
+    deliveredEl.innerHTML = visible.map(r => `
+      <div class="acard done" onclick="openDetailPanel('${r.id}')">
+        <div class="acard-dot green"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="acard-title">${r.title}</div>
+          <div class="acard-meta">${r.vertical}${r.completed?" · "+dateFmt(r.completed):""}${r.requestedBy?" · "+r.requestedBy:""}</div>
+        </div>
+        <div class="acard-arrow">›</div>
+      </div>`).join("");
+    if (!expanded && overflow > 0) {
+      deliveredEl.innerHTML += `<span class="tv-more" onclick="toggleSection('tvDelivered')">+ ${overflow} more</span>`;
+    } else if (expanded && deliveredItems.length > DLIMIT) {
+      deliveredEl.innerHTML += `<span class="tv-more" onclick="toggleSection('tvDelivered')">Show less ↑</span>`;
+    }
+  }
 }
 
 // ── END OF DAY ────────────────────────────────────────────────────────────────
