@@ -1157,7 +1157,7 @@
       "link": "",
       "finalLink": "",
       "ai": "",
-      "notes": "Objective\nPerform a complete QA verification on the STAGING environment before launch.\n\nTasks\n\nVerify Request Forms (/requests/new)\nTest location autocomplete\nVerify maps (Properties, Hotels, Wellness)\nTest date picker on desktop and iPhone/Safari\nCheck scrolling behavior\nVerify Aviation (Round Trip → Multi-leg data reset)\nIdentify UI/UX issues (overlaps, spacing, responsiveness, performance)\nPerform end-to-end workflow (Create Request → Price → Confirm → Add Guest → Closed Won)\nRecord one complete screen recording\nDocument findings with screenshots and videos\nSubmit QA report and bug list\nProvide pending social media links"
+      "notes": "Objective\nPerform a complete QA verification on the STAGING environment before launch.\n\nTasks\n- Verify Request Forms (/requests/new)\n- Test location autocomplete\n- Verify maps (Properties, Hotels, Wellness)\n- Test date picker on desktop and iPhone/Safari\n- Check scrolling behavior\n- Verify Aviation (Round Trip → Multi-leg data reset)\n- Identify UI/UX issues (overlaps, spacing, responsiveness, performance)\n- Perform end-to-end workflow (Create Request → Price → Confirm → Add Guest → Closed Won)\n- Record one complete screen recording\n- Document findings with screenshots and videos\n- Submit QA report and bug list\n- Provide pending social media links"
     }
   ],
   "pins": {
