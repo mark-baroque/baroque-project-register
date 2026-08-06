@@ -1148,22 +1148,81 @@
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-08-03",
       "approval": "Pending",
-      "stage": "In Review",
+      "stage": "Delivered",
       "started": "2026-08-03",
       "due": "2026-08-05",
-      "completed": "",
+      "completed": "2026-08-04",
       "pct": 80,
+      "blocker": "",
+      "link": "https://drive.google.com/drive/folders/1cGHnuVL2RLd3XJrWqRqF-p76zeVxgZQ_?usp=sharing",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Objective\nPerform a complete QA verification on the STAGING environment before launch.\n\nTasks\n- Verify Request Forms (/requests/new)\n- Test location autocomplete\n- Verify maps (Properties, Hotels, Wellness)\n- Test date picker on desktop and iPhone/Safari\n- Check scrolling behavior\n- Verify Aviation (Round Trip → Multi-leg data reset)\n- Identify UI/UX issues (overlaps, spacing, responsiveness, performance)\n- Perform end-to-end workflow (Create Request → Price → Confirm → Add Guest → Closed Won)\n- Record one complete screen recording\n- Document findings with screenshots and videos\n- Submit QA report and bug list\n- Provide pending social media links"
+    },
+    {
+      "id": "NEWMSH9MHYXN9PV",
+      "flagged": false,
+      "title": " Design & Content of Website ",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-08-05",
+      "approval": "Pending",
+      "stage": "In Progress",
+      "started": "2026-08-05",
+      "due": "2026-08-07",
+      "completed": "2026-08-06",
+      "pct": 90,
       "blocker": "",
       "link": "",
       "finalLink": "",
       "ai": "",
-      "notes": "Objective\nPerform a complete QA verification on the STAGING environment before launch.\n\nTasks\n- Verify Request Forms (/requests/new)\n- Test location autocomplete\n- Verify maps (Properties, Hotels, Wellness)\n- Test date picker on desktop and iPhone/Safari\n- Check scrolling behavior\n- Verify Aviation (Round Trip → Multi-leg data reset)\n- Identify UI/UX issues (overlaps, spacing, responsiveness, performance)\n- Perform end-to-end workflow (Create Request → Price → Confirm → Add Guest → Closed Won)\n- Record one complete screen recording\n- Document findings with screenshots and videos\n- Submit QA report and bug list\n- Provide pending social media links"
+      "notes": " Design & Content\n\nDesign a premium placeholder image for cards and hero banners, prepare accurate event imagery, create missing images for Reserve, Inventory, and Partners, and complete any missing category icons. Assets should be ready for upload once Cloudinary credentials are available."
+    },
+    {
+      "id": "NEWMSH9OCNS7L0L",
+      "flagged": false,
+      "title": "Website Design Debt Review",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-08-05",
+      "approval": "",
+      "stage": "In Progress",
+      "started": "2026-08-06",
+      "due": "2026-08-07",
+      "completed": "",
+      "pct": 20,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Perform a complete UI/UX audit of the platform and document any additional design debt or inconsistencies not already identified. Include recommendations for improving usability, visual consistency, responsiveness, accessibility, spacing, typography, and the overall design system."
+    },
+    {
+      "id": "NEWMSH9PXXBZKS5",
+      "flagged": false,
+      "title": "Website Staging QA Testing",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-08-05",
+      "approval": "Pending",
+      "stage": "In Progress",
+      "started": "2026-08-05",
+      "due": "2026-08-06",
+      "completed": "2026-08-06",
+      "pct": 90,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Conduct a full QA retest on the staging environment, covering the pay-hold confirmation flow, admin request board, service line filter, maps, autocomplete, mobile fixes on a real iPhone, and verify category mapping across all service lines from both the admin and member views."
     }
   ],
   "pins": {
-    "date": "2026-08-05",
+    "date": "2026-08-06",
     "ids": [
-      "NEWMSCXC0OT1SSW"
+      "NEWMSH9MHYXN9PV",
+      "NEWMSH9OCNS7L0L",
+      "NEWMSH9PXXBZKS5"
     ]
   },
   "taskNotes": {
@@ -1171,6 +1230,7 @@
     "2026-08-04": "Some requests are going through. I will create a request with the bug documentation.\n\nI also conducted a test on mobile and encountered a blocker during the confirmation process on the user side. On the admin side, I was able to create and send the quotation successfully. However, the blocker occurs on the user side—when the user tries to confirm the quoted price, it does not proceed as expected.\n",
     "2026-07-28": "3 pinned task ",
     "2026-07-29": "Minor Revisions\n\n1. Baroque Yacht Option – Made minor design adjustments. As discussed with Mr. Sahle, the design will be finalized today pending his approval.\n\n2. Baroque Properties Option– Updated the typography and property card layout. The design is now awaiting Mr. Sahle's final approval before development.\n\n3. Baroque Access Website QA – Preparing the QA documentation to send to Mr. Sahle via Slack or email for AI processing. This overdue project also includes the email templates, newsletters, and WhatsApp notifications. All designs are complete but have not yet been fully implemented on the Baroque Access website.\n\n4. Baroque Group – Updated the accountant's email signature as requested.",
+    "2026-08-06": "I will Continue working on the things Mr. Sahle gave me  on slack 4 sections , Design Debt review, Design & Content of Website, & QA Testing. \n\n1. I've Finish Working on the QA Testing Both Mobile and Dekstop  I create a documentation and screenshot of those thing end to end flow. \n\n2. For Design & Content - ",
     "2026-08-05": "This is continuation of Baroque access Website Deep Testing on a request end to end flow.  "
   },
   "eodNotes": {
