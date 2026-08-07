@@ -1167,10 +1167,10 @@
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-08-05",
       "approval": "Approved",
-      "stage": "In Progress",
+      "stage": "Delivered",
       "started": "2026-08-05",
       "due": "2026-08-07",
-      "completed": "2026-08-06",
+      "completed": "2026-08-07",
       "pct": 100,
       "blocker": "",
       "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=12-472&t=eQlE9I5i7cmwn24o-1",
@@ -1218,10 +1218,8 @@
     }
   ],
   "pins": {
-    "date": "2026-08-06",
+    "date": "2026-08-07",
     "ids": [
-      "NEWMSH9MHYXN9PV",
-      "NEWMSH9PXXBZKS5",
       "NEWMSH9OCNS7L0L"
     ]
   },
@@ -1231,6 +1229,7 @@
     "2026-07-28": "3 pinned task ",
     "2026-07-29": "Minor Revisions\n\n1. Baroque Yacht Option – Made minor design adjustments. As discussed with Mr. Sahle, the design will be finalized today pending his approval.\n\n2. Baroque Properties Option– Updated the typography and property card layout. The design is now awaiting Mr. Sahle's final approval before development.\n\n3. Baroque Access Website QA – Preparing the QA documentation to send to Mr. Sahle via Slack or email for AI processing. This overdue project also includes the email templates, newsletters, and WhatsApp notifications. All designs are complete but have not yet been fully implemented on the Baroque Access website.\n\n4. Baroque Group – Updated the accountant's email signature as requested.",
     "2026-08-06": "I will Continue working on the things Mr. Sahle gave me  on slack 4 sections , Design Debt review, Design & Content of Website, & QA Testing. \n\n1. Design Debt Review - Im doing this to check all UI inconsistency. \n\n2. I've Finish Working on the QA Testing Both Mobile and Dekstop  I create a documentation and screenshot of those thing end to end flow. \n\n2. For Design & Content - I collaborate with Eshu regarding on the images in the website  and for the design that already done in myside will wait for claudinary like what Mr. Sahle said. ",
+    "2026-08-07": "Website Design Debt Review: Continuing the review of the Baroque Access website by identifying UI inconsistencies across both the user and admin sides on desktop and mobile. Currently focusing on the admin side and preparing a proposed UI/UX fix document for Mr. Sahle to review and implement.",
     "2026-08-05": "This is continuation of Baroque access Website Deep Testing on a request end to end flow.  "
   },
   "eodNotes": {
