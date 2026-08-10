@@ -1253,13 +1253,33 @@
       "finalLink": "",
       "ai": "",
       "notes": "Shirley wants to promote a  Santa Marina hotel \n"
+    },
+    {
+      "id": "NEWMSN9ZWLUN5BP",
+      "flagged": false,
+      "title": "Baroque Access Dashboard, ",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-08-07",
+      "approval": "",
+      "stage": "In Progress",
+      "started": "",
+      "due": "2026-08-11",
+      "completed": "",
+      "pct": 60,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Its part of the UI Debt but right now Im focusing on Dashboard. "
     }
   ],
   "pins": {
     "date": "2026-08-10",
     "ids": [
       "NEWMSMX0TIDUZ11",
-      "NEWMSH9OCNS7L0L"
+      "NEWMSH9OCNS7L0L",
+      "NEWMSN9ZWLUN5BP"
     ]
   },
   "taskNotes": {
