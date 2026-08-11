@@ -1261,8 +1261,8 @@
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-08-07",
-      "approval": "",
-      "stage": "Delivered",
+      "approval": "Pending",
+      "stage": "In Progress",
       "started": "",
       "due": "2026-08-11",
       "completed": "2026-08-11",
@@ -1294,16 +1294,15 @@
     }
   ],
   "pins": {
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "ids": [
-      "NEWMSMX0TIDUZ11",
-      "NEWMSH9OCNS7L0L",
       "NEWMSN9ZWLUN5BP"
     ]
   },
   "taskNotes": {
     "2026-08-03": "Test the Baroque Access website ",
     "2026-08-04": "Some requests are going through. I will create a request with the bug documentation.\n\nI also conducted a test on mobile and encountered a blocker during the confirmation process on the user side. On the admin side, I was able to create and send the quotation successfully. However, the blocker occurs on the user side—when the user tries to confirm the quoted price, it does not proceed as expected.\n",
+    "2026-08-11": "Testing The dashboard audit it dont do the prototype yet ",
     "2026-07-28": "3 pinned task ",
     "2026-08-10": "I will do a Retest on live website.\n\nThree batches are waiting on your confirmation:\n\n\n1. The pay-hold error — confirming a quotation without a card.\n2. The category filter and the board sort order.\n3. The quotation option editing, and the map and location family.\n\nPlus the mobile set the six you raised on the phone.\n\nRight now Theres a blocker on it the admin I cannot access. ",
     "2026-08-06": "I will Continue working on the things Mr. Sahle gave me  on slack 4 sections , Design Debt review, Design & Content of Website, & QA Testing. \n\n1. Design Debt Review - Im doing this to check all UI inconsistency. \n\n2. I've Finish Working on the QA Testing Both Mobile and Dekstop  I create a documentation and screenshot of those thing end to end flow. \n\n2. For Design & Content - I collaborate with Eshu regarding on the images in the website  and for the design that already done in myside will wait for claudinary like what Mr. Sahle said. ",
@@ -1316,6 +1315,7 @@
     "2026-07-28": "I've finished the three major tasks for today:\n\n1. Updated the images across the verticals – Completed from my end. I also sent the bugs to Slack, and Mr. Sahle's AI will handle the fixes.\n\n2. Properties Option  Agent – Mr. Sahle approved the design, especially the typography and overall contrast. His only feedback was to make a few changes.\n\n3. Yacht Option – He liked this version better than the first design. He mentioned that it only needs a few minor adjustments, and we'll finalize it tomorrow.",
     "2026-07-29": "1. I sent the **Baroque Access Website Bug Documentation** to Mr. Sahle via Slack.\n\n   **New Task:** Mr. Sahle has requested that I need to perform and screen-record a complete end-to-end test of the member request flow. Before I can begin, I have requested full agent access, as my current designer access does not allow me to complete the required agent tasks.\n\n2. Along with the documentation, I also sent the design files for all overdue **Baroque Access** items so they can be implemented on the website.  \n\n3. The accountant's signature for **Baroque Group** has been updated.",
     "2026-08-03": "I completed the full Baroque Access testing requested by Mr. Sahle and documented the results in the attached text file. However, I wasn't able to complete the end-to-end flow because I don't have the required access.\n",
+    "2026-08-11": "Baroque Access Dashboard – Still Blocked\n\nI discovered another blocker on the dashboard. The new requests are appearing in the request list, but when I click and open a specific request, the request details are not loading or working properly.",
     "2026-08-04": "I sent the mobile QA files to Mr. Sahle, along with screenshots from the mobile testing.\n\nAdditionally, the end-to-end flow test could not be completed because I encountered a blocker on the website. The issue occurs on the user side during the payment process. After the agent sends the quotation, the user can view it, but selecting the quotation and proceeding with the payment does not work. I also sent a video demonstrating the issue."
   }
 }
