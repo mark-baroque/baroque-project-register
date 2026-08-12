@@ -1310,13 +1310,33 @@
       "finalLink": "",
       "ai": "",
       "notes": "I need to check all the UI Inconsistency on the Mobile and Dekstop make a documentation for each. "
+    },
+    {
+      "id": "NEWMSQ3R4YCLMR6",
+      "flagged": false,
+      "title": "Dashboard Website Access - Request + Invoice PDF Design",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-08-12",
+      "approval": "Pending",
+      "stage": "In Progress",
+      "started": "2026-08-12",
+      "due": "2026-08-12",
+      "completed": "2026-08-12",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "Yes",
+      "notes": "Mr. Sahle Flagged this for design so we can apply this design into the live website access"
     }
   ],
   "pins": {
     "date": "2026-08-12",
     "ids": [
       "NEWMSN9ZWLUN5BP",
-      "NEWMSPVHNHDAVXA"
+      "NEWMSPVHNHDAVXA",
+      "NEWMSQ3R4YCLMR6"
     ]
   },
   "taskNotes": {
