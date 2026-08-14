@@ -1233,7 +1233,7 @@
       "link": "",
       "finalLink": "",
       "ai": "Yes",
-      "notes": "Test 3 batches are waiting on your confirmation:\n\n1. The pay-hold error — confirming a quotation without a card.\n2. The category filter and the board sort order.\n3. The quotation option editing, and the map and location family.\n\nPlus the mobile set  the six you raised on the phone.\n\n\nWe fixed the Issue regarding on the flow of quotation we use vandana's account to make a request im the one who handle and create quotation "
+      "notes": "Test 3 batches are waiting on your confirmation:\n\n1. The pay-hold error — confirming a quotation without a card.\n2. The category filter and the board sort order.\n3. The quotation option editing, and the map and location family.\n\nPlus the mobile set  the six you raised on the phone.\n\n\nAug -12 - \nWe fixed the Issue regarding on the flow of quotation we use vandana's account to make a request im the one who handle and create quotation "
     },
     {
       "id": "NEWMSN101PD710B",
@@ -1261,26 +1261,26 @@
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-08-07",
-      "approval": "Pending",
-      "stage": "Delivered",
+      "approval": "Approved",
+      "stage": "In Progress",
       "started": "2026-08-10",
-      "due": "2026-08-11",
+      "due": "2026-08-14",
       "completed": "2026-08-12",
       "pct": 100,
-      "blocker": "",
+      "blocker": "Mr. Sahle told me to stop the dashboard design until the flow is fix\n",
       "link": "",
       "finalLink": "",
       "ai": "",
-      "notes": "Its part of the UI Debt but right now Im focusing on Dashboard. "
+      "notes": "Its part of the UI Debt but right now Im focusing on Dashboard. \n\nAug -12 - \nWe fixed the Issue regarding on the flow of quotation we use vandana's account to make a request im the one who handle and create quotation "
     },
     {
       "id": "NEWMSOCZ6NG8YTF",
       "flagged": false,
-      "title": "Baroque Access Website Flow Check ",
+      "title": "Baroque Access Quotation Website Flow Check ",
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-08-11",
-      "approval": "",
+      "approval": "Approved",
       "stage": "Delivered",
       "started": "2026-08-11",
       "due": "2026-08-11",
@@ -1325,8 +1325,8 @@
       "completed": "2026-08-12",
       "pct": 100,
       "blocker": "",
-      "link": "",
-      "finalLink": "",
+      "link": "https://www.figma.com/design/GcEzZ1NlJfn8Qgh3SaVaiw/Master-List-for-Access-Emails--Notification--Confirmation?node-id=543-29&t=kSDAv9tyXeEiDzpe-1",
+      "finalLink": "https://drive.google.com/drive/folders/1AR5XfUWLON-V4BsF3TIE-8HLRb-2xARX?usp=sharing",
       "ai": "Yes",
       "notes": "Mr. Sahle Flagged this for design so we can apply this design into the live website access"
     }
