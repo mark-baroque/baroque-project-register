@@ -1332,15 +1332,14 @@
     }
   ],
   "pins": {
-    "date": "2026-08-12",
+    "date": "2026-08-14",
     "ids": [
-      "NEWMSN9ZWLUN5BP",
-      "NEWMSPVHNHDAVXA",
-      "NEWMSQ3R4YCLMR6"
+      "NEWMSPVHNHDAVXA"
     ]
   },
   "taskNotes": {
     "2026-08-03": "Test the Baroque Access website ",
+    "2026-08-14": "I’m currently conducting a UI/UX audit of the Baroque website from the member side, as this is a higher priority since it is directly member-facing. I’ll be doing a deep review of the member account, including UI consistency, functionality, and front-end experience across the website.",
     "2026-07-29": "Minor Revisions\n\n1. Baroque Yacht Option – Made minor design adjustments. As discussed with Mr. Sahle, the design will be finalized today pending his approval.\n\n2. Baroque Properties Option– Updated the typography and property card layout. The design is now awaiting Mr. Sahle's final approval before development.\n\n3. Baroque Access Website QA – Preparing the QA documentation to send to Mr. Sahle via Slack or email for AI processing. This overdue project also includes the email templates, newsletters, and WhatsApp notifications. All designs are complete but have not yet been fully implemented on the Baroque Access website.\n\n4. Baroque Group – Updated the accountant's email signature as requested.",
     "2026-08-04": "Some requests are going through. I will create a request with the bug documentation.\n\nI also conducted a test on mobile and encountered a blocker during the confirmation process on the user side. On the admin side, I was able to create and send the quotation successfully. However, the blocker occurs on the user side—when the user tries to confirm the quoted price, it does not proceed as expected.\n",
     "2026-08-12": "1. Fixing and testing the end-to-end request flow, from creating the quotation to the client accepting it.\n\n2. Checking for UI errors and documenting UI inconsistencies across mobile and desktop.",
