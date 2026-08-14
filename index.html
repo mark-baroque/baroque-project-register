@@ -747,9 +747,6 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
             <div id="eodNoteDesigner" style="display:none;">
               <textarea class="tv-focus-area" id="eodNote" placeholder="What did you finish today? Any handoffs, blockers resolved, or notes for Mr. Sahle…" oninput="saveEodNote()" style="min-height:140px;"></textarea>
             </div>
-            <div id="eodNotePastDesigner" style="display:none;">
-              <div id="eodNotePastReadOnly" style="font-size:13px;color:var(--ink);line-height:1.7;font-style:italic;min-height:80px;white-space:pre-wrap;"></div>
-            </div>
             <div id="eodNoteSahle" style="display:none;">
               <div id="eodNoteReadOnly" style="font-size:13px;color:var(--ink);line-height:1.7;font-style:italic;min-height:80px;white-space:pre-wrap;"></div>
             </div>
@@ -1751,7 +1748,7 @@ function renderToday() {
 
 // ── END OF DAY ────────────────────────────────────────────────────────────────
 function saveEodNote() {
-  localStorage.setItem("bq_eod_"+TODAY, document.getElementById("eodNote").value);
+  localStorage.setItem("bq_eod_"+EOD_VIEW_DATE, document.getElementById("eodNote").value);
   EOD_DIRTY = true;
   localStorage.setItem("bq_ts", new Date().toISOString());
   refreshSaved();
@@ -1840,23 +1837,16 @@ function renderEOD() {
   document.getElementById("eodNoteHdrSub").textContent = noteHdrSub;
 
   if (CURRENT_ROLE === "designer") {
-    if (isToday) {
-      // Editable
-      document.getElementById("eodNoteDesigner").style.display     = "";
-      document.getElementById("eodNotePastDesigner").style.display = "none";
-      document.getElementById("eodNoteSahle").style.display        = "none";
-      document.getElementById("eodNote").value = noteVal;
-    } else {
-      // Past day — read-only for designer too
-      document.getElementById("eodNoteDesigner").style.display     = "none";
-      document.getElementById("eodNotePastDesigner").style.display = "";
-      document.getElementById("eodNoteSahle").style.display        = "none";
-      document.getElementById("eodNotePastReadOnly").textContent = noteVal || "No summary written for this day.";
-    }
+    document.getElementById("eodNoteDesigner").style.display = "";
+    document.getElementById("eodNoteSahle").style.display    = "none";
+    const ta = document.getElementById("eodNote");
+    ta.value = noteVal;
+    ta.placeholder = isToday
+      ? "What did you finish today? Any handoffs, blockers resolved, or notes for Mr. Sahle…"
+      : "Add or edit notes for "+shortDate+"…";
   } else {
-    document.getElementById("eodNoteDesigner").style.display     = "none";
-    document.getElementById("eodNotePastDesigner").style.display = "none";
-    document.getElementById("eodNoteSahle").style.display        = "";
+    document.getElementById("eodNoteDesigner").style.display = "none";
+    document.getElementById("eodNoteSahle").style.display    = "";
     document.getElementById("eodNoteReadOnly").textContent = noteVal || (isToday ? "Mark hasn't written today's summary yet." : "No summary written for this day.");
   }
 
