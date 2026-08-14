@@ -748,9 +748,12 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
           </div>
           <div class="tv-panel-body">
             <div id="eodNoteView" style="display:none;">
-              <div id="eodNoteDisplay" style="font-size:13px;color:var(--ink);line-height:1.7;min-height:80px;white-space:pre-wrap;"></div>
+              <div id="eodNoteDisplay" style="font-size:13px;color:var(--ink);line-height:1.7;min-height:80px;"></div>
             </div>
             <div id="eodNoteDesigner" style="display:none;">
+              <div style="margin-bottom:6px;">
+                <button onclick="applyEodBold()" title="Bold selected text" style="padding:2px 10px;background:var(--navy-pale);border:1px solid var(--line);border-radius:4px;font-size:12px;font-weight:700;color:var(--navy);cursor:pointer;font-family:Georgia,serif;">B</button>
+              </div>
               <textarea class="tv-focus-area" id="eodNote" placeholder="What did you finish today? Any handoffs, blockers resolved, or notes for Mr. Sahle…" oninput="saveEodNote()" style="min-height:140px;"></textarea>
             </div>
             <div id="eodNoteSahle" style="display:none;">
@@ -1760,6 +1763,26 @@ function saveEodNote() {
   localStorage.setItem("bq_ts", new Date().toISOString());
   refreshSaved();
 }
+function renderEodMarkdown(text) {
+  if (!text) return '';
+  const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return escaped.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+}
+function applyEodBold() {
+  const ta = document.getElementById('eodNote');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.substring(s, e);
+  const before = ta.value.substring(0, s), after = ta.value.substring(e);
+  if (sel) {
+    ta.value = before + '**' + sel + '**' + after;
+    ta.setSelectionRange(s + 2, e + 2);
+  } else {
+    ta.value = before + '****' + after;
+    ta.setSelectionRange(s + 2, s + 2);
+  }
+  ta.focus();
+  ta.dispatchEvent(new Event('input'));
+}
 function toggleEodEdit() {
   EOD_EDIT_MODE = !EOD_EDIT_MODE;
   const btn = document.getElementById("eodEditBtn");
@@ -1772,9 +1795,7 @@ function toggleEodEdit() {
     const noteVal = localStorage.getItem("bq_eod_"+EOD_VIEW_DATE) || "";
     document.getElementById("eodNoteDesigner").style.display = "none";
     document.getElementById("eodNoteView").style.display     = "";
-    document.getElementById("eodNoteDisplay").textContent    = noteVal || "No summary written — click Edit to add one.";
-    document.getElementById("eodNoteDisplay").style.color    = noteVal ? "var(--ink)" : "var(--muted)";
-    document.getElementById("eodNoteDisplay").style.fontStyle = noteVal ? "normal" : "italic";
+    document.getElementById("eodNoteDisplay").innerHTML      = noteVal ? renderEodMarkdown(noteVal) : "<em style='color:var(--muted)'>No summary written — click Edit to add one.</em>";
     btn.textContent = "Edit";
   }
 }
@@ -1868,9 +1889,7 @@ function renderEOD() {
     document.getElementById("eodNoteView").style.display   = "";
     document.getElementById("eodNoteDesigner").style.display = "none";
     document.getElementById("eodNoteSahle").style.display  = "none";
-    document.getElementById("eodNoteDisplay").textContent  = noteVal || "No summary written — click Edit to add one.";
-    document.getElementById("eodNoteDisplay").style.color  = noteVal ? "var(--ink)" : "var(--muted)";
-    document.getElementById("eodNoteDisplay").style.fontStyle = noteVal ? "normal" : "italic";
+    document.getElementById("eodNoteDisplay").innerHTML    = noteVal ? renderEodMarkdown(noteVal) : "<em style='color:var(--muted)'>No summary written — click Edit to add one.</em>";
     const ta = document.getElementById("eodNote");
     ta.value = noteVal;
     ta.placeholder = isToday
