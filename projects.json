@@ -1357,7 +1357,7 @@
       "requestedBy": "Muneeb",
       "dateRequested": "2026-08-17",
       "approval": "Pending",
-      "stage": "Requested",
+      "stage": "In Progress",
       "started": "",
       "due": "2026-08-19",
       "completed": "",
@@ -1367,18 +1367,39 @@
       "finalLink": "",
       "ai": "",
       "notes": "Muneeb Asking me to change the design based follow the seven rooms since they discovered three flow. I ask him the documentation based on that will move "
+    },
+    {
+      "id": "NEWMSX7GNZLSY52",
+      "flagged": false,
+      "title": "Access App",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "",
+      "approval": "",
+      "stage": "Requested",
+      "started": "",
+      "due": "2026-08-20",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "He sent me a Documentation regarding about the design app - this is the link -> https://drive.google.com/file/d/1CUqOwlmm4PT_kogmSyzYmlIta8TU1l8R/view?usp=sharing "
     }
   ],
   "pins": {
     "date": "2026-08-17",
     "ids": [
-      "NEWMSX2QO1WNJ3U"
+      "NEWMSX2QO1WNJ3U",
+      "NEWMSX2TEP9H13K"
     ]
   },
   "taskNotes": {
     "2026-08-03": "Test the Baroque Access website ",
     "2026-08-14": "Currently conducting a UI/UX audit of the Baroque member-facing website, focusing on UI consistency, functionality, navigation, and the overall front-end experience.\n\nQA/UX audit has been submitted to Mr. Sahle. Now shifting focus to social media promotion.",
     "2026-07-29": "Minor Revisions\n\n1. Baroque Yacht Option – Made minor design adjustments. As discussed with Mr. Sahle, the design will be finalized today pending his approval.\n\n2. Baroque Properties Option– Updated the typography and property card layout. The design is now awaiting Mr. Sahle's final approval before development.\n\n3. Baroque Access Website QA – Preparing the QA documentation to send to Mr. Sahle via Slack or email for AI processing. This overdue project also includes the email templates, newsletters, and WhatsApp notifications. All designs are complete but have not yet been fully implemented on the Baroque Access website.\n\n4. Baroque Group – Updated the accountant's email signature as requested.",
+    "2026-08-17": "Right now I received three task on Mr. Sahle \n\n1st. is the Phase one QA Test I submit it earlier in the morning, \n\n2nd. He sent me the three files Notification, Vertical branding system, supplier margin Workflow. \n\n3rd. Mr. Sahle sent me one documentation for me to do a Baroque access app. \n\n4.th Muneeb told me to change the LUJO APP. dining \n",
     "2026-08-04": "Some requests are going through. I will create a request with the bug documentation.\n\nI also conducted a test on mobile and encountered a blocker during the confirmation process on the user side. On the admin side, I was able to create and send the quotation successfully. However, the blocker occurs on the user side—when the user tries to confirm the quoted price, it does not proceed as expected.\n",
     "2026-08-12": "1. Fixing and testing the end-to-end request flow, from creating the quotation to the client accepting it.\n\n2. Checking for UI errors and documenting UI inconsistencies across mobile and desktop.",
     "2026-08-11": "Testing The dashboard audit it dont do the prototype yet ",
