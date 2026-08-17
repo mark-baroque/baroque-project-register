@@ -1371,14 +1371,14 @@
     {
       "id": "NEWMSX7GNZLSY52",
       "flagged": false,
-      "title": "Access App",
+      "title": "Baroque Access App",
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
-      "dateRequested": "",
+      "dateRequested": "2026-08-17",
       "approval": "",
       "stage": "Requested",
       "started": "",
-      "due": "2026-08-20",
+      "due": "2026-08-21",
       "completed": "",
       "pct": 0,
       "blocker": "",
@@ -1386,6 +1386,25 @@
       "finalLink": "",
       "ai": "",
       "notes": "He sent me a Documentation regarding about the design app - this is the link -> https://drive.google.com/file/d/1CUqOwlmm4PT_kogmSyzYmlIta8TU1l8R/view?usp=sharing "
+    },
+    {
+      "id": "NEWMSX7OWK2PARJ",
+      "flagged": false,
+      "title": "Notifications Emails ",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-08-17",
+      "approval": "",
+      "stage": "Requested",
+      "started": "",
+      "due": "2026-08-18",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Mr. Sahle give me three documents to do an email notifications for baroque acccess website "
     }
   ],
   "pins": {
