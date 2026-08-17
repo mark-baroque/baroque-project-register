@@ -1264,7 +1264,7 @@
       "approval": "Approved",
       "stage": "In Progress",
       "started": "2026-08-10",
-      "due": "2026-08-14",
+      "due": "2026-08-18",
       "completed": "2026-08-12",
       "pct": 100,
       "blocker": "Mr. Sahle told me to stop the dashboard design until the flow is fix\n",
@@ -1329,13 +1329,50 @@
       "finalLink": "https://drive.google.com/drive/folders/1AR5XfUWLON-V4BsF3TIE-8HLRb-2xARX?usp=sharing",
       "ai": "Yes",
       "notes": "Mr. Sahle Flagged this for design so we can apply this design into the live website access"
+    },
+    {
+      "id": "NEWMSX2QO1WNJ3U",
+      "flagged": false,
+      "title": "Phase one Qa Test",
+      "vertical": "Baroque Access",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-08-17",
+      "approval": "Pending",
+      "stage": "In Progress",
+      "started": "2026-08-17",
+      "due": "2026-08-17",
+      "completed": "2026-08-17",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "No",
+      "notes": "Final visual QA pass for Phase One: checked all required desktop and mobile surfaces against the approved design, documented the first defect per surface, and attached screenshots for mismatches."
+    },
+    {
+      "id": "NEWMSX2TEP9H13K",
+      "flagged": false,
+      "title": "Dining Change Base on SEVenrooms API",
+      "vertical": "LUJO",
+      "requestedBy": "Muneeb",
+      "dateRequested": "2026-08-17",
+      "approval": "Pending",
+      "stage": "Requested",
+      "started": "",
+      "due": "2026-08-19",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Muneeb Asking me to change the design based follow the seven rooms since they discovered three flow. I ask him the documentation based on that will move "
     }
   ],
   "pins": {
-    "date": "2026-08-14",
+    "date": "2026-08-17",
     "ids": [
-      "NEWMSPVHNHDAVXA",
-      "NEWMSN101PD710B"
+      "NEWMSX2QO1WNJ3U"
     ]
   },
   "taskNotes": {
