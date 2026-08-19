@@ -1275,7 +1275,7 @@
     },
     {
       "id": "NEWMSX7GNZLSY52",
-      "flagged": false,
+      "flagged": true,
       "title": "Baroque Access App",
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
@@ -1294,7 +1294,7 @@
     },
     {
       "id": "NEWMSX7OWK2PARJ",
-      "flagged": false,
+      "flagged": true,
       "title": "Notifications Emails ",
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
