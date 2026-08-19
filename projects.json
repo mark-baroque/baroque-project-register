@@ -590,25 +590,6 @@
       "flagged": true
     },
     {
-      "id": "evvji2r1",
-      "title": "Confirmation Emails Redesign",
-      "vertical": "Baroque Properties",
-      "requestedBy": "Mr. Sahle",
-      "dateRequested": "2026-04-01",
-      "approval": "",
-      "stage": "Requested",
-      "started": "",
-      "due": "",
-      "completed": "",
-      "pct": 0,
-      "blocker": "",
-      "link": "https://www.figma.com/design/AGBAPGODZY514joZRLJ3OB/Confirmation-for-Properties--Yachts-and-Aviation_Sales-force?node-id=749-34395",
-      "finalLink": "",
-      "ai": "Yes",
-      "notes": "On hold — not yet formally requested or approved. Will not proceed until approval is logged.",
-      "flagged": true
-    },
-    {
       "id": "4gg9x62l",
       "title": "Socmed Moodboards Travel",
       "vertical": "Baroque Travel",
@@ -663,7 +644,7 @@
       "finalLink": "",
       "ai": "Yes",
       "notes": "On hold — not yet formally requested or approved. Will not proceed until approval is logged.",
-      "flagged": true
+      "flagged": false
     },
     {
       "id": "zgbecvtk",
@@ -720,7 +701,7 @@
       "finalLink": "",
       "ai": "Yes",
       "notes": "On hold — not yet formally requested or approved. Will not proceed until approval is logged.",
-      "flagged": true
+      "flagged": false
     },
     {
       "id": "s9fe9vbo",
@@ -744,25 +725,6 @@
     {
       "id": "5nemk1n9",
       "title": "User Website Redesign",
-      "vertical": "Baroque Lifestyle",
-      "requestedBy": "Mr. Sahle",
-      "dateRequested": "2026-04-01",
-      "approval": "",
-      "stage": "Requested",
-      "started": "",
-      "due": "",
-      "completed": "",
-      "pct": 0,
-      "blocker": "",
-      "link": "",
-      "finalLink": "",
-      "ai": "Yes",
-      "notes": "On hold — not yet formally requested or approved. Will not proceed until approval is logged.",
-      "flagged": true
-    },
-    {
-      "id": "qt1l4ze4",
-      "title": "Newsletter Redesign",
       "vertical": "Baroque Lifestyle",
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-04-01",
