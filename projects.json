@@ -1299,7 +1299,7 @@
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-08-17",
-      "approval": "",
+      "approval": "Pending",
       "stage": "In Progress",
       "started": "",
       "due": "2026-08-25",
@@ -1352,7 +1352,7 @@
     {
       "id": "NEWMSZTU78BW072",
       "flagged": true,
-      "title": "Redesign Activities Brochure",
+      "title": "Baroque access Options. Design Template ",
       "vertical": "Baroque Access",
       "requestedBy": "Mr. Sahle & Eshu",
       "dateRequested": "2026-08-19",
@@ -1366,7 +1366,7 @@
       "link": "",
       "finalLink": "",
       "ai": "",
-      "notes": "Propose a New Design for this brochure -> https://app.baroquetravel.com/scotland-activities\n"
+      "notes": "We need to create an option template. Currently, when we receive a request from a customer, we manually create and send them a brochure. Instead, we need to create an interactive website where users can view and explore the options directly, rather than simply receiving a link to a static brochure.\n\nPropose a New Design for this brochure -> https://app.baroquetravel.com/scotland-activities\n"
     },
     {
       "id": "NEWMT00XGZUN6KX",
