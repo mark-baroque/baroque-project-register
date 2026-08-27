@@ -1873,12 +1873,13 @@ function renderToday() {
 }
 
 // ── END OF DAY ────────────────────────────────────────────────────────────────
-function autoFillEodNote() {
+function autoFillEodNote(date) {
   if (CURRENT_ROLE !== "designer") return;
-  const existing = (localStorage.getItem("bq_eod_" + TODAY) || "").trim();
+  const targetDate = date || TODAY;
+  const existing = (localStorage.getItem("bq_eod_" + targetDate) || "").trim();
   if (existing) return; // already has content — never overwrite
   const done = getMerged().filter(r =>
-    r.completed === TODAY &&
+    r.completed === targetDate &&
     (r.stage === "Delivered" || r.stage === "Signed Off" || Number(r.pct) === 100)
   );
   if (!done.length) return;
@@ -1888,8 +1889,9 @@ function autoFillEodNote() {
     if (r.notes && r.notes.trim()) line += " — " + r.notes.trim();
     return "• " + line;
   });
-  const summary = "Delivered today:\n" + lines.join("\n");
-  localStorage.setItem("bq_eod_" + TODAY, summary);
+  const label = targetDate === TODAY ? "Delivered today:" : "Delivered on " + targetDate + ":";
+  const summary = label + "\n" + lines.join("\n");
+  localStorage.setItem("bq_eod_" + targetDate, summary);
   EOD_DIRTY = true;
   localStorage.setItem("bq_ts", new Date().toISOString());
   refreshSaved();
@@ -2047,6 +2049,7 @@ function eodPrev() {
   const d = new Date(EOD_VIEW_DATE+"T12:00:00");
   d.setDate(d.getDate()-1);
   EOD_VIEW_DATE = d.toISOString().slice(0,10);
+  autoFillEodNote(EOD_VIEW_DATE);
   renderEOD();
 }
 function eodNext() {
@@ -2055,6 +2058,7 @@ function eodNext() {
   const next = d.toISOString().slice(0,10);
   if (next > TODAY) return;
   EOD_VIEW_DATE = next;
+  autoFillEodNote(EOD_VIEW_DATE);
   renderEOD();
 }
 
