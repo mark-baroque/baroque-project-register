@@ -1302,7 +1302,7 @@
       "approval": "Pending",
       "stage": "In Progress",
       "started": "",
-      "due": "2026-08-25",
+      "due": "2026-08-27",
       "completed": "",
       "pct": 0,
       "blocker": "",
@@ -1357,10 +1357,10 @@
       "requestedBy": "Mr. Sahle & Eshu",
       "dateRequested": "2026-08-19",
       "approval": "",
-      "stage": "In Progress",
+      "stage": "Delivered",
       "started": "",
       "due": "2026-08-24",
-      "completed": "",
+      "completed": "2026-08-21",
       "pct": 0,
       "blocker": "",
       "link": "",
@@ -1427,12 +1427,9 @@
     }
   ],
   "pins": {
-    "date": "2026-08-24",
+    "date": "2026-08-27",
     "ids": [
-      "NEWMSZTSK0Q8M77",
-      "NEWMSZTOUUQUNX9",
-      "NEWMSX7OWK2PARJ",
-      "NEWMSZTU78BW072"
+      "NEWMSX7OWK2PARJ"
     ]
   },
   "taskNotes": {
