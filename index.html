@@ -312,6 +312,16 @@ tr.dr:hover .del-btn, tr.dr:hover .flag-btn { opacity: 1; }
 #todayView.active { display:block; }
 #eodView { flex:1; min-height:0; overflow:auto; background:var(--off); display:none; padding:24px 28px; }
 #eodView.active { display:block; }
+#meetingView { flex:1; min-height:0; overflow:auto; background:var(--off); display:none; padding:24px 28px; }
+#meetingView.active { display:block; }
+.mtg-topic-item { display:flex; align-items:flex-start; gap:8px; padding:5px 0; border-bottom:1px solid var(--line); }
+.mtg-topic-item:last-child { border-bottom:none; }
+.mtg-topic-dot { color:var(--navy-lt); font-weight:700; flex-shrink:0; margin-top:1px; font-size:15px; }
+.mtg-action-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); }
+.mtg-action-row:last-child { border-bottom:none; }
+.mtg-action-check { width:18px; height:18px; border-radius:4px; border:2px solid var(--line); background:transparent; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:11px; color:#fff; transition:all 0.15s; }
+.mtg-status-open { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:#fbbf24; }
+.mtg-status-done { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:#6be09f; }
 .tab-badge.green { background:#1e6b3a; }
 .eod-hero { background:var(--navy-dk); color:#fff; border-radius:10px; padding:24px 28px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
 .eod-hero-date { font-family:Georgia,serif; font-size:22px; }
@@ -553,6 +563,7 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
   <button class="tab active" id="tabReg" onclick="switchTab('register')">Project Register</button>
   <button class="tab" id="tabToday" onclick="switchTab('today')">Tasks Board <span class="tab-badge orange" id="todayBadge" style="display:none">0</span></button>
   <button class="tab" id="tabEod" onclick="switchTab('eod')">End of Day <span class="tab-badge green" id="eodBadge" style="display:none">0</span></button>
+  <button class="tab" id="tabMtg" onclick="switchTab('mtg')">Meeting Notes <span class="tab-badge orange" id="mtgBadge" style="display:none">!</span></button>
 </div>
 
 <!-- TOOLBAR -->
@@ -772,6 +783,100 @@ footer { flex-shrink: 0; background: #fff; border-top: 1px solid var(--line); pa
   </div>
 </div>
 
+<!-- MEETING NOTES VIEW -->
+<div id="meetingView">
+  <div style="max-width:1000px;">
+
+    <!-- Hero bar -->
+    <div class="eod-hero" style="margin-bottom:20px;">
+      <div>
+        <div class="eod-hero-date" id="mtgDate"></div>
+        <div class="eod-hero-day" id="mtgDay"></div>
+        <div style="margin-top:10px;" id="mtgStatusBadge"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+        <div style="font-size:11px;opacity:0.55;text-transform:uppercase;letter-spacing:0.07em;">Daily Design Meeting</div>
+        <button id="mtgFinaliseBtn" onclick="finaliseMtg()" style="display:none;padding:5px 16px;background:rgba(30,107,58,0.75);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.03em;">✓ Finalise Meeting</button>
+      </div>
+    </div>
+
+    <!-- Date nav -->
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;justify-content:center;">
+      <button onclick="mtgPrev()" style="padding:5px 14px;background:var(--navy);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">← Earlier</button>
+      <div style="text-align:center;min-width:200px;">
+        <div id="mtgNavLabel" style="font-size:13px;font-weight:700;color:var(--navy);"></div>
+        <div id="mtgNavSub" style="font-size:10px;color:var(--muted);"></div>
+      </div>
+      <button id="mtgNextBtn" onclick="mtgNext()" style="padding:5px 14px;background:var(--navy);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">Later →</button>
+    </div>
+
+    <!-- 2-col grid -->
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
+
+      <!-- LEFT: Topics Discussed -->
+      <div class="tv-panel">
+        <div class="tv-panel-hdr" style="background:var(--navy-dk);">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span>Topics Discussed</span>
+            <span id="mtgTopicCount" class="tv-count"></span>
+          </div>
+          <button id="mtgTopicsEditBtn" onclick="toggleMtgTopicsEdit()" style="display:none;padding:3px 12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);color:#fff;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.04em;">Edit</button>
+        </div>
+        <div class="tv-panel-body">
+          <div id="mtgTopicsView" style="display:none;">
+            <div id="mtgTopicsDisplay" style="font-size:13px;color:var(--ink);line-height:1.7;min-height:100px;"></div>
+          </div>
+          <div id="mtgTopicsEditor" style="display:none;">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">One topic per line</div>
+            <textarea class="tv-focus-area" id="mtgTopicsInput" placeholder="Dashboard charter review&#10;Yacht nav redesign&#10;Access QA priorities…" oninput="saveMtgTopics()" style="min-height:150px;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Decisions + Action Items -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Decisions & Notes -->
+        <div class="tv-panel">
+          <div class="tv-panel-hdr" style="background:var(--navy-dk);">
+            <div>
+              <span>Decisions &amp; Notes</span>
+              <span style="font-size:10px;opacity:0.6;font-weight:400;margin-left:8px;" id="mtgNoteHdrSub">Today</span>
+            </div>
+            <button id="mtgNotesEditBtn" onclick="toggleMtgNotesEdit()" style="display:none;padding:3px 12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);color:#fff;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.04em;">Edit</button>
+          </div>
+          <div class="tv-panel-body">
+            <div id="mtgNotesView" style="display:none;">
+              <div id="mtgNotesDisplay" style="font-size:13px;color:var(--ink);line-height:1.7;min-height:80px;"></div>
+            </div>
+            <div id="mtgNotesEditor" style="display:none;">
+              <div style="margin-bottom:6px;">
+                <button onclick="applyMtgBold()" title="Bold selected text" style="padding:2px 10px;background:var(--navy-pale);border:1px solid var(--line);border-radius:4px;font-size:12px;font-weight:700;color:var(--navy);cursor:pointer;font-family:Georgia,serif;">B</button>
+              </div>
+              <textarea class="tv-focus-area" id="mtgNotesInput" placeholder="What was decided and agreed upon…" oninput="saveMtgNotes()" style="min-height:140px;"></textarea>
+            </div>
+            <div id="mtgNotesSahle" style="display:none;">
+              <div id="mtgNotesSahleText" style="font-size:13px;color:var(--ink);line-height:1.7;font-style:italic;min-height:80px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Items -->
+        <div class="tv-panel">
+          <div class="tv-panel-hdr" style="background:var(--navy-md);">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span>Action Items</span>
+              <span id="mtgActionCount" class="tv-count"></span>
+            </div>
+          </div>
+          <div class="tv-panel-body" id="mtgActionList"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- PRIORITY PICKER MODAL -->
 <div id="pickerOverlay" onclick="if(event.target===this)closePicker()" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(18,40,90,0.55);backdrop-filter:blur(3px);align-items:center;justify-content:center;">
   <div style="background:#fff;border-radius:10px;width:580px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.25);">
@@ -986,11 +1091,15 @@ const PINS = { "110826": "designer", "2027": "manager" };
 
 let LIVE_DATA    = null;
 let LIVE_SHA     = null;
-let EOD_VIEW_DATE = TODAY;
-let PINS_DIRTY   = false;
-let EOD_DIRTY    = false;
-let EOD_EDIT_MODE = false;
-let CURRENT_ROLE = null;
+let EOD_VIEW_DATE  = TODAY;
+let MTG_VIEW_DATE  = TODAY;
+let PINS_DIRTY     = false;
+let EOD_DIRTY      = false;
+let MTG_DIRTY      = false;
+let EOD_EDIT_MODE  = false;
+let MTG_NOTES_EDIT = false;
+let MTG_TOPICS_EDIT = false;
+let CURRENT_ROLE   = null;
 
 // ── LOCK SCREEN ───────────────────────────────────────────────────────────────
 let lsPin = "";
@@ -1112,6 +1221,7 @@ function applyGHPayload(raw) {
       if (raw.pins)      localStorage.setItem("bq_priority", JSON.stringify(raw.pins));
       if (raw.taskNotes) Object.entries(raw.taskNotes).forEach(([d,n]) => localStorage.setItem("bq_focus_"+d, n));
       if (raw.eodNotes)  Object.entries(raw.eodNotes).forEach(([d,n]) => localStorage.setItem("bq_eod_"+d, n));
+      if (raw.meetingNotes) Object.entries(raw.meetingNotes).forEach(([d,v]) => localStorage.setItem("bq_mtg_"+d, typeof v==="string"?v:JSON.stringify(v)));
     }
   }
 }
@@ -1153,13 +1263,15 @@ async function saveToGitHub() {
     // Bundle pins + notes so Sahle sees them on load
     const pins      = JSON.parse(localStorage.getItem("bq_priority")||"{}");
     // Collect ALL bq_focus_* and bq_eod_* keys so history is preserved for Sahle
-    const taskNotes = {};
-    const eodNotes  = {};
+    const taskNotes    = {};
+    const eodNotes     = {};
+    const meetingNotes = {};
     Object.keys(localStorage).forEach(k => {
       if (k.startsWith("bq_focus_")) { const v=localStorage.getItem(k); if(v) taskNotes[k.replace("bq_focus_","")] = v; }
       if (k.startsWith("bq_eod_"))   { const v=localStorage.getItem(k); if(v) eodNotes[k.replace("bq_eod_","")]   = v; }
+      if (k.startsWith("bq_mtg_"))   { const v=localStorage.getItem(k); if(v) { try{ meetingNotes[k.replace("bq_mtg_","")]=JSON.parse(v); }catch(e){} } }
     });
-    const payload   = { data, pins, taskNotes, eodNotes };
+    const payload   = { data, pins, taskNotes, eodNotes, meetingNotes };
     const content   = btoa(unescape(encodeURIComponent(JSON.stringify(payload,null,2))));
     const url     = "https://api.github.com/repos/"+c.owner+"/"+c.repo+"/contents/"+c.path;
     // Always fetch current SHA before writing so stale/null LIVE_SHA never blocks the save
@@ -1184,6 +1296,7 @@ async function saveToGitHub() {
     localStorage.removeItem("bq_del");
     PINS_DIRTY = false;
     EOD_DIRTY  = false;
+    MTG_DIRTY  = false;
     hideLoader();
     showToast("Saved to GitHub successfully","ok");
     localStorage.setItem("bq_ts",new Date().toISOString());
@@ -1245,7 +1358,7 @@ function getMerged() {
   const newItems=getNew().map(r=>({...r,...(ov[r.id]||{})}));
   return [...base,...newItems];
 }
-function hasEdits() { const ov=getOv(); return Object.values(ov).some(v=>Object.keys(v).length>0)||getNew().length>0||PINS_DIRTY||EOD_DIRTY; }
+function hasEdits() { const ov=getOv(); return Object.values(ov).some(v=>Object.keys(v).length>0)||getNew().length>0||PINS_DIRTY||EOD_DIRTY||MTG_DIRTY; }
 function refreshSaved() {
   const el=document.getElementById("phSaved"); if(!el) return;
   const ts=localStorage.getItem("bq_ts");
@@ -1576,15 +1689,18 @@ let CURRENT_TAB = "register";
 
 function switchTab(tab) {
   CURRENT_TAB = tab;
-  document.getElementById("tabReg").classList.toggle("active",   tab==="register");
-  document.getElementById("tabToday").classList.toggle("active", tab==="today");
-  document.getElementById("tabEod").classList.toggle("active",   tab==="eod");
+  document.getElementById("tabReg").classList.toggle("active",     tab==="register");
+  document.getElementById("tabToday").classList.toggle("active",   tab==="today");
+  document.getElementById("tabEod").classList.toggle("active",     tab==="eod");
+  document.getElementById("tabMtg").classList.toggle("active",     tab==="mtg");
   document.querySelector(".tb").style.display = tab==="register" ? "" : "none";
   document.querySelector(".tc").style.display = tab==="register" ? "" : "none";
-  document.getElementById("todayView").classList.toggle("active", tab==="today");
-  document.getElementById("eodView").classList.toggle("active",   tab==="eod");
+  document.getElementById("todayView").classList.toggle("active",  tab==="today");
+  document.getElementById("eodView").classList.toggle("active",    tab==="eod");
+  document.getElementById("meetingView").classList.toggle("active",tab==="mtg");
   if (tab==="today") renderToday();
   if (tab==="eod")   { EOD_VIEW_DATE = TODAY; autoFillEodNote(); renderEOD(); }
+  if (tab==="mtg")   { MTG_VIEW_DATE = TODAY; renderMtg(); }
 }
 
 function getPriority() {
@@ -1942,6 +2058,219 @@ function eodNext() {
   renderEOD();
 }
 
+// ── MEETING NOTES ─────────────────────────────────────────────────────────────
+function escHtml(s) { return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function getMtg(date) { try { return JSON.parse(localStorage.getItem("bq_mtg_"+date)||"{}"); } catch(e) { return {}; } }
+function saveMtg(date, obj) {
+  localStorage.setItem("bq_mtg_"+date, JSON.stringify(obj));
+  MTG_DIRTY = true;
+  localStorage.setItem("bq_ts", new Date().toISOString());
+  refreshSaved();
+}
+function saveMtgTopics() {
+  const mtg = getMtg(MTG_VIEW_DATE);
+  mtg.topics = document.getElementById("mtgTopicsInput").value;
+  saveMtg(MTG_VIEW_DATE, mtg);
+}
+function saveMtgNotes() {
+  const mtg = getMtg(MTG_VIEW_DATE);
+  mtg.notes = document.getElementById("mtgNotesInput").value;
+  saveMtg(MTG_VIEW_DATE, mtg);
+}
+function applyMtgBold() {
+  const ta = document.getElementById("mtgNotesInput");
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.substring(s, e);
+  const before = ta.value.substring(0, s), after = ta.value.substring(e);
+  if (sel) { ta.value = before+"**"+sel+"**"+after; ta.setSelectionRange(s+2,e+2); }
+  else     { ta.value = before+"****"+after;        ta.setSelectionRange(s+2,s+2); }
+  ta.focus(); ta.dispatchEvent(new Event("input"));
+}
+function toggleMtgTopicsEdit() {
+  MTG_TOPICS_EDIT = !MTG_TOPICS_EDIT;
+  const btn = document.getElementById("mtgTopicsEditBtn");
+  if (MTG_TOPICS_EDIT) {
+    document.getElementById("mtgTopicsView").style.display   = "none";
+    document.getElementById("mtgTopicsEditor").style.display = "";
+    document.getElementById("mtgTopicsInput").focus();
+    btn.textContent = "Done";
+  } else {
+    const val = document.getElementById("mtgTopicsInput").value;
+    const lines = val.trim() ? val.split("\n").filter(l=>l.trim()) : [];
+    document.getElementById("mtgTopicCount").textContent = lines.length ? "("+lines.length+")" : "";
+    document.getElementById("mtgTopicsDisplay").innerHTML = lines.length
+      ? lines.map(l=>'<div class="mtg-topic-item"><span class="mtg-topic-dot">•</span><span>'+escHtml(l)+'</span></div>').join("")
+      : "<em style='color:var(--muted)'>No topics added — click Edit to add</em>";
+    document.getElementById("mtgTopicsView").style.display   = "";
+    document.getElementById("mtgTopicsEditor").style.display = "none";
+    btn.textContent = "Edit";
+  }
+}
+function toggleMtgNotesEdit() {
+  MTG_NOTES_EDIT = !MTG_NOTES_EDIT;
+  const btn = document.getElementById("mtgNotesEditBtn");
+  if (MTG_NOTES_EDIT) {
+    document.getElementById("mtgNotesView").style.display   = "none";
+    document.getElementById("mtgNotesEditor").style.display = "";
+    document.getElementById("mtgNotesInput").focus();
+    btn.textContent = "Done";
+  } else {
+    const val = document.getElementById("mtgNotesInput").value;
+    document.getElementById("mtgNotesDisplay").innerHTML = val
+      ? renderEodMarkdown(val)
+      : "<em style='color:var(--muted)'>No decisions noted — click Edit to add</em>";
+    document.getElementById("mtgNotesView").style.display   = "";
+    document.getElementById("mtgNotesEditor").style.display = "none";
+    btn.textContent = "Edit";
+  }
+}
+function renderMtgActions(actions) {
+  const el = document.getElementById("mtgActionList");
+  const isD = CURRENT_ROLE === "designer";
+  let html = "";
+  if (actions.length) {
+    html += actions.map((a,i) => {
+      const done = !!a.done;
+      const chk = `<div class="mtg-action-check" onclick="${isD?`toggleMtgAction(${i})`:'void(0)'}" style="${isD?'cursor:pointer;':''}${done?'background:var(--ok);border-color:var(--ok);':''}">${done?'✓':''}</div>`;
+      const lbl = `<span style="font-size:13px;flex:1;${done?'text-decoration:line-through;color:var(--muted);':''}">${escHtml(a.text)}</span>`;
+      const del = isD ? `<button onclick="deleteMtgAction(${i})" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:17px;padding:0 3px;line-height:1;">&times;</button>` : "";
+      return `<div class="mtg-action-row">${chk}${lbl}${del}</div>`;
+    }).join("");
+  } else if (!isD) {
+    html += '<div class="tv-empty">No action items recorded</div>';
+  }
+  if (isD) {
+    html += `<div style="display:flex;gap:8px;margin-top:${actions.length?'10':'0'}px;align-items:center;">
+      <input type="text" id="mtgNewActionInput" placeholder="Add action item…" onkeydown="if(event.key==='Enter')confirmMtgAction()"
+        style="flex:1;padding:6px 10px;border:1.5px solid var(--line);border-radius:5px;font-size:12px;font-family:Arial,sans-serif;color:var(--ink);">
+      <button onclick="confirmMtgAction()" style="padding:5px 12px;background:var(--navy);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">Add</button>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+function confirmMtgAction() {
+  const input = document.getElementById("mtgNewActionInput");
+  if (!input || !input.value.trim()) return;
+  const mtg = getMtg(MTG_VIEW_DATE);
+  if (!mtg.actions) mtg.actions = [];
+  mtg.actions.push({ text: input.value.trim(), done: false });
+  saveMtg(MTG_VIEW_DATE, mtg);
+  document.getElementById("mtgActionCount").textContent = "("+mtg.actions.length+")";
+  renderMtgActions(mtg.actions);
+}
+function toggleMtgAction(idx) {
+  const mtg = getMtg(MTG_VIEW_DATE);
+  if (!mtg.actions || !mtg.actions[idx]) return;
+  mtg.actions[idx].done = !mtg.actions[idx].done;
+  saveMtg(MTG_VIEW_DATE, mtg);
+  renderMtgActions(mtg.actions);
+}
+function deleteMtgAction(idx) {
+  const mtg = getMtg(MTG_VIEW_DATE);
+  if (!mtg.actions) return;
+  mtg.actions.splice(idx, 1);
+  saveMtg(MTG_VIEW_DATE, mtg);
+  document.getElementById("mtgActionCount").textContent = mtg.actions.length ? "("+mtg.actions.length+")" : "";
+  renderMtgActions(mtg.actions);
+}
+function finaliseMtg() {
+  const mtg = getMtg(MTG_VIEW_DATE);
+  mtg.status = "finalised";
+  saveMtg(MTG_VIEW_DATE, mtg);
+  document.getElementById("mtgStatusBadge").innerHTML = '<span class="mtg-status-done">✓ Finalised</span>';
+  document.getElementById("mtgFinaliseBtn").style.display = "none";
+  updateMtgBadge();
+  showToast("Meeting finalised — save to GitHub so Sahle can see it", "ok");
+}
+function updateMtgBadge() {
+  const mtg = getMtg(TODAY);
+  const hasContent = (mtg.topics||"").trim() || (mtg.notes||"").trim() || (mtg.actions||[]).length;
+  const badge = document.getElementById("mtgBadge");
+  if (!hasContent) { badge.style.display = "none"; return; }
+  badge.style.display = "";
+  badge.textContent = mtg.status === "finalised" ? "✓" : "!";
+  badge.className = "tab-badge " + (mtg.status === "finalised" ? "green" : "orange");
+}
+function renderMtg() {
+  const viewDate = MTG_VIEW_DATE;
+  const isToday  = viewDate === TODAY;
+  const mtg      = getMtg(viewDate);
+  // Hero date
+  const d = new Date(viewDate+"T12:00:00");
+  document.getElementById("mtgDate").textContent = d.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
+  document.getElementById("mtgDay").textContent  = d.toLocaleDateString("en-GB",{weekday:"long"});
+  const finalised = mtg.status === "finalised";
+  document.getElementById("mtgStatusBadge").innerHTML = finalised
+    ? '<span class="mtg-status-done">✓ Finalised</span>'
+    : '<span class="mtg-status-open">● Open</span>';
+  // Finalise button — designer only, not yet finalised
+  const finBtn = document.getElementById("mtgFinaliseBtn");
+  finBtn.style.display = (CURRENT_ROLE==="designer" && !finalised) ? "" : "none";
+  // Nav
+  const shortDate = d.toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
+  const navFmt    = d.toLocaleDateString("en-GB",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+  document.getElementById("mtgNavLabel").textContent = isToday ? "Today" : navFmt;
+  document.getElementById("mtgNavSub").textContent   = isToday ? viewDate : "Viewing history — "+viewDate;
+  document.getElementById("mtgNextBtn").disabled     = isToday;
+  document.getElementById("mtgNextBtn").style.opacity = isToday ? "0.35" : "1";
+  document.getElementById("mtgNoteHdrSub").textContent = isToday ? "Today" : shortDate;
+  // Reset edit modes on nav
+  MTG_NOTES_EDIT  = false;
+  MTG_TOPICS_EDIT = false;
+  // Topics
+  const topicsRaw  = (mtg.topics||"").trim();
+  const topicLines = topicsRaw ? topicsRaw.split("\n").filter(l=>l.trim()) : [];
+  document.getElementById("mtgTopicCount").textContent = topicLines.length ? "("+topicLines.length+")" : "";
+  document.getElementById("mtgTopicsEditBtn").style.display = CURRENT_ROLE==="designer" ? "" : "none";
+  document.getElementById("mtgTopicsEditBtn").textContent   = "Edit";
+  document.getElementById("mtgTopicsView").style.display    = "";
+  document.getElementById("mtgTopicsEditor").style.display  = "none";
+  document.getElementById("mtgTopicsInput").value = topicsRaw;
+  document.getElementById("mtgTopicsDisplay").innerHTML = topicLines.length
+    ? topicLines.map(l=>'<div class="mtg-topic-item"><span class="mtg-topic-dot">•</span><span>'+escHtml(l)+'</span></div>').join("")
+    : (CURRENT_ROLE==="designer"
+        ? "<em style='color:var(--muted)'>No topics added — click Edit to add</em>"
+        : "<em style='color:var(--muted)'>No topics recorded</em>");
+  // Notes
+  const notesRaw = (mtg.notes||"").trim();
+  document.getElementById("mtgNotesEditBtn").style.display = CURRENT_ROLE==="designer" ? "" : "none";
+  document.getElementById("mtgNotesEditBtn").textContent   = "Edit";
+  document.getElementById("mtgNotesInput").value = notesRaw;
+  if (CURRENT_ROLE==="designer") {
+    document.getElementById("mtgNotesView").style.display   = "";
+    document.getElementById("mtgNotesEditor").style.display = "none";
+    document.getElementById("mtgNotesSahle").style.display  = "none";
+    document.getElementById("mtgNotesDisplay").innerHTML = notesRaw
+      ? renderEodMarkdown(notesRaw)
+      : "<em style='color:var(--muted)'>No decisions noted — click Edit to add</em>";
+  } else {
+    document.getElementById("mtgNotesView").style.display   = "none";
+    document.getElementById("mtgNotesEditor").style.display = "none";
+    document.getElementById("mtgNotesSahle").style.display  = "";
+    document.getElementById("mtgNotesSahleText").innerHTML  = notesRaw
+      ? renderEodMarkdown(notesRaw)
+      : "<em style='color:var(--muted)'>No decisions noted for this meeting</em>";
+  }
+  // Actions
+  const actions = mtg.actions || [];
+  document.getElementById("mtgActionCount").textContent = actions.length ? "("+actions.length+")" : "";
+  renderMtgActions(actions);
+  updateMtgBadge();
+}
+function mtgPrev() {
+  const d = new Date(MTG_VIEW_DATE+"T12:00:00");
+  d.setDate(d.getDate()-1);
+  MTG_VIEW_DATE = d.toISOString().slice(0,10);
+  renderMtg();
+}
+function mtgNext() {
+  const d = new Date(MTG_VIEW_DATE+"T12:00:00");
+  d.setDate(d.getDate()+1);
+  const next = d.toISOString().slice(0,10);
+  if (next > TODAY) return;
+  MTG_VIEW_DATE = next;
+  renderMtg();
+}
 // ── MARK DONE TODAY ───────────────────────────────────────────────────────────
 function markDoneToday(id) {
   const ov = getOv();
