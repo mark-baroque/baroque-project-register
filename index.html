@@ -1584,7 +1584,7 @@ function switchTab(tab) {
   document.getElementById("todayView").classList.toggle("active", tab==="today");
   document.getElementById("eodView").classList.toggle("active",   tab==="eod");
   if (tab==="today") renderToday();
-  if (tab==="eod")   { EOD_VIEW_DATE = TODAY; renderEOD(); }
+  if (tab==="eod")   { EOD_VIEW_DATE = TODAY; autoFillEodNote(); renderEOD(); }
 }
 
 function getPriority() {
@@ -1757,6 +1757,27 @@ function renderToday() {
 }
 
 // ── END OF DAY ────────────────────────────────────────────────────────────────
+function autoFillEodNote() {
+  if (CURRENT_ROLE !== "designer") return;
+  const existing = (localStorage.getItem("bq_eod_" + TODAY) || "").trim();
+  if (existing) return; // already has content — never overwrite
+  const done = getMerged().filter(r =>
+    r.completed === TODAY &&
+    (r.stage === "Delivered" || r.stage === "Signed Off" || Number(r.pct) === 100)
+  );
+  if (!done.length) return;
+  const lines = done.map(r => {
+    let line = "**" + r.title + "**";
+    if (r.vertical) line += " (" + r.vertical + ")";
+    if (r.notes && r.notes.trim()) line += " — " + r.notes.trim();
+    return "• " + line;
+  });
+  const summary = "Delivered today:\n" + lines.join("\n");
+  localStorage.setItem("bq_eod_" + TODAY, summary);
+  EOD_DIRTY = true;
+  localStorage.setItem("bq_ts", new Date().toISOString());
+  refreshSaved();
+}
 function saveEodNote() {
   localStorage.setItem("bq_eod_"+EOD_VIEW_DATE, document.getElementById("eodNote").value);
   EOD_DIRTY = true;
@@ -1932,6 +1953,7 @@ function markDoneToday(id) {
   render();
   renderToday();
   updateEodBadge();
+  if (CURRENT_TAB === "eod") { autoFillEodNote(); renderEOD(); }
   showToast("Marked as done — check End of Day tab ✓", "ok");
 }
 
