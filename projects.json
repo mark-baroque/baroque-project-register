@@ -1462,13 +1462,33 @@
       "finalLink": "",
       "ai": "",
       "notes": "We will create a Brand Guidelines for All Vertical inorder for the designers to follow it "
+    },
+    {
+      "id": "NEWMTIOI9JZUBHI",
+      "flagged": false,
+      "title": "Fixing Baroque Lifestyle Website",
+      "vertical": "Baroque Lifestyle",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-09-01",
+      "approval": "Pending",
+      "stage": "In Progress",
+      "started": "2026-09-01",
+      "due": "2026-09-01",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": "Chrome put the website as dangerous site, Fixing it creating a backup and check where is this injector dangerous file inejected it"
     }
   ],
   "pins": {
     "date": "2026-09-01",
     "ids": [
       "NEWMTICYWDBZFFU",
-      "NEWMTBFUKPO6FVQ"
+      "NEWMTBFUKPO6FVQ",
+      "NEWMTIOI9JZUBHI"
     ]
   },
   "taskNotes": {
