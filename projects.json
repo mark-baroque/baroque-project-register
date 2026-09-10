@@ -1579,12 +1579,10 @@
     }
   ],
   "pins": {
-    "date": "2026-09-09",
+    "date": "2026-09-10",
     "ids": [
-      "NEWMTJUC6SAZC7U",
       "NEWMTIOI9JZUBHI",
-      "NEWMTTSTRHT2ERZ",
-      "NEWMTTT36JILQTC"
+      "NEWMTJUC6SAZC7U"
     ]
   },
   "taskNotes": {
@@ -1617,6 +1615,7 @@
     "2026-08-03": "I completed the full Baroque Access testing requested by Mr. Sahle and documented the results in the attached text file. However, I wasn't able to complete the end-to-end flow because I don't have the required access.\n",
     "2026-09-04": "I sent **Baroque Brand Guidelines** to Mr. Sahle",
     "2026-09-09": "Delivered on 2026-09-09:\n• **Newsletter Baroque Travel ** (Baroque Travel) — Shiela gave me instruction that i need to create newsletter for baroque travel\n• **Canva Redesign ** (Baroque Travel)",
+    "2026-09-10": "Delivered today:\n• **Magical Winter Newsletter ** (Baroque Travel) — Done and sent to Shiela",
     "2026-08-13": "**On Leave**",
     "2026-08-10": "Baroque Access  Functional Testing & UI/UX Audit\nStopped work on the new dashboard prototype as instructed and shifted focus to live functional testing and UI/UX audit using the actual platform.\n\nThe Request Board is now loading correctly. I confirmed the three sections, and Vandana’s Yacht request is appearing under Incoming. Search and filters are also working correctly.\n\nBlocker: Opening Vandana’s Yacht request incorrectly opens Michele’s request instead. I stopped testing at this point to avoid creating or modifying a quotation under the wrong member.\n\nStatus: Vandana’s quotation has not been created or sent, and no requests were modified or closed.\nSubmitted the functional test report, UI/UX audit, and supporting screenshots. Testing will resume once the request-opening issue is resolved.",
     "2026-08-14": "Today, I completed the following:\n\n* Reviewed and checked the UI of the Baroque Access member-side platform.\n* Identified and documented the UI areas that require corrections or improvements.\n* Reviewed and discussed the email notification requirements.\n* Compared the email notifications with the approved WhatsApp notifications to ensure the messaging and content remain consistent across both channels.\n* Shared the relevant email notification designs and supporting files for review and implementation.\n"
