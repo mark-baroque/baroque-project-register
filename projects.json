@@ -1614,6 +1614,25 @@
       "finalLink": "",
       "ai": "",
       "notes": "Im doing the UI for the Partner for LUJO "
+    },
+    {
+      "id": "NEWMU2DCKZJ4RZV",
+      "flagged": false,
+      "title": "Partner Experience ",
+      "vertical": "LUJO",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-09-14",
+      "approval": "Pending",
+      "stage": "In Progress",
+      "started": "2026-09-14",
+      "due": "2026-09-15",
+      "completed": "",
+      "pct": 80,
+      "blocker": "",
+      "link": "file:///Users/mark/Desktop/Baroque-core-system/Baroque%20Core%20System/Lujo%20/Project%20/Partner%20Experience/index.html",
+      "finalLink": "",
+      "ai": "Yes",
+      "notes": "Mr. Sahle ask me to create a design based on our app for the partner he gave me the logic and this is what i come up \n"
     }
   ],
   "pins": {
