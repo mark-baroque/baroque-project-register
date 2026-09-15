@@ -1597,25 +1597,6 @@
       "notes": ""
     },
     {
-      "id": "NEWMU17BCOJ1LB7",
-      "flagged": false,
-      "title": "LUJO Partner Experience UI ",
-      "vertical": "LUJO",
-      "requestedBy": "Mr. Sahle",
-      "dateRequested": "2026-09-14",
-      "approval": "",
-      "stage": "Requested",
-      "started": "",
-      "due": "2026-09-15",
-      "completed": "",
-      "pct": 0,
-      "blocker": "",
-      "link": "",
-      "finalLink": "",
-      "ai": "",
-      "notes": "Im doing the UI for the Partner for LUJO "
-    },
-    {
       "id": "NEWMU2DCKZJ4RZV",
       "flagged": false,
       "title": "Partner Experience ",
@@ -1636,8 +1617,11 @@
     }
   ],
   "pins": {
-    "date": "2026-09-14",
+    "date": "2026-09-15",
     "ids": [
+      "NEWMU2DCKZJ4RZV",
+      "NEWMU17BCOJ1LB7",
+      "NEWMTVKWJ4EAT1D",
       "NEWMTJUC6SAZC7U"
     ]
   },
