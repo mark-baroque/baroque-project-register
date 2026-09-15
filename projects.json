@@ -1589,12 +1589,12 @@
       "started": "2026-09-10",
       "due": "2026-09-15",
       "completed": "2026-09-15",
-      "pct": 0,
+      "pct": 90,
       "blocker": "",
       "link": "",
       "finalLink": "",
       "ai": "",
-      "notes": ""
+      "notes": "September 14 - I set up and made a test already on salesforce need to get a subject and know people who will receive the newsletter "
     },
     {
       "id": "NEWMU2DCKZJ4RZV",
@@ -1620,7 +1620,6 @@
     "date": "2026-09-15",
     "ids": [
       "NEWMU2DCKZJ4RZV",
-      "NEWMU17BCOJ1LB7",
       "NEWMTVKWJ4EAT1D",
       "NEWMTJUC6SAZC7U"
     ]
