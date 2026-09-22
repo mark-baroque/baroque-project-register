@@ -1604,7 +1604,7 @@
       "requestedBy": "Mr. Sahle",
       "dateRequested": "2026-09-14",
       "approval": "Pending",
-      "stage": "In Progress",
+      "stage": "Delivered",
       "started": "2026-09-14",
       "due": "2026-09-15",
       "completed": "2026-09-18",
@@ -1663,7 +1663,7 @@
       "approval": "Pending",
       "stage": "In Progress",
       "started": "2026-09-18",
-      "due": "2026-09-21",
+      "due": "2026-09-25",
       "completed": "",
       "pct": 0,
       "blocker": "",
@@ -1671,13 +1671,31 @@
       "finalLink": "",
       "ai": "",
       "notes": "Redesign Itinerary for Mr. David Grove\n"
+    },
+    {
+      "id": "NEWMUCDPMXNRMFP",
+      "flagged": false,
+      "title": "Redesign Spain Confirmed Brochure",
+      "vertical": "Baroque Travel",
+      "requestedBy": "Shiela",
+      "dateRequested": "2026-09-21",
+      "approval": "",
+      "stage": "Requested",
+      "started": "",
+      "due": "2026-09-22",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": ""
     }
   ],
   "pins": {
-    "date": "2026-09-16",
+    "date": "2026-09-22",
     "ids": [
-      "NEWMU2LO84J9NY7",
-      "NEWMU3V2NA67LAH"
+      "NEWMU6XWYP4PBB6"
     ]
   },
   "taskNotes": {
