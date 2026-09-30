@@ -1709,12 +1709,31 @@
       "finalLink": "",
       "ai": "",
       "notes": ""
+    },
+    {
+      "id": "NEWMUNVE0VG11G4",
+      "flagged": false,
+      "title": "Revamp Lujo ",
+      "vertical": "LUJO",
+      "requestedBy": "Mr. Sahle",
+      "dateRequested": "2026-09-28",
+      "approval": "Pending",
+      "stage": "In Progress",
+      "started": "2026-09-29",
+      "due": "2026-10-02",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "Yes",
+      "notes": "We Are trying to revamp the lujo into cociege feel not like catalogue "
     }
   ],
   "pins": {
-    "date": "2026-09-24",
+    "date": "2026-09-30",
     "ids": [
-      "NEWMUCDPMXNRMFP"
+      "NEWMUNVE0VG11G4"
     ]
   },
   "taskNotes": {
