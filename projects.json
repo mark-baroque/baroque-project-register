@@ -1694,21 +1694,21 @@
     {
       "id": "NEWMUFG98X0YA3R",
       "flagged": false,
-      "title": "Wedding Proposal Redesign ",
+      "title": "Wedding Proposal - Eden Rock ",
       "vertical": "Baroque Travel",
       "requestedBy": "Shiela",
       "dateRequested": "2026-09-24",
       "approval": "",
       "stage": "In Progress",
       "started": "2026-09-24",
-      "due": "2026-09-25",
+      "due": "2026-10-06",
       "completed": "",
       "pct": 0,
       "blocker": "",
       "link": "",
       "finalLink": "",
       "ai": "",
-      "notes": ""
+      "notes": "Everything is OK Well set \n- We just need to add some details for this \n- Oct 1 = We Change Seperate the Website into two one is for the landing page and the other is for price. \n\nOCT 1, 2026 - Last Note = waiting for Shiela for the data need to be added "
     },
     {
       "id": "NEWMUNVE0VG11G4",
@@ -1728,6 +1728,25 @@
       "finalLink": "",
       "ai": "Yes",
       "notes": "We Are trying to revamp the lujo into cociege feel not like catalogue "
+    },
+    {
+      "id": "NEWMUUXM5CX22XH",
+      "flagged": false,
+      "title": "Wedding Proposal - Cheval Blanc",
+      "vertical": "Baroque Travel",
+      "requestedBy": "Shiela",
+      "dateRequested": "2026-10-01",
+      "approval": "",
+      "stage": "In Progress",
+      "started": "2026-10-05",
+      "due": "2026-10-06",
+      "completed": "",
+      "pct": 0,
+      "blocker": "",
+      "link": "",
+      "finalLink": "",
+      "ai": "",
+      "notes": ""
     }
   ],
   "pins": {
